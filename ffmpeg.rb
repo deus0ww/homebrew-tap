@@ -3,14 +3,13 @@ class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-4.1.tar.xz"
   sha256 "a38ec4d026efb58506a99ad5cd23d5a9793b4bf415f2c4c2e9c1bb444acd1994"
-  revision 1
+  revision 2
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
-    rebuild 1
-    sha256 "27bc975b1126e5d12ea77df58bbe2d9c66c36859cf1708ad77480b328b8b8451" => :mojave
-    sha256 "b383a94342e0e8a5a05f4f10a61ca0cf8d99c2bd48d6e3573e13053ab31c6761" => :high_sierra
-    sha256 "e47af019fbefef63215b20930524896c8bf3111e46ddea62d1ab92d370d27fc2" => :sierra
+    sha256 "9ffd83c7a5290a84e12c7eb1c89ab0aa982eda250162e5e4d0068bafb75ba8d8" => :mojave
+    sha256 "5ef932e6f9be16786ad7868a0651ec26341aee9b21dc8d377633250bb4c502f1" => :high_sierra
+    sha256 "b115f093b37105e4ac25bb4b492e58a4a87610003063a55db088bc62d962b53b" => :sierra
   end
 
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
@@ -53,7 +52,7 @@ class Ffmpeg < Formula
   depends_on "xvid"
   depends_on "xz"
 
-  depends_on "aom" => :optional
+  depends_on "deus0ww/tap/aom" => :optional
   depends_on "chromaprint" => :optional
   depends_on "fdk-aac" => :optional
   depends_on "fontconfig" => :optional
