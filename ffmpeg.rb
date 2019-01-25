@@ -109,6 +109,7 @@ class Ffmpeg < Formula
       --enable-libopencore-amrwb
       --enable-librtmp
       --enable-libspeex
+      --enable-videotoolbox
     ]
 
     args << "--enable-chromaprint" if build.with? "chromaprint"
@@ -137,7 +138,6 @@ class Ffmpeg < Formula
     args << "--enable-libzmq" if build.with? "zeromq"
     args << "--enable-opencl" if MacOS.version > :lion
     args << "--enable-openssl" if build.with? "openssl"
-    args << "--enable-videotoolbox" if MacOS.version >= :mountain_lion
 
     if build.with? "openjpeg"
       args << "--enable-libopenjpeg"
