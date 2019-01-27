@@ -26,7 +26,7 @@ class Mpv < Formula
   depends_on "deus0ww/tap/luajit"
 
   depends_on "mujs"
-  depends_on "vapoursynth"
+  depends_on "deus0ww/tap/vapoursynth"
   depends_on "youtube-dl"
 
   depends_on "jack" => :optional
