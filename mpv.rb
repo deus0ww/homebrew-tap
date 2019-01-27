@@ -21,7 +21,7 @@ class Mpv < Formula
 
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "jpeg"
-  depends_on "libass"
+  depends_on "deus0ww/tap/libass"
   depends_on "little-cms2"
   depends_on "deus0ww/tap/luajit"
 
