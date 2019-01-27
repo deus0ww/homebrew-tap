@@ -19,11 +19,11 @@ class Mpv < Formula
   depends_on "pkg-config" => :build
   depends_on "python" => :build
 
-  depends_on "deus0ww/tap/ffmpeg"
+  depends_on "ffmpeg"
   depends_on "jpeg"
-  depends_on "deus0ww/tap/libass"
+  depends_on "libass"
   depends_on "little-cms2"
-  depends_on "deus0ww/tap/luajit"
+  depends_on "luajit"
 
   depends_on "mujs"
   depends_on "vapoursynth"
