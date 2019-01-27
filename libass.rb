@@ -28,6 +28,7 @@ class Libass < Formula
   depends_on "harfbuzz"
 
   def install
+    ENV.O3
     system "autoreconf", "-i" if build.head?
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
