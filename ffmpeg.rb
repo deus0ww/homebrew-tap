@@ -15,7 +15,6 @@ class Ffmpeg < Formula
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
   option "with-fdk-aac", "Enable the Fraunhofer FDK AAC library"
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
-  option "with-libsoxr", "Enable the soxr resample library"
   option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-tesseract", "Enable the tesseract OCR engine"
   option "with-libvidstab", "Enable vid.stab support for video stabilization"
@@ -28,16 +27,17 @@ class Ffmpeg < Formula
   option "with-zimg", "Enable z.lib zimg library"
   option "with-srt", "Enable SRT library"
   option "with-libvmaf", "Enable libvmaf scoring library"
-  option "with-aom", "Enable AV1 video codec"
 
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
   depends_on "texi2html" => :build
 
+  depends_on "deus0ww/tap/aom"
   depends_on "freetype"
   depends_on "frei0r"
   depends_on "lame"
   depends_on "deus0ww/tap/libass"
+  depends_on "libsoxr"
   depends_on "libvorbis"
   depends_on "libvpx"
   depends_on "opencore-amr"
@@ -52,7 +52,6 @@ class Ffmpeg < Formula
   depends_on "xvid"
   depends_on "xz"
 
-  depends_on "deus0ww/tap/aom" => :optional
   depends_on "chromaprint" => :optional
   depends_on "fdk-aac" => :optional
   depends_on "fontconfig" => :optional
@@ -63,7 +62,6 @@ class Ffmpeg < Formula
   depends_on "libgsm" => :optional
   depends_on "libmodplug" => :optional
   depends_on "librsvg" => :optional
-  depends_on "libsoxr" => :optional
   depends_on "libssh" => :optional
   depends_on "libvidstab" => :optional
   depends_on "libvmaf" => :optional
@@ -109,11 +107,12 @@ class Ffmpeg < Formula
       --enable-libopencore-amrwb
       --enable-librtmp
       --enable-libspeex
+      --enable-libaom
+      --enable-libsoxr
       --enable-videotoolbox
     ]
 
     args << "--enable-chromaprint" if build.with? "chromaprint"
-    args << "--enable-libaom" if build.with? "aom"
     args << "--enable-libbluray" if build.with? "libbluray"
     args << "--enable-libbs2b" if build.with? "libbs2b"
     args << "--enable-libcaca" if build.with? "libcaca"
@@ -125,7 +124,6 @@ class Ffmpeg < Formula
     args << "--enable-libopenh264" if build.with? "openh264"
     args << "--enable-librsvg" if build.with? "librsvg"
     args << "--enable-librubberband" if build.with? "rubberband"
-    args << "--enable-libsoxr" if build.with? "libsoxr"
     args << "--enable-libsrt" if build.with? "srt"
     args << "--enable-libssh" if build.with? "libssh"
     args << "--enable-libtesseract" if build.with? "tesseract"

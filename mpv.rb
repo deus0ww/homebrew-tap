@@ -22,23 +22,22 @@ class Mpv < Formula
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "jpeg"
   depends_on "deus0ww/tap/libass"
+  depends_on "libarchive"
   depends_on "little-cms2"
   depends_on "deus0ww/tap/luajit"
-
   depends_on "mujs"
-  depends_on "deus0ww/tap/vapoursynth"
+  depends_on "uchardet"
   depends_on "youtube-dl"
-
+  
   depends_on "jack" => :optional
   depends_on "libaacs" => :optional
-  depends_on "libarchive" => :optional
   depends_on "libbluray" => :optional
   depends_on "libcaca" => :optional
   depends_on "libdvdnav" => :optional
   depends_on "libdvdread" => :optional
   depends_on "pulseaudio" => :optional
   depends_on "rubberband" => :optional
-  depends_on "uchardet" => :optional
+  depends_on "deus0ww/tap/vapoursynth" => :optional
 
   def install
     # LANG is unset by default on macOS and causes issues when calling getlocale
@@ -53,6 +52,7 @@ class Mpv < Formula
       --enable-javascript
       --enable-libmpv-shared
       --enable-lua
+      --enable-libarchive
       --confdir=#{etc}/mpv
       --datadir=#{pkgshare}
       --mandir=#{man}
@@ -61,7 +61,6 @@ class Mpv < Formula
       --zshdir=#{zsh_completion}
     ]
 
-    args << "--enable-libarchive" if build.with? "libarchive"
     args << "--enable-libbluray" if build.with? "libbluray"
     args << "--enable-dvdnav" if build.with? "libdvdnav"
     args << "--enable-dvdread" if build.with? "libdvdread"
