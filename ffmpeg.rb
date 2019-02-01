@@ -3,14 +3,7 @@ class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-4.1.tar.xz"
   sha256 "a38ec4d026efb58506a99ad5cd23d5a9793b4bf415f2c4c2e9c1bb444acd1994"
-  revision 3
   head "https://github.com/FFmpeg/FFmpeg.git"
-
-  bottle do
-    sha256 "1cf19cb4fa4fdda6d0fb544a478503757349f80bb7aa168577775d1e4c032440" => :mojave
-    sha256 "e64dc548650654d8c5a649b7291ddd506664241700f4f27cda07870f4f4374d0" => :high_sierra
-    sha256 "2742a36409bd6d61bc396b6b6e6a74d060179192b7f47a7950fd8379ee73f934" => :sierra
-  end
 
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
   option "with-fdk-aac", "Enable the Fraunhofer FDK AAC library"
