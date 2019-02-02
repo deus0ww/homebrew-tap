@@ -26,11 +26,11 @@ class Ffmpeg < Formula
   depends_on "texi2html" => :build
 
   depends_on "deus0ww/tap/aom"
+  depends_on "deus0ww/tap/libass"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
   depends_on "lame"
-  depends_on "deus0ww/tap/libass"
   depends_on "libsoxr"
   depends_on "libvorbis"
   depends_on "libvpx"

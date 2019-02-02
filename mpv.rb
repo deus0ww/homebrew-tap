@@ -12,15 +12,16 @@ class Mpv < Formula
   depends_on "python" => :build
 
   depends_on "deus0ww/tap/ffmpeg"
-  depends_on "jpeg"
   depends_on "deus0ww/tap/libass"
+  depends_on "deus0ww/tap/luajit"
+  depends_on "jpeg"
   depends_on "libarchive"
   depends_on "little-cms2"
-  depends_on "deus0ww/tap/luajit"
   depends_on "mujs"
   depends_on "uchardet"
   depends_on "youtube-dl"
   
+  depends_on "deus0ww/tap/vapoursynth" => :optional
   depends_on "jack" => :optional
   depends_on "libaacs" => :optional
   depends_on "libbluray" => :optional
@@ -29,7 +30,6 @@ class Mpv < Formula
   depends_on "libdvdread" => :optional
   depends_on "pulseaudio" => :optional
   depends_on "rubberband" => :optional
-  depends_on "deus0ww/tap/vapoursynth" => :optional
 
   def install
     # LANG is unset by default on macOS and causes issues when calling getlocale
