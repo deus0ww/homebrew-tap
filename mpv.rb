@@ -3,6 +3,7 @@ class Mpv < Formula
   homepage "https://mpv.io"
   url "https://github.com/mpv-player/mpv/archive/v0.29.1.tar.gz"
   sha256 "f9f9d461d1990f9728660b4ccb0e8cb5dce29ccaa6af567bec481b79291ca623"
+  revision 3
   head "https://github.com/deus0ww/mpv.git"
 
   option "with-lgpl", "Build with LGPLv2.1 or later license"
@@ -20,7 +21,7 @@ class Mpv < Formula
   depends_on "mujs"
   depends_on "uchardet"
   depends_on "youtube-dl"
-  
+
   depends_on "deus0ww/tap/vapoursynth" => :optional
   depends_on "jack" => :optional
   depends_on "libaacs" => :optional

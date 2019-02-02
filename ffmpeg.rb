@@ -3,6 +3,7 @@ class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-4.1.tar.xz"
   sha256 "a38ec4d026efb58506a99ad5cd23d5a9793b4bf415f2c4c2e9c1bb444acd1994"
+  revision 4
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
@@ -84,6 +85,7 @@ class Ffmpeg < Formula
       --host-ldflags=#{ENV.ldflags}
       --enable-ffplay
       --enable-gpl
+      --enable-libaom
       --enable-libmp3lame
       --enable-libopus
       --enable-libsnappy
@@ -102,9 +104,10 @@ class Ffmpeg < Formula
       --enable-libopencore-amrwb
       --enable-librtmp
       --enable-libspeex
-      --enable-libaom
       --enable-libsoxr
       --enable-videotoolbox
+      --disable-libjack
+      --disable-indev=jack
     ]
 
     args << "--enable-chromaprint" if build.with? "chromaprint"
@@ -141,7 +144,7 @@ class Ffmpeg < Formula
     # the "--enable-nonfree" flag, which produces unredistributable libraries
     args << "--enable-nonfree" if build.with?("fdk-aac") || build.with?("openssl")
 
-	ENV.O3
+    ENV.O3
     system "./configure", *args
     system "make", "install"
 
