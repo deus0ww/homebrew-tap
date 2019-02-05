@@ -9,8 +9,10 @@ class Ffmpeg < Formula
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"
+  option "with-tesseract", "Enable the tesseract OCR engine"
   option "with-libvidstab", "Enable vid.stab support for video stabilization"
   option "with-openh264", "Enable OpenH264 library"
+  option "with-rubberband", "Enable rubberband library"
   option "with-webp", "Enable using libwebp to encode WEBP images"
   option "with-zeromq", "Enable using libzeromq to receive commands sent through a libzeromq client"
   option "with-zimg", "Enable z.lib zimg library"
@@ -36,11 +38,9 @@ class Ffmpeg < Formula
   depends_on "openssl"
   depends_on "opus"
   depends_on "rtmpdump"
-  depends_on "rubberband"
   depends_on "sdl2"
   depends_on "snappy"
   depends_on "speex"
-  depends_on "tesseract"
   depends_on "theora"
   depends_on "x264"
   depends_on "x265"
@@ -60,7 +60,9 @@ class Ffmpeg < Formula
   depends_on "libvidstab" => :optional
   depends_on "libvmaf" => :optional
   depends_on "openh264" => :optional
+  depends_on "rubberband" => :optional
   depends_on "srt" => :optional
+  depends_on "tesseract" => :optional
   depends_on "two-lame" => :optional
   depends_on "wavpack" => :optional
   depends_on "webp" => :optional
@@ -126,8 +128,10 @@ class Ffmpeg < Formula
     args << "--enable-libmodplug" if build.with? "libmodplug"
     args << "--enable-libopenh264" if build.with? "openh264"
     args << "--enable-librsvg" if build.with? "librsvg"
+    args << "--enable-librubberband" if build.with? "rubberband"
     args << "--enable-libsrt" if build.with? "srt"
     args << "--enable-libssh" if build.with? "libssh"
+    args << "--enable-libtesseract" if build.with? "tesseract"
     args << "--enable-libtwolame" if build.with? "two-lame"
     args << "--enable-libvidstab" if build.with? "libvidstab"
     args << "--enable-libvmaf" if build.with? "libvmaf"
