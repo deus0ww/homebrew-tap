@@ -82,7 +82,7 @@ class Ffmpeg < Formula
       --enable-gpl
       --enable-nonfree
       --enable-opencl
-      
+
       --enable-frei0r
       --enable-libaom
       --enable-libass
