@@ -35,7 +35,6 @@ class Ffmpeg < Formula
   depends_on "libvorbis"
   depends_on "libvpx"
   depends_on "opencore-amr"
-  depends_on "openjpeg"
   depends_on "openssl"
   depends_on "opus"
   depends_on "rtmpdump"
@@ -62,6 +61,7 @@ class Ffmpeg < Formula
   depends_on "libvidstab" => :optional
   depends_on "libvmaf" => :optional
   depends_on "openh264" => :optional
+  depends_on "openjpeg" => :optional
   depends_on "rubberband" => :optional
   depends_on "srt" => :optional
   depends_on "tesseract" => :optional
@@ -95,7 +95,6 @@ class Ffmpeg < Formula
       --enable-libmp3lame
       --enable-libopencore-amrnb
       --enable-libopencore-amrwb
-      --enable-libopenjpeg
       --enable-libopus
       --enable-librtmp
       --enable-libsnappy
