@@ -140,7 +140,6 @@ class Ffmpeg < Formula
     args << "--enable-libwebp" if build.with? "webp"
     args << "--enable-libzimg" if build.with? "zimg"
     args << "--enable-libzmq" if build.with? "zeromq"
-    args << "--extra-cflags=" + `pkg-config --cflags libopenjp2`.chomp
 
     if build.with? "openjpeg"
       args << "--enable-libopenjpeg"
