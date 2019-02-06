@@ -7,11 +7,13 @@ class Ffmpeg < Formula
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
+  option "with-fdk-aac", "Enable the Fraunhofer FDK AAC library"
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-tesseract", "Enable the tesseract OCR engine"
   option "with-libvidstab", "Enable vid.stab support for video stabilization"
   option "with-openh264", "Enable OpenH264 library"
+  option "with-openjpeg", "Enable JPEG 2000 image format"
   option "with-rubberband", "Enable rubberband library"
   option "with-webp", "Enable using libwebp to encode WEBP images"
   option "with-zeromq", "Enable using libzeromq to receive commands sent through a libzeromq client"
@@ -25,7 +27,6 @@ class Ffmpeg < Formula
 
   depends_on "deus0ww/tap/aom"
   depends_on "deus0ww/tap/libass"
-  depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
@@ -48,6 +49,7 @@ class Ffmpeg < Formula
   depends_on "xz"
 
   depends_on "chromaprint" => :optional
+  depends_on "fdk-aac" => :optional
   depends_on "fontconfig" => :optional
   depends_on "game-music-emu" => :optional
   depends_on "libbluray" => :optional
@@ -88,7 +90,6 @@ class Ffmpeg < Formula
       --enable-frei0r
       --enable-libaom
       --enable-libass
-      --enable-libfdk-aac
       --enable-libfontconfig
       --enable-libfreetype
       --enable-libmp3lame
@@ -123,6 +124,7 @@ class Ffmpeg < Formula
     args << "--enable-libbluray" if build.with? "libbluray"
     args << "--enable-libbs2b" if build.with? "libbs2b"
     args << "--enable-libcaca" if build.with? "libcaca"
+    args << "--enable-libfdk-aac" if build.with? "fdk-aac"
     args << "--enable-libgme" if build.with? "game-music-emu"
     args << "--enable-libgsm" if build.with? "libgsm"
     args << "--enable-libmodplug" if build.with? "libmodplug"
@@ -140,6 +142,12 @@ class Ffmpeg < Formula
     args << "--enable-libzimg" if build.with? "zimg"
     args << "--enable-libzmq" if build.with? "zeromq"
     args << "--extra-cflags=" + `pkg-config --cflags libopenjp2`.chomp
+
+    if build.with? "openjpeg"
+      args << "--enable-libopenjpeg"
+      args << "--disable-decoder=jpeg2000"
+      args << "--extra-cflags=" + `pkg-config --cflags libopenjp2`.chomp
+    end
 
     ENV.O3
     system "./configure", *args
