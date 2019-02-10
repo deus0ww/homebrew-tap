@@ -2,8 +2,8 @@ class Aom < Formula
   desc "Codec library for encoding and decoding AV1 video streams"
   homepage "https://aomedia.googlesource.com/aom"
   url "https://aomedia.googlesource.com/aom.git",
-      :tag      => "v1.0.0",
-      :revision => "d14c5bb4f336ef1842046089849dee4a301fbbf0"
+      :tag      => "v1.0.0-errata1",
+      :revision => "add4b15580e410c00c927ee366fa65545045a5d9"
   head "https://aomedia.googlesource.com/aom.git"
 
   depends_on "cmake" => :build
