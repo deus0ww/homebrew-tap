@@ -33,6 +33,7 @@ class Ffmpeg < Formula
   depends_on "libsoxr"
   depends_on "libvorbis"
   depends_on "libvpx"
+  depends_on "libxml2"
   depends_on "opencore-amr"
   depends_on "openssl"
   depends_on "opus"
@@ -104,6 +105,7 @@ class Ffmpeg < Formula
       --enable-libvpx
       --enable-libx264
       --enable-libx265
+      --enable-libxml2
       --enable-libxvid
       --enable-lzma
       --enable-openssl
