@@ -14,10 +14,10 @@ class Mpv < Formula
 
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "deus0ww/tap/libass"
+  depends_on "deus0ww/tap/little-cms2"
   depends_on "deus0ww/tap/luajit"
   depends_on "jpeg"
   depends_on "libarchive"
-  depends_on "little-cms2"
   depends_on "mujs"
   depends_on "uchardet"
   depends_on "youtube-dl"
