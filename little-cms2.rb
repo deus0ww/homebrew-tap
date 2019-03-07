@@ -4,8 +4,8 @@ class LittleCms2 < Formula
   # Ensure release is announced on http://www.littlecms.com/download.html
   url "https://downloads.sourceforge.net/project/lcms/lcms/2.9/lcms2-2.9.tar.gz"
   sha256 "48c6fdf98396fa245ed86e622028caf49b96fa22f3e5734f853f806fbc8e7d20"
-  head "https://github.com/deus0ww/Little-CMS.git"
   version_scheme 1
+  head "https://github.com/deus0ww/Little-CMS.git"
 
   depends_on "jpeg"
   depends_on "libtiff"
