@@ -15,6 +15,7 @@ class Libass < Formula
 
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
+  depends_on "fontconfig"
   depends_on "freetype"
   depends_on "fribidi"
   depends_on "harfbuzz"
@@ -24,7 +25,6 @@ class Libass < Formula
     system "autoreconf", "-i" if build.head?
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
-                          "--disable-fontconfig"
     system "make", "install"
   end
 
