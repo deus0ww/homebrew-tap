@@ -24,7 +24,7 @@ class Libass < Formula
     ENV.O3
     system "autoreconf", "-i" if build.head?
     system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
+                          "--prefix=#{prefix}"
     system "make", "install"
   end
 
