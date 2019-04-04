@@ -3,6 +3,7 @@ class Dav1d < Formula
   homepage "https://code.videolan.org/videolan/dav1d"
   url "https://code.videolan.org/videolan/dav1d/-/archive/0.2.1/dav1d-0.2.1.tar.bz2"
   sha256 "887f672f0afad9ff66735997e4d55d03b72a098238e291ecb17ae529adc7dd23"
+  head "https://github.com/videolan/dav1d.git"
 
   depends_on "meson" => :build
   depends_on "nasm" => :build
