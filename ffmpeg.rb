@@ -103,7 +103,6 @@ class Ffmpeg < Formula
       --enable-libsnappy
       --enable-libsoxr
       --enable-libspeex
-      --enable-libtesseract
       --enable-libtheora
       --enable-libvorbis
       --enable-libvpx
