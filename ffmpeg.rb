@@ -23,6 +23,7 @@ class Ffmpeg < Formula
 
   depends_on "deus0ww/tap/dav1d"
   depends_on "deus0ww/tap/libass"
+  depends_on "deus0ww/tap/openjpeg"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
@@ -33,7 +34,6 @@ class Ffmpeg < Formula
   depends_on "libvpx"
   depends_on "libxml2"
   depends_on "opencore-amr"
-  depends_on "openjpeg"
   depends_on "openssl"
   depends_on "opus"
   depends_on "rtmpdump"
