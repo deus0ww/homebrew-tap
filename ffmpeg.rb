@@ -9,6 +9,7 @@ class Ffmpeg < Formula
   option "with-fdk-aac", "Enable the Fraunhofer FDK AAC library"
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"
+  option "with-tesseract", "Enable the tesseract OCR engine"
   option "with-libvidstab", "Enable vid.stab support for video stabilization"
   option "with-openh264", "Enable OpenH264 library"
   option "with-webp", "Enable using libwebp to encode WEBP images"
@@ -24,7 +25,6 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/dav1d"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/openjpeg"
-  depends_on "deus0ww/tap/tesseract"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
@@ -48,6 +48,7 @@ class Ffmpeg < Formula
   depends_on "xvid"
   depends_on "xz"
 
+  depends_on "deus0ww/tap/tesseract" => :optional
   depends_on "chromaprint" => :optional
   depends_on "fdk-aac" => :optional
   depends_on "fontconfig" => :optional
@@ -128,6 +129,7 @@ class Ffmpeg < Formula
     args << "--enable-librsvg" if build.with? "librsvg"
     args << "--enable-libsrt" if build.with? "srt"
     args << "--enable-libssh" if build.with? "libssh"
+    args << "--enable-libtesseract" if build.with? "tesseract"
     args << "--enable-libtwolame" if build.with? "two-lame"
     args << "--enable-libvidstab" if build.with? "libvidstab"
     args << "--enable-libvmaf" if build.with? "libvmaf"

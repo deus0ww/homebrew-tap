@@ -40,6 +40,7 @@ class Tesseract < Formula
     # which doesn't work for non-default homebrew location
     ENV["LIBLEPT_HEADERSDIR"] = HOMEBREW_PREFIX/"include"
 
+    ENV.O3
     ENV.cxx11
 
     system "./autogen.sh"

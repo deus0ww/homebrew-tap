@@ -14,6 +14,7 @@ class Leptonica < Formula
   depends_on "webp"
 
   def install
+    ENV.O3
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}

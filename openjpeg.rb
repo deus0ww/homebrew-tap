@@ -13,6 +13,7 @@ class Openjpeg < Formula
   depends_on "libtiff"
 
   def install
+    ENV.O3
     system "cmake", ".", *std_cmake_args, "-DBUILD_DOC=ON"
     system "make", "install"
   end
