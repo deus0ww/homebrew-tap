@@ -11,14 +11,12 @@ class Libmysofa < Formula
 
   def install
     cd "build" do
-      system "cmake", *std_cmake_args, "-DCMAKE_BUILD_TYPE=Debug", ".."
+      system "cmake", "..", *std_cmake_args, "-DCMAKE_BUILD_TYPE=Debug"
       system "make", "all"
+      system "make", "install"
     end
   end
 
   test do
-    cd "build" do
-      system "make", "test"
-    end
   end
 end

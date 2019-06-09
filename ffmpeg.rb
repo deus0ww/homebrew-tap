@@ -24,7 +24,9 @@ class Ffmpeg < Formula
 
   depends_on "deus0ww/tap/dav1d"
   depends_on "deus0ww/tap/libass"
+  depends_on "deus0ww/tap/libmysofa"
   depends_on "deus0ww/tap/openjpeg"
+
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
@@ -94,6 +96,7 @@ class Ffmpeg < Formula
       --enable-libfontconfig
       --enable-libfreetype
       --enable-libmp3lame
+      --enable-libmysofa
       --enable-libopencore-amrnb
       --enable-libopencore-amrwb
       --enable-libopenjpeg
