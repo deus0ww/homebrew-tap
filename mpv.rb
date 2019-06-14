@@ -40,12 +40,12 @@ class Mpv < Formula
       --enable-html-build
       --enable-javascript
       --enable-libmpv-shared
-      
+
       --enable-lua
       --enable-libarchive
       --enable-libbluray
       --enable-uchardet
-      
+
       --confdir=#{etc}/mpv
       --datadir=#{pkgshare}
       --mandir=#{man}
