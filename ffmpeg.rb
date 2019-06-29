@@ -82,6 +82,7 @@ class Ffmpeg < Formula
       --enable-ffplay
       --enable-gpl
       --enable-hardcoded-tables
+      --enable-lto
       --enable-nonfree
       --enable-opencl
       --enable-pthreads
