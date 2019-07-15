@@ -16,7 +16,7 @@ class Dav1d < Formula
 
   def install
     ENV.O3
-    system "meson", "--prefix=#{prefix}", "build", "--buildtype", "release", "-Db_lto='true'"
+    system "meson", "--prefix=#{prefix}", "build", "--buildtype", "release", "-Db_lto=true"
     system "ninja", "install", "-C", "build"
   end
 
