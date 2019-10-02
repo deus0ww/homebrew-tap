@@ -50,7 +50,6 @@ class Ffmpeg < Formula
   depends_on "xvid"
   depends_on "xz"
 
-  depends_on "tesseract" => :optional
   depends_on "chromaprint" => :optional
   depends_on "fdk-aac" => :optional
   depends_on "fontconfig" => :optional
@@ -65,6 +64,7 @@ class Ffmpeg < Formula
   depends_on "libvmaf" => :optional
   depends_on "openh264" => :optional
   depends_on "srt" => :optional
+  depends_on "tesseract" => :optional
   depends_on "two-lame" => :optional
   depends_on "wavpack" => :optional
   depends_on "webp" => :optional
