@@ -25,7 +25,6 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/dav1d"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
-  depends_on "deus0ww/tap/openjpeg"
 
   depends_on "fontconfig"
   depends_on "freetype"
@@ -37,6 +36,7 @@ class Ffmpeg < Formula
   depends_on "libvpx"
   depends_on "libxml2"
   depends_on "opencore-amr"
+  depends_on "openjpeg"
   depends_on "openssl"
   depends_on "opus"
   depends_on "rtmpdump"
@@ -50,7 +50,7 @@ class Ffmpeg < Formula
   depends_on "xvid"
   depends_on "xz"
 
-  depends_on "deus0ww/tap/tesseract" => :optional
+  depends_on "tesseract" => :optional
   depends_on "chromaprint" => :optional
   depends_on "fdk-aac" => :optional
   depends_on "fontconfig" => :optional
