@@ -9,8 +9,6 @@ class Ffmpeg < Formula
   option "with-fdk-aac", "Enable the Fraunhofer FDK AAC library"
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"
-  option "with-tesseract", "Enable the tesseract OCR engine"
-  option "with-libvidstab", "Enable vid.stab support for video stabilization"
   option "with-openh264", "Enable OpenH264 library"
   option "with-webp", "Enable using libwebp to encode WEBP images"
   option "with-zeromq", "Enable using libzeromq to receive commands sent through a libzeromq client"
@@ -26,6 +24,7 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
   depends_on "deus0ww/tap/openjpeg"
+  depends_on "deus0ww/tap/tesseract"
 
   depends_on "fontconfig"
   depends_on "freetype"
@@ -33,6 +32,7 @@ class Ffmpeg < Formula
   depends_on "lame"
   depends_on "libbluray"
   depends_on "libsoxr"
+  depends_on "libvidstab"
   depends_on "libvorbis"
   depends_on "libvpx"
   depends_on "libxml2"
@@ -50,7 +50,6 @@ class Ffmpeg < Formula
   depends_on "xvid"
   depends_on "xz"
 
-  depends_on "deus0ww/tap/tesseract" => :optional
   depends_on "chromaprint" => :optional
   depends_on "fdk-aac" => :optional
   depends_on "fontconfig" => :optional
@@ -61,7 +60,6 @@ class Ffmpeg < Formula
   depends_on "libmodplug" => :optional
   depends_on "librsvg" => :optional
   depends_on "libssh" => :optional
-  depends_on "libvidstab" => :optional
   depends_on "libvmaf" => :optional
   depends_on "openh264" => :optional
   depends_on "srt" => :optional
@@ -72,6 +70,10 @@ class Ffmpeg < Formula
   depends_on "zimg" => :optional
 
   def install
+    # Work around Xcode 11 clang bug
+    # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
+    ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
+
     args = %W[
       --cc=#{ENV.cc}
       --host-cflags=#{ENV.cflags}
@@ -107,7 +109,9 @@ class Ffmpeg < Formula
       --enable-libsnappy
       --enable-libsoxr
       --enable-libspeex
+      --enable-libtesseract
       --enable-libtheora
+      --enable-libvidstab
       --enable-libvorbis
       --enable-libvpx
       --enable-libx264
@@ -132,9 +136,7 @@ class Ffmpeg < Formula
     args << "--enable-librsvg" if build.with? "librsvg"
     args << "--enable-libsrt" if build.with? "srt"
     args << "--enable-libssh" if build.with? "libssh"
-    args << "--enable-libtesseract" if build.with? "tesseract"
     args << "--enable-libtwolame" if build.with? "two-lame"
-    args << "--enable-libvidstab" if build.with? "libvidstab"
     args << "--enable-libvmaf" if build.with? "libvmaf"
     args << "--enable-libwavpack" if build.with? "wavpack"
     args << "--enable-libwebp" if build.with? "webp"
@@ -148,6 +150,9 @@ class Ffmpeg < Formula
     # Build and install additional FFmpeg tools
     system "make", "alltools"
     bin.install Dir["tools/*"].select { |f| File.executable? f }
+
+    # Fix for Non-executables that were installed to bin/
+    mv bin/"python", pkgshare/"python", :force => true
   end
 
   test do
