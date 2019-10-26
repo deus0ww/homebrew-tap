@@ -1,9 +1,9 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/6e6ec331685c78584a818f524286670911e8b4af.tar.gz"
-  version "0.29.1~6e6ec33"
-  sha256 "fbb5ebc72c55af6e62cb3835b87b0fd26160533350f17e73712791870bdbe017"
+  url "https://github.com/mpv-player/mpv/archive/v0.30.0.tar.gz"
+  version "0.30.0"
+  sha256 "33a1bcb7e74ff17f070e754c15c52228cf44f2cefbfd8f34886ae81df214ca35"
   head "https://github.com/mpv-player/mpv.git"
 
   depends_on "docutils" => :build
@@ -39,20 +39,14 @@ class Mpv < Formula
 
     args = %W[
       --prefix=#{prefix}
-      --enable-html-build
-      --enable-javascript
-      --enable-libmpv-shared
-
-      --enable-lua
-      --enable-libarchive
-      --enable-libbluray
-      --enable-uchardet
-
       --confdir=#{etc}/mpv
       --datadir=#{pkgshare}
-      --mandir=#{man}
       --docdir=#{doc}
+      --mandir=#{man}
       --zshdir=#{zsh_completion}
+
+      --enable-html-build
+      --enable-libmpv-shared
     ]
 
     args << "--enable-dvdnav" if build.with? "libdvdnav"
