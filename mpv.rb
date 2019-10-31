@@ -22,6 +22,7 @@ class Mpv < Formula
   depends_on "uchardet"
   depends_on "vapoursynth"
   depends_on "youtube-dl"
+  depends_on "zimg"
 
   depends_on "jack" => :optional
   depends_on "libaacs" => :optional
