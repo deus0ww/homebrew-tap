@@ -51,7 +51,7 @@ class Mpv < Formula
       --enable-libmpv-shared
     ]
 
-    args << "--enable-dvdnav" if build.with? "libdvdnav" && build.with? "libdvdread"
+    args << "--enable-dvdnav" if build.with? "libdvdnav"
     args << "--enable-cdda"   if build.with? "libcdio"
     args << "--enable-sdl2"   if build.with? "sdl2"
 
