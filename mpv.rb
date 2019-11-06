@@ -16,7 +16,6 @@ class Mpv < Formula
 
   depends_on "jpeg"
   depends_on "libarchive"
-  depends_on "libbluray"
   depends_on "mujs"
   depends_on "rubberband"
   depends_on "uchardet"
@@ -25,9 +24,12 @@ class Mpv < Formula
 
   depends_on "jack" => :optional
   depends_on "libaacs" => :optional
+  depends_on "libbluray" => :optional
   depends_on "libcaca" => :optional
+  depends_on "libcdio" => :optional
   depends_on "libdvdnav" => :optional
   depends_on "libdvdread" => :optional
+  depends_on "sdl2" => :optional
   depends_on "zimg" => :optional
 
   def install
@@ -49,8 +51,9 @@ class Mpv < Formula
       --enable-libmpv-shared
     ]
 
-    args << "--enable-dvdnav" if build.with? "libdvdnav"
-    args << "--enable-dvdread" if build.with? "libdvdread"
+    args << "--enable-dvdnav" if build.with? "libdvdnav" && build.with? "libdvdread"
+    args << "--enable-cdda"   if build.with? "libcdio"
+    args << "--enable-sdl2"   if build.with? "sdl2"
 
     system "./bootstrap.py"
     system "python3", "waf", "configure", *args
