@@ -70,6 +70,11 @@ class Ffmpeg < Formula
   depends_on "zimg" => :optional
 
   def install
+    ENV.O3
+    ENV.prepend "CXXFLAGS", "-flto=thin"
+    ENV.prepend "CFLAGS", "-flto=thin"
+    ENV.prepend "LDFLAGS", "-flto=thin"
+
     # Work around Xcode 11 clang bug
     # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
     ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
@@ -143,7 +148,6 @@ class Ffmpeg < Formula
     args << "--enable-libzimg" if build.with? "zimg"
     args << "--enable-libzmq" if build.with? "zeromq"
 
-    ENV.O3
     system "./configure", *args
     system "make", "install"
 

@@ -33,11 +33,15 @@ class Mpv < Formula
   depends_on "zimg" => :optional
 
   def install
+    ENV.O3
+    ENV.prepend "CXXFLAGS", "-flto=thin"
+    ENV.prepend "CFLAGS", "-flto=thin"
+    ENV.prepend "LDFLAGS", "-flto=thin"
+
     # LANG is unset by default on macOS and causes issues when calling getlocale
     # or getdefaultlocale in docutils. Force the default c/posix locale since
     # that's good enough for building the manpage.
     ENV["LC_ALL"] = "C"
-    ENV.O3
 
     args = %W[
       --prefix=#{prefix}

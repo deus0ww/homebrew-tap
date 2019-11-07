@@ -12,15 +12,19 @@ class Libass < Formula
     depends_on "libtool" => :build
   end
 
+  depends_on "deus0ww/tap/harfbuzz"
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "fribidi"
-  depends_on "harfbuzz"
 
   def install
     ENV.O3
+    ENV.prepend "CXXFLAGS", "-flto=thin"
+    ENV.prepend "CFLAGS", "-flto=thin"
+    ENV.prepend "LDFLAGS", "-flto=thin"
+
     system "autoreconf", "-i" if build.head?
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}"

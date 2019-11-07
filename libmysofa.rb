@@ -10,8 +10,13 @@ class Libmysofa < Formula
   depends_on "cunit"
 
   def install
+    ENV.O3
+    ENV.prepend "CXXFLAGS", "-flto=thin"
+    ENV.prepend "CFLAGS", "-flto=thin"
+    ENV.prepend "LDFLAGS", "-flto=thin"
+
     cd "build" do
-      system "cmake", "..", *std_cmake_args, "-DCMAKE_BUILD_TYPE=Debug"
+      system "cmake", "..", *std_cmake_args, "-DCMAKE_BUILD_TYPE=Release"
       system "make", "all"
       system "make", "install"
     end

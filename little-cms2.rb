@@ -12,6 +12,10 @@ class LittleCms2 < Formula
 
   def install
     ENV.O3
+    ENV.prepend "CXXFLAGS", "-flto=thin"
+    ENV.prepend "CFLAGS", "-flto=thin"
+    ENV.prepend "LDFLAGS", "-flto=thin"
+
     args = %W[--disable-dependency-tracking --prefix=#{prefix}]
 
     system "./configure", *args
