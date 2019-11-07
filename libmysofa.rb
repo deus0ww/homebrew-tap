@@ -11,9 +11,9 @@ class Libmysofa < Formula
 
   def install
     ENV.O3
-    ENV.prepend "CXXFLAGS", "-flto=thin"
-    ENV.prepend "CFLAGS", "-flto=thin"
-    ENV.prepend "LDFLAGS", "-flto=thin"
+    ENV.prepend "CXXFLAGS", "-flto=thin -O3"
+    ENV.prepend "CFLAGS", "-flto=thin -O3"
+    ENV.prepend "LDFLAGS", "-flto=thin -O3"
 
     cd "build" do
       system "cmake", "..", *std_cmake_args, "-DCMAKE_BUILD_TYPE=Release"

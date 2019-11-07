@@ -21,9 +21,9 @@ class Libass < Formula
 
   def install
     ENV.O3
-    ENV.prepend "CXXFLAGS", "-flto=thin"
-    ENV.prepend "CFLAGS", "-flto=thin"
-    ENV.prepend "LDFLAGS", "-flto=thin"
+    ENV.prepend "CXXFLAGS", "-flto=thin -O3"
+    ENV.prepend "CFLAGS", "-flto=thin -O3"
+    ENV.prepend "LDFLAGS", "-flto=thin -O3"
 
     system "autoreconf", "-i" if build.head?
     system "./configure", "--disable-dependency-tracking",

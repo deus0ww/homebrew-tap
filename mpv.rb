@@ -34,9 +34,9 @@ class Mpv < Formula
 
   def install
     ENV.O3
-    ENV.prepend "CXXFLAGS", "-flto=thin"
-    ENV.prepend "CFLAGS", "-flto=thin"
-    ENV.prepend "LDFLAGS", "-flto=thin"
+    ENV.prepend "CXXFLAGS", "-flto=thin -O3"
+    ENV.prepend "CFLAGS", "-flto=thin -O3"
+    ENV.prepend "LDFLAGS", "-flto=thin -O3"
 
     # LANG is unset by default on macOS and causes issues when calling getlocale
     # or getdefaultlocale in docutils. Force the default c/posix locale since

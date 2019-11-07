@@ -28,9 +28,9 @@ class Harfbuzz < Formula
 
   def install
     ENV.O3
-    ENV.prepend "CXXFLAGS", "-flto=thin"
-    ENV.prepend "CFLAGS", "-flto=thin"
-    ENV.prepend "LDFLAGS", "-flto=thin"
+    ENV.prepend "CXXFLAGS", "-flto=thin -O3"
+    ENV.prepend "CFLAGS", "-flto=thin -O3"
+    ENV.prepend "LDFLAGS", "-flto=thin -O3"
   
     args = %W[
       --disable-dependency-tracking
