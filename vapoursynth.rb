@@ -27,7 +27,7 @@ class Vapoursynth < Formula
     ENV.prepend "CXXFLAGS", "-flto=thin -O3"
     ENV.prepend "CFLAGS", "-flto=thin -O3"
     ENV.prepend "LDFLAGS", "-flto=thin -O3"
-  
+
     venv = virtualenv_create(buildpath/"cython", "python3")
     venv.pip_install "Cython"
     system "./autogen.sh"
