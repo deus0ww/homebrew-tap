@@ -31,7 +31,7 @@ class Harfbuzz < Formula
     ENV.prepend "CXXFLAGS", "-flto=thin -O3"
     ENV.prepend "CFLAGS", "-flto=thin -O3"
     ENV.prepend "LDFLAGS", "-flto=thin -O3"
-  
+
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
