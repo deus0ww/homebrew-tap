@@ -5,14 +5,21 @@ class Leptonica < Formula
   sha256 "e2ed2e81e7a22ddf45d2c05f0bc8b9ae7450545d995bfe28517ba408d14a5a88"
 
   depends_on "pkg-config" => :build
+
+  depends_on "deus0ww/tap/openjpeg"
+
   depends_on "giflib"
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "libtiff"
-  depends_on "deus0ww/tap/openjpeg"
   depends_on "webp"
 
   def install
+    ENV.O3
+    ENV.append "CXXFLAGS", "-Ofast -flto=thin"
+    ENV.append "CFLAGS", "-Ofast -flto=thin"
+    ENV.append "LDFLAGS", "-Ofast -flto=thin"
+
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}

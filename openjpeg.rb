@@ -14,6 +14,11 @@ class Openjpeg < Formula
   depends_on "libtiff"
 
   def install
+    ENV.O3
+    ENV.append "CXXFLAGS", "-Ofast -flto=thin"
+    ENV.append "CFLAGS", "-Ofast -flto=thin"
+    ENV.append "LDFLAGS", "-Ofast -flto=thin"
+
     system "cmake", ".", *std_cmake_args, "-DBUILD_DOC=ON"
     system "make", "install"
   end

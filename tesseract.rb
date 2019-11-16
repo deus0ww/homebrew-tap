@@ -12,6 +12,9 @@ class Tesseract < Formula
   depends_on "pkg-config" => :build
 
   depends_on "deus0ww/tap/leptonica"
+
+  depends_on "jpeg"
+  depends_on "libpng"
   depends_on "libtiff"
 
   resource "eng" do
@@ -35,6 +38,11 @@ class Tesseract < Formula
   end
 
   def install
+    ENV.O3
+    ENV.append "CXXFLAGS", "-Ofast -flto=thin"
+    ENV.append "CFLAGS", "-Ofast -flto=thin"
+    ENV.append "LDFLAGS", "-Ofast -flto=thin"
+
     # explicitly state leptonica header location, as the makefile defaults to /usr/local/include,
     # which doesn't work for non-default homebrew location
     ENV["LIBLEPT_HEADERSDIR"] = HOMEBREW_PREFIX/"include"
