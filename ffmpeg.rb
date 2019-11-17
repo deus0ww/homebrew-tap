@@ -23,6 +23,7 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/dav1d"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
+  depends_on "deus0ww/tap/libsoxr"
   depends_on "deus0ww/tap/openjpeg"
   depends_on "deus0ww/tap/tesseract"
 
@@ -31,7 +32,6 @@ class Ffmpeg < Formula
   depends_on "frei0r"
   depends_on "lame"
   depends_on "libbluray"
-  depends_on "libsoxr"
   depends_on "libvidstab"
   depends_on "libvorbis"
   depends_on "libvpx"
