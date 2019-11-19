@@ -29,12 +29,8 @@ class Luajit < Formula
     ENV.append "CFLAGS", "-Ofast -flto=thin"
     ENV.append "LDFLAGS", "-Ofast -flto=thin"
 
-    cflags = []
-    cflags << "-DLUAJIT_ENABLE_LUA52COMPAT"
-    cflags << "-DLUAJIT_ENABLE_GC64" 
-
     args = %W[PREFIX=#{prefix}]
-    args << "XCFLAGS=#{cflags.join(" ")}"
+    args << "XCFLAGS=-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT"
 
     system "make", "amalg", *args
     system "make", "install", *args
