@@ -54,8 +54,6 @@ class Mpv < Formula
       --enable-html-build
       --enable-libmpv-shared
       --swift-flags=-wmo
-      
-      --enable-zimg
     ]
 
     args << "--enable-dvdnav" if build.with? "libdvdnav"
