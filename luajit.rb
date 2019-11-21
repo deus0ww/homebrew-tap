@@ -3,10 +3,10 @@ class Luajit < Formula
   homepage "https://luajit.org/luajit.html"
   url "https://github.com/moonjit/moonjit/archive/2.1.1.tar.gz"
   sha256 "aa04d47f23bf24173e58dff0a727e8061fb88c07966a956bd86b13dae5542616"
-  head "https://github.com/moonjit/moonjit.git" #, :branch => "v2.1"
-  #url "https://github.com/LuaJIT/LuaJIT/archive/v2.1.0-beta3.tar.gz"
-  #sha256 "1ad2e34b111c802f9d0cdf019e986909123237a28c746b21295b63c9e785d9c3"
-  #head "https://luajit.org/git/luajit-2.0.git", :branch => "v2.1"
+  head "https://github.com/moonjit/moonjit.git" # , :branch => "v2.1"
+  # url "https://github.com/LuaJIT/LuaJIT/archive/v2.1.0-beta3.tar.gz"
+  # sha256 "1ad2e34b111c802f9d0cdf019e986909123237a28c746b21295b63c9e785d9c3"
+  # head "https://luajit.org/git/luajit-2.0.git", :branch => "v2.1"
 
   def install
     # 1 - Override the hardcoded gcc.

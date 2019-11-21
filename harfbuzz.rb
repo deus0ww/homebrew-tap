@@ -11,7 +11,7 @@ class Harfbuzz < Formula
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
   depends_on "ragel" => :build
-  
+
   depends_on "cairo"
   depends_on "freetype"
   depends_on "glib"
