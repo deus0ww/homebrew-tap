@@ -49,7 +49,6 @@ class Luajit < Formula
               "INSTALL_CMOD=#{HOMEBREW_PREFIX}/${multilib}/lua/${abiver}"
       s.gsub! "Libs:",
               "Libs: -pagezero_size 10000 -image_base 100000000"
-      end
     end
 
     # Having an empty Lua dir in lib/share can mess with other Homebrew Luas.
