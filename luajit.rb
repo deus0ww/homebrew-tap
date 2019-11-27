@@ -25,8 +25,8 @@ class Luajit < Formula
     ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version
 
     ENV.O3 # Respect the developer's choice.
-    ENV.append "CXXFLAGS", "-Ofast -flto=thin"
-    ENV.append "CFLAGS", "-Ofast -flto=thin"
+    ENV.append "CXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "CFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
     ENV.append "LDFLAGS", "-Ofast -flto=thin"
 
     args = %W[PREFIX=#{prefix}]
