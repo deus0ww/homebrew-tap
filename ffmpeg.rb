@@ -32,6 +32,7 @@ class Ffmpeg < Formula
   depends_on "frei0r"
   depends_on "lame"
   depends_on "libbluray"
+  depends_on "libbs2b"
   depends_on "libvidstab"
   depends_on "libvorbis"
   depends_on "libvpx"
@@ -54,7 +55,6 @@ class Ffmpeg < Formula
   depends_on "fdk-aac" => :optional
   depends_on "fontconfig" => :optional
   depends_on "game-music-emu" => :optional
-  depends_on "libbs2b" => :optional
   depends_on "libcaca" => :optional
   depends_on "libgsm" => :optional
   depends_on "libmodplug" => :optional
@@ -100,6 +100,7 @@ class Ffmpeg < Formula
       --enable-frei0r
       --enable-libass
       --enable-libbluray
+      --enable-libbs2b
       --enable-libdav1d
       --enable-libfontconfig
       --enable-libfreetype
@@ -131,7 +132,6 @@ class Ffmpeg < Formula
     ]
 
     args << "--enable-chromaprint" if build.with? "chromaprint"
-    args << "--enable-libbs2b" if build.with? "libbs2b"
     args << "--enable-libcaca" if build.with? "libcaca"
     args << "--enable-libfdk-aac" if build.with? "fdk-aac"
     args << "--enable-libgme" if build.with? "game-music-emu"
