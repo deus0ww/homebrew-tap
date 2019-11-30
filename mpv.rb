@@ -53,8 +53,8 @@ class Mpv < Formula
 
       --enable-html-build
       --enable-libmpv-shared
-      --swift-flags=-wmo
     ]
+    args << "--swift-flags=-wmo -flto=thin"
 
     args << "--enable-dvdnav" if build.with? "libdvdnav"
     args << "--enable-cdda"   if build.with? "libcdio"
