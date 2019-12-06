@@ -70,11 +70,6 @@ class Ffmpeg < Formula
   depends_on "zimg" => :optional
 
   def install
-    ENV.O3
-    ENV.append "CXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "CFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "LDFLAGS", "-Ofast -flto=thin"
-
     # Work around Xcode 11 clang bug
     # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
     ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
@@ -88,8 +83,6 @@ class Ffmpeg < Formula
       --enable-avresample
       --enable-ffplay
       --enable-gpl
-      --enable-hardcoded-tables
-      --enable-lto
       --enable-nonfree
       --enable-opencl
       --enable-pthreads
@@ -148,9 +141,15 @@ class Ffmpeg < Formula
     args << "--enable-libzimg" if build.with? "zimg"
     args << "--enable-libzmq" if build.with? "zeromq"
 
-	args << "--extra-cflags=-march=native -mtune=native"
-	args << "--extra-cxxflags=-march=native -mtune=native"
-	args << "--optflags=-Ofast"
+    args << "--enable-hardcoded-tables"
+    args << "--enable-lto"
+    args << "--extra-cflags=-march=native -mtune=native"
+    args << "--extra-cxxflags=-march=native -mtune=native"
+    args << "--optflags=-Ofast"
+
+    ENV.append "CFLAGS", "-Ofast -flto -march=native -mtune=native"
+    ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
+    ENV.append "LDFLAGS", "-Ofast -flto"
 
     system "./configure", *args
     system "make", "install"
