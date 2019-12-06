@@ -1,8 +1,8 @@
 class Dav1d < Formula
   desc "AV1 decoder targeted to be small and fast"
   homepage "https://code.videolan.org/videolan/dav1d"
-  url "https://code.videolan.org/videolan/dav1d/-/archive/0.5.1/dav1d-0.5.1.tar.bz2"
-  sha256 "0214d201a338e8418f805b68f9ad277e33d79c18594dee6eaf6dcd74db2674a9"
+  url "https://code.videolan.org/videolan/dav1d/-/archive/0.5.2/dav1d-0.5.2.tar.bz2"
+  sha256 "1780199d71e62a82ca1bfca2d71da5c599c7e1edc68c72f6fc3c0c25ce1880b7"
   head "https://github.com/videolan/dav1d.git"
 
   depends_on "meson" => :build
