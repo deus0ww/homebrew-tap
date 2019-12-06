@@ -148,6 +148,10 @@ class Ffmpeg < Formula
     args << "--enable-libzimg" if build.with? "zimg"
     args << "--enable-libzmq" if build.with? "zeromq"
 
+	args << "--extra-cflags=-march=native -mtune=native"
+	args << "--extra-cxxflags=-march=native -mtune=native"
+	args << "--optflags=-Ofast"
+
     system "./configure", *args
     system "make", "install"
 
