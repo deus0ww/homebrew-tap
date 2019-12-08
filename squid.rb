@@ -45,6 +45,7 @@ class Squid < Formula
       --with-openssl
     ]
 
+    system "autoreconf", "-ivf"
     system "./bootstrap.sh" if build.head?
     system "./configure", *args
     system "make", "install"
