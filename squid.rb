@@ -8,7 +8,6 @@ class Squid < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "m4" => :build
 
   depends_on "openssl@1.1"
 
@@ -45,7 +44,6 @@ class Squid < Formula
       --with-openssl
     ]
 
-    system "autoreconf", "-ivf"
     system "./bootstrap.sh" if build.head?
     system "./configure", *args
     system "make", "install"
