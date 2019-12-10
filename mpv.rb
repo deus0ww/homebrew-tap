@@ -60,7 +60,7 @@ class Mpv < Formula
     args << "--enable-cdda"   if build.with? "libcdio"
     args << "--enable-sdl2"   if build.with? "sdl2"
 
-    system "./bootstrap.py"
+    system "python3", "bootstrap.py"
     system "python3", "waf", "configure", *args
     system "python3", "waf", "install"
 
