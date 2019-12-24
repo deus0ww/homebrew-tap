@@ -38,7 +38,7 @@ class Ffmpeg < Formula
   depends_on "libvpx"
   depends_on "libxml2"
   depends_on "opencore-amr"
-  depends_on "openssl"
+  depends_on "openssl@1.1"
   depends_on "opus"
   depends_on "rtmpdump"
   depends_on "rubberband"
