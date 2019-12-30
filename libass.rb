@@ -25,7 +25,8 @@ class Libass < Formula
 
     system "autoreconf", "-i" if build.head?
     system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}"
+                          "--prefix=#{prefix}",
+                          "--enable-large-tiles"
     system "make", "install"
   end
 
