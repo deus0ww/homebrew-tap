@@ -19,8 +19,8 @@ class Libass < Formula
 
   def install
     ENV.O3
-    ENV.append "CXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "CFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "CXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native -mllvm -polly"
+    ENV.append "CFLAGS", "-Ofast -flto=thin -march=native -mtune=native -mllvm -polly"
     ENV.append "LDFLAGS", "-Ofast -flto=thin"
 
     system "autoreconf", "-i" if build.head?
