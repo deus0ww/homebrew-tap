@@ -3,11 +3,15 @@ class Libass < Formula
   homepage "https://github.com/libass/libass"
   url "https://github.com/libass/libass/releases/download/0.14.0/libass-0.14.0.tar.xz"
   sha256 "881f2382af48aead75b7a0e02e65d88c5ebd369fe46bc77d9270a94aa8fd38a2"
-  head "https://github.com/libass/libass.git"
 
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "libtool" => :build
+  head do
+    url "https://github.com/libass/libass.git"
+
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
+  end
+
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
 
