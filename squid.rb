@@ -5,7 +5,7 @@ class Squid < Formula
   sha256 "1cb1838c6683b0568a3a4050f4ea2fc1eaa5cbba6bdf7d57f7258c7cd7b41fa1"
 
   head do
-    head "https://github.com/squid-cache/squid.git"
+    url "https://github.com/squid-cache/squid.git"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
