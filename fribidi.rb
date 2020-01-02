@@ -3,12 +3,14 @@ class Fribidi < Formula
   homepage "https://github.com/fribidi/fribidi"
   url "https://github.com/fribidi/fribidi/releases/download/v1.0.8/fribidi-1.0.8.tar.bz2"
   sha256 "94c7b68d86ad2a9613b4dcffe7bbeb03523d63b5b37918bdf2e4ef34195c1e6c"
-  head "https://github.com/fribidi/fribidi.git"
 
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  head
+    url "https://github.com/fribidi/fribidi.git"
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
+    depends_on "pkg-config" => :build
+  end
   
   def install
     ENV.O3
@@ -16,7 +18,7 @@ class Fribidi < Formula
     ENV.append "CFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
     ENV.append "LDFLAGS", "-Ofast -flto=thin"
 
-    system "./autogen.sh"
+    system "./autogen.sh" if build.head?
     system "./configure", "--disable-debug",
                           "--disable-dependency-tracking",
                           "--disable-silent-rules",
