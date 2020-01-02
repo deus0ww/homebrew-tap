@@ -3,11 +3,14 @@ class Squid < Formula
   homepage "http://www.squid-cache.org/"
   url "http://www.squid-cache.org/Versions/v4/squid-4.9.tar.xz"
   sha256 "1cb1838c6683b0568a3a4050f4ea2fc1eaa5cbba6bdf7d57f7258c7cd7b41fa1"
-  head "https://github.com/squid-cache/squid.git"
 
-  depends_on "autoconf" => :build
-  depends_on "automake" => :build
-  depends_on "libtool" => :build
+  head do
+    head "https://github.com/squid-cache/squid.git"
+
+    depends_on "autoconf" => :build
+    depends_on "automake" => :build
+    depends_on "libtool" => :build
+  end
 
   depends_on "openssl@1.1"
 
