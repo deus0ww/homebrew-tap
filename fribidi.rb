@@ -5,6 +5,10 @@ class Fribidi < Formula
   sha256 "94c7b68d86ad2a9613b4dcffe7bbeb03523d63b5b37918bdf2e4ef34195c1e6c"
   head "https://github.com/fribidi/fribidi.git"
 
+  depends_on "autoconf" => :build
+  depends_on "libtool" => :build
+  depends_on "pkg-config" => :build
+  
   def install
     ENV.O3
     ENV.append "CXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
