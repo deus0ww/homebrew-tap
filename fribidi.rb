@@ -6,6 +6,7 @@ class Fribidi < Formula
   head "https://github.com/fribidi/fribidi.git"
 
   depends_on "autoconf" => :build
+  depends_on "automake" => :build
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
   
