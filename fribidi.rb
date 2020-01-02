@@ -10,7 +10,8 @@ class Fribidi < Formula
     ENV.append "CXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
     ENV.append "CFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
     ENV.append "LDFLAGS", "-Ofast -flto=thin"
-  
+
+    system "./autogen.sh"
     system "./configure", "--disable-debug",
                           "--disable-dependency-tracking",
                           "--disable-silent-rules",
