@@ -1,8 +1,8 @@
 class Libmysofa < Formula
   desc "Library for reading AES SOFA files"
   homepage "https://github.com/hoene/libmysofa"
-  url "https://github.com/hoene/libmysofa/archive/v0.8.tar.gz"
-  sha256 "0e0abb6ec6f5f09266325741d6ef218532187129f65d0bc6b21e155760dfb2ad"
+  url "https://github.com/hoene/libmysofa/archive/v0.9.1.tar.gz"
+  sha256 "b942cc4a6b5da6187d38574f7653489347ceadf7c1ab7168dfe5e307e999dcc6"
   head "https://github.com/hoene/libmysofa.git"
 
   depends_on "cmake" => :build
