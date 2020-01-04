@@ -15,10 +15,9 @@ class Squid < Formula
   depends_on "openssl@1.1"
 
   def install
-    ENV.O3
-    ENV.append "CXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "CFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "LDFLAGS", "-Ofast -flto=thin"  
+    ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
+    ENV.append "CFLAGS",   "-Ofast -flto -march=native -mtune=native"
+    ENV.append "LDFLAGS",  "-Ofast -flto -march=native -mtune=native"
 
     # https://stackoverflow.com/questions/20910109/building-squid-cache-on-os-x-mavericks
     ENV.append "LDFLAGS", "-lresolv"

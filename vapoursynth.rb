@@ -23,10 +23,9 @@ class Vapoursynth < Formula
   end
 
   def install
-    ENV.O3
-    ENV.append "CXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "CFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "LDFLAGS", "-Ofast -flto=thin"
+    ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
+    ENV.append "CFLAGS",   "-Ofast -flto -march=native -mtune=native"
+    ENV.append "LDFLAGS",  "-Ofast -flto -march=native -mtune=native"
 
     venv = virtualenv_create(buildpath/"cython", "python3")
     venv.pip_install "Cython"

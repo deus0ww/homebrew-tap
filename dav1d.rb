@@ -15,10 +15,9 @@ class Dav1d < Formula
   end
 
   def install
-    ENV.O3
-    ENV.append "CXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "CFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "LDFLAGS", "-Ofast -flto=thin"
+    ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
+    ENV.append "CFLAGS",   "-Ofast -flto -march=native -mtune=native"
+    ENV.append "LDFLAGS",  "-Ofast -flto -march=native -mtune=native"
 
     system "meson", "--prefix=#{prefix}", "build", "--buildtype", "release", "-Doptimization=3", "-Db_lto=true"
     system "ninja", "install", "-C", "build"

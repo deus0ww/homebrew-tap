@@ -145,11 +145,8 @@ class Ffmpeg < Formula
     args << "--enable-lto"
     args << "--extra-cflags=-march=native -mtune=native"
     args << "--extra-cxxflags=-march=native -mtune=native"
+    args << "--extra-ldflags=-march=native -mtune=native"
     args << "--optflags=-Ofast"
-
-    ENV.append "CFLAGS", "-Ofast -flto -march=native -mtune=native"
-    ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
-    ENV.append "LDFLAGS", "-Ofast -flto"
 
     system "./configure", *args
     system "make", "install"

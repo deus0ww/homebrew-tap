@@ -24,10 +24,9 @@ class Luajit < Formula
     # is not set then it's forced to 10.4, which breaks compile on Mojave.
     ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version
 
-    ENV.O3 # Respect the developer's choice.
-    ENV.append "CXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "CFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "LDFLAGS", "-Ofast -flto=thin"
+    ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
+    ENV.append "CFLAGS",   "-Ofast -flto -march=native -mtune=native"
+    ENV.append "LDFLAGS",  "-Ofast -flto -march=native -mtune=native"
 
     args = %W[PREFIX=#{prefix}]
     args << "XCFLAGS=-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT"
