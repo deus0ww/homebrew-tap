@@ -39,7 +39,7 @@ class Mpv < Formula
 
     ENV["LC_ALL"] = "en_US.UTF-8"
     ENV["LANG"]   = "en_US.UTF-8"
-    
+
     ENV["TOOLCHAINS"] = "swift"
 
     args = %W[
