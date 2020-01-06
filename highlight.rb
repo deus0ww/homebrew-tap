@@ -13,7 +13,11 @@ class Highlight < Formula
     ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
     ENV.append "CFLAGS",   "-Ofast -flto -march=native -mtune=native"
     ENV.append "LDFLAGS",  "-Ofast -flto -march=native -mtune=native"
-  
+
+    inreplace ["src/makefile"] do |s|
+      s.gsub! /^(LUA_PKG_NAME)=(.*)$/, "\\1 = luajit"
+    end
+
     conf_dir = etc/"highlight/" # highlight needs a final / for conf_dir
     system "make", "PREFIX=#{prefix}", "conf_dir=#{conf_dir}"
     system "make", "PREFIX=#{prefix}", "conf_dir=#{conf_dir}", "install"
