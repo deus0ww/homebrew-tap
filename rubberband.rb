@@ -20,6 +20,10 @@ class Rubberband < Formula
       s.gsub! "DUSE_SPEEX", "DHAVE_LIBSAMPLERATE"
       s.gsub! "-framework Accelerate", "-framework Accelerate -L/usr/local/lib -lsamplerate"
     end
+    
+    inreplace ["src/StretcherImpl.cpp"] do |s|
+      s.gsub! "Resampler::FastestTolerable", "Resampler::Best"
+    end
 
     system "make", "-f", "Makefile.osx"
     # HACK: Manual install because "make install" is broken
