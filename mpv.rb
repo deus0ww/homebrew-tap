@@ -3,7 +3,7 @@ class Mpv < Formula
   homepage "https://mpv.io"
   url "https://github.com/mpv-player/mpv/archive/v0.31.0.tar.gz"
   sha256 "805a3ac8cf51bfdea6087a6480c18835101da0355c8e469b6d488a1e290585a5"
-  head "https://github.com/mpv-player/mpv.git", :branch => 'dpi-event'
+  head "https://github.com/mpv-player/mpv.git"  #, :branch => 'name'
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
