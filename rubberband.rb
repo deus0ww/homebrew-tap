@@ -6,7 +6,7 @@ class Rubberband < Formula
   head "https://bitbucket.org/breakfastquay/rubberband/", :using => :hg
 
   depends_on "pkg-config" => :build
-  # depends_on "libsamplerate"
+  depends_on "libsamplerate"
   depends_on "libsndfile"
 
   def install
@@ -17,8 +17,8 @@ class Rubberband < Formula
     inreplace ["Makefile.osx"] do |s|
       s.gsub! "-ffast-math -mfpmath=sse -msse -msse2 -O3 -ftree-vectorize", "-Ofast -flto -march=native -mtune=native"
       s.gsub! "-lpthread", "-lpthread -Ofast -flto -march=native -mtune=native"
-      # s.gsub! "DUSE_SPEEX", "DHAVE_LIBSAMPLERATE"
-      # s.gsub! "-framework Accelerate", "-framework Accelerate -L/usr/local/lib -lsamplerate"
+      s.gsub! "DUSE_SPEEX", "DHAVE_LIBSAMPLERATE"
+      s.gsub! "-framework Accelerate", "-framework Accelerate -L/usr/local/lib -lsamplerate"
     end
     
     inreplace ["src/StretcherImpl.cpp"] do |s|
