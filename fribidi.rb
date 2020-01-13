@@ -11,7 +11,7 @@ class Fribidi < Formula
     depends_on "libtool" => :build
     depends_on "pkg-config" => :build
   end
-  
+
   def install
     ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
     ENV.append "CFLAGS",   "-Ofast -flto -march=native -mtune=native"
