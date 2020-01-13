@@ -30,7 +30,6 @@ class Mpv < Formula
   depends_on "libdvdnav" => :optional
   depends_on "libdvdread" => :optional
   depends_on "sdl2" => :optional
-  # depends_on "zimg" => :optional
 
   def install
     ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
