@@ -10,7 +10,6 @@ class Ffmpeg < Formula
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-openh264", "Enable OpenH264 library"
-  option "with-webp", "Enable using libwebp to encode WEBP images"
   option "with-zeromq", "Enable using libzeromq to receive commands sent through a libzeromq client"
   option "with-zimg", "Enable z.lib zimg library"
   option "with-srt", "Enable SRT library"
@@ -46,6 +45,7 @@ class Ffmpeg < Formula
   depends_on "snappy"
   depends_on "speex"
   depends_on "theora"
+  depends_on "webp"
   depends_on "x264"
   depends_on "x265"
   depends_on "xvid"
@@ -65,7 +65,6 @@ class Ffmpeg < Formula
   depends_on "srt" => :optional
   depends_on "two-lame" => :optional
   depends_on "wavpack" => :optional
-  depends_on "webp" => :optional
   depends_on "zeromq" => :optional
   depends_on "zimg" => :optional
 
@@ -113,6 +112,7 @@ class Ffmpeg < Formula
       --enable-libvidstab
       --enable-libvorbis
       --enable-libvpx
+      --enable-libwebp
       --enable-libx264
       --enable-libx265
       --enable-libxml2
@@ -137,7 +137,6 @@ class Ffmpeg < Formula
     args << "--enable-libtwolame" if build.with? "two-lame"
     args << "--enable-libvmaf" if build.with? "libvmaf"
     args << "--enable-libwavpack" if build.with? "wavpack"
-    args << "--enable-libwebp" if build.with? "webp"
     args << "--enable-libzimg" if build.with? "zimg"
     args << "--enable-libzmq" if build.with? "zeromq"
 
