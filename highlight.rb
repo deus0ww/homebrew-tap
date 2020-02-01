@@ -7,7 +7,7 @@ class Highlight < Formula
 
   depends_on "boost" => :build
   depends_on "pkg-config" => :build
-  depends_on "luajit"
+  depends_on "deus0ww/tap/luajit"
 
   def install
     ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
