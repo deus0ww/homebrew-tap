@@ -15,6 +15,7 @@ class Mpv < Formula
   depends_on "deus0ww/tap/luajit"
   depends_on "deus0ww/tap/rubberband"
   depends_on "deus0ww/tap/vapoursynth"
+  depends_on "deus0ww/tap/zimg"
 
   depends_on "jpeg"
   depends_on "libarchive"
@@ -49,7 +50,6 @@ class Mpv < Formula
       --mandir=#{man}
       --zshdir=#{zsh_completion}
 
-      --disable-zimg
       --enable-html-build
       --enable-libmpv-shared
     ]
