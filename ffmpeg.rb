@@ -11,7 +11,6 @@ class Ffmpeg < Formula
   option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-openh264", "Enable OpenH264 library"
   option "with-zeromq", "Enable using libzeromq to receive commands sent through a libzeromq client"
-  option "with-zimg", "Enable z.lib zimg library"
   option "with-srt", "Enable SRT library"
   option "with-libvmaf", "Enable libvmaf scoring library"
 
@@ -26,6 +25,7 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/openjpeg"
   depends_on "deus0ww/tap/rubberband"
   depends_on "deus0ww/tap/tesseract"
+  depends_on "deus0ww/tap/zimg"
 
   depends_on "fontconfig"
   depends_on "freetype"
@@ -66,7 +66,6 @@ class Ffmpeg < Formula
   depends_on "two-lame" => :optional
   depends_on "wavpack" => :optional
   depends_on "zeromq" => :optional
-  depends_on "zimg" => :optional
 
   def install
     # Work around Xcode 11 clang bug
@@ -117,6 +116,7 @@ class Ffmpeg < Formula
       --enable-libx265
       --enable-libxml2
       --enable-libxvid
+      --enable-libzimg
       --enable-lzma
       --enable-openssl
 
@@ -137,7 +137,6 @@ class Ffmpeg < Formula
     args << "--enable-libtwolame" if build.with? "two-lame"
     args << "--enable-libvmaf" if build.with? "libvmaf"
     args << "--enable-libwavpack" if build.with? "wavpack"
-    args << "--enable-libzimg" if build.with? "zimg"
     args << "--enable-libzmq" if build.with? "zeromq"
 
     args << "--enable-hardcoded-tables"

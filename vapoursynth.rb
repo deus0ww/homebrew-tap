@@ -14,8 +14,8 @@ class Vapoursynth < Formula
   depends_on "pkg-config" => :build
 
   depends_on :macos => :el_capitan # due to zimg dependency
+  depends_on "deus0ww/tap/zimg"
   depends_on "python"
-  depends_on "zimg"
 
   resource "Cython" do
     url "https://files.pythonhosted.org/packages/9c/9b/706dac7338c2860cd063a28cdbf5e9670995eaea408abbf2e88ba070d90d/Cython-0.29.14.tar.gz"
