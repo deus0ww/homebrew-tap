@@ -68,10 +68,6 @@ class Ffmpeg < Formula
   depends_on "zeromq" => :optional
 
   def install
-    # Work around Xcode 11 clang bug
-    # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
-    ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
-
     args = %W[
       --cc=#{ENV.cc}
       --host-cflags=#{ENV.cflags}
