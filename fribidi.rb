@@ -10,7 +10,7 @@ class Fribidi < Formula
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
 
-  patch do
+  resource do
     url "https://raw.githubusercontent.com/Homebrew/formula-patches/master/fribidi/fix-docs.diff"
     sha256 "990777213ff47cfbf06f0342f66e84783bf5eec80419ff1582dd189352ef5f73"
   end
@@ -21,6 +21,7 @@ class Fribidi < Formula
     ENV.append "LDFLAGS",  "-Ofast -flto -march=native -mtune=native"
 
     system "./autogen.sh"
+    system "patch", "-f", "-p1", "-i", "fix-docs.diff"
     system "./configure", "--disable-debug",
                           "--disable-dependency-tracking",
                           "--disable-docs",
