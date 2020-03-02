@@ -3,14 +3,12 @@ class Fribidi < Formula
   homepage "https://github.com/fribidi/fribidi"
   url "https://github.com/fribidi/fribidi/archive/v1.0.9.tar.gz"
   sha256 "ef6f940d04213a0fb91a0177b2b57df2031bf3a7e2cd0ee2c6877a160fc206df"
+  head "https://github.com/fribidi/fribidi.git"
 
-  head do
-    url "https://github.com/fribidi/fribidi.git"
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
-    depends_on "libtool" => :build
-    depends_on "pkg-config" => :build
-  end
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
+  depends_on "pkg-config" => :build
 
   def install
     ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
