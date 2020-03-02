@@ -20,12 +20,10 @@ class Fribidi < Formula
     ENV.append "CFLAGS",   "-Ofast -flto -march=native -mtune=native"
     ENV.append "LDFLAGS",  "-Ofast -flto -march=native -mtune=native"
 
-    system "./autogen.sh"
+    resource("fix-docs").stage(buildpath)
     
-    resource("fix-docs").stage do
-      system "patch", "-f", "-p1", "-i", "fix-docs.diff"
-    end
-
+    system "./autogen.sh"
+    system "patch", "-f", "-p1", "-i", "fix-docs.diff"
     system "./configure", "--disable-debug",
                           "--disable-dependency-tracking",
                           "--disable-docs",
