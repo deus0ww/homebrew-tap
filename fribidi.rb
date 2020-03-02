@@ -17,7 +17,7 @@ class Fribidi < Formula
     ENV.append "CFLAGS",   "-Ofast -flto -march=native -mtune=native"
     ENV.append "LDFLAGS",  "-Ofast -flto -march=native -mtune=native"
 
-    system "./autogen.sh" if build.head?
+    system "./autogen.sh"
     system "./configure", "--disable-debug",
                           "--disable-dependency-tracking",
                           "--disable-silent-rules",
