@@ -1,8 +1,8 @@
 class Fribidi < Formula
   desc "Implementation of the Unicode BiDi algorithm"
   homepage "https://github.com/fribidi/fribidi"
-  url "https://github.com/fribidi/fribidi/releases/download/v1.0.8/fribidi-1.0.8.tar.bz2"
-  sha256 "94c7b68d86ad2a9613b4dcffe7bbeb03523d63b5b37918bdf2e4ef34195c1e6c"
+  url "https://github.com/fribidi/fribidi/archive/v1.0.9.tar.gz"
+  sha256 "ef6f940d04213a0fb91a0177b2b57df2031bf3a7e2cd0ee2c6877a160fc206df"
 
   head do
     url "https://github.com/fribidi/fribidi.git"
