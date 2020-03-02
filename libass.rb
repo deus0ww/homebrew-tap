@@ -15,11 +15,11 @@ class Libass < Formula
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
 
-  depends_on "deus0ww/tap/fribidi"
   depends_on "deus0ww/tap/harfbuzz"
 
   depends_on "fontconfig"
   depends_on "freetype"
+  depends_on "fribidi"
 
   def install
     ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
