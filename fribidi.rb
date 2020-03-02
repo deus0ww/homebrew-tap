@@ -10,6 +10,11 @@ class Fribidi < Formula
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
 
+  patch do
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/master/fribidi/fix-docs.diff"
+    sha256 "990777213ff47cfbf06f0342f66e84783bf5eec80419ff1582dd189352ef5f73"
+  end
+
   def install
     ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
     ENV.append "CFLAGS",   "-Ofast -flto -march=native -mtune=native"
@@ -18,6 +23,7 @@ class Fribidi < Formula
     system "./autogen.sh"
     system "./configure", "--disable-debug",
                           "--disable-dependency-tracking",
+                          "--disable-docs",
                           "--disable-silent-rules",
                           "--prefix=#{prefix}",
                           "--enable-static"
