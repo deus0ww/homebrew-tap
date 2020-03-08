@@ -10,9 +10,12 @@ class Highlight < Formula
   depends_on "deus0ww/tap/luajit"
 
   def install
-    ENV.append "CXXFLAGS", "-Ofast -flto -march=native -mtune=native"
-    ENV.append "CFLAGS",   "-Ofast -flto -march=native -mtune=native"
-    ENV.append "LDFLAGS",  "-Ofast -flto -march=native -mtune=native"
+    ENV.append "CFLAGS",      "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "CPPFLAGS",    "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "CXXFLAGS",    "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "OBJCFLAGS",   "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "OBJCXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "LDFLAGS",     "-Ofast -flto=thin -march=native -mtune=native"
 
     inreplace ["src/makefile"] do |s|
       s.gsub! /^(LUA_PKG_NAME)=(.*)$/, "\\1 = luajit"
