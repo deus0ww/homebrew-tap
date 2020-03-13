@@ -13,11 +13,11 @@ class Zimg < Formula
   depends_on :macos => :el_capitan
 
   def install
-    ENV.append "CFLAGS",      "-Ofast -flto=thin -march=native -mtune=native -gfull"
-    ENV.append "CPPFLAGS",    "-Ofast -flto=thin -march=native -mtune=native -gfull"
-    ENV.append "CXXFLAGS",    "-Ofast -flto=thin -march=native -mtune=native -gfull"
-    ENV.append "OBJCFLAGS",   "-Ofast -flto=thin -march=native -mtune=native -gfull"
-    ENV.append "OBJCXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native -gfull"
+    ENV.append "CFLAGS",      "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "CPPFLAGS",    "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "CXXFLAGS",    "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "OBJCFLAGS",   "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "OBJCXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
     ENV.append "LDFLAGS",     "-Ofast -flto=thin -march=native -mtune=native -dead_strip"
 
     system "./autogen.sh"
