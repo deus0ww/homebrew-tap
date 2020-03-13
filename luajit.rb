@@ -21,12 +21,12 @@ class Luajit < Formula
     # is not set then it's forced to 10.4, which breaks compile on Mojave.
     ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version
 
-    ENV.append "CFLAGS",      "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "CPPFLAGS",    "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "CXXFLAGS",    "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "OBJCFLAGS",   "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "OBJCXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "LDFLAGS",     "-Ofast -flto=thin -march=native -mtune=native"
+    ENV.append "CFLAGS",      "-Ofast -flto=thin -march=native -mtune=native -gfull"
+    ENV.append "CPPFLAGS",    "-Ofast -flto=thin -march=native -mtune=native -gfull"
+    ENV.append "CXXFLAGS",    "-Ofast -flto=thin -march=native -mtune=native -gfull"
+    ENV.append "OBJCFLAGS",   "-Ofast -flto=thin -march=native -mtune=native -gfull"
+    ENV.append "OBJCXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native -gfull"
+    ENV.append "LDFLAGS",     "-Ofast -flto=thin -march=native -mtune=native -dead_strip"
 
     args = %W[PREFIX=#{prefix}]
     args << "XCFLAGS=-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT"
