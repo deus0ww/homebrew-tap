@@ -67,6 +67,9 @@ class Ffmpeg < Formula
   depends_on "wavpack" => :optional
   depends_on "zeromq" => :optional
 
+  uses_from_macos "bzip2"
+  uses_from_macos "zlib"
+
   def install
     args = %W[
       --cc=#{ENV.cc}

@@ -52,7 +52,9 @@ class Tesseract < Formula
     ENV.cxx11
 
     system "./autogen.sh"
-    system "./configure", "--prefix=#{prefix}", "--disable-dependency-tracking", "--datarootdir=#{HOMEBREW_PREFIX}/share"
+    system "./configure", "--prefix=#{prefix}",
+                          "--disable-dependency-tracking",
+                          "--datarootdir=#{HOMEBREW_PREFIX}/share"
 
     system "make"
 
@@ -64,10 +66,11 @@ class Tesseract < Formula
     resource("osd").stage { mv "osd.traineddata", share/"tessdata" }
   end
 
-  def caveats; <<~EOS
-    This formula contains only the "eng", "osd", and "snum" language data files.
-    If you need any other supported languages, run `brew install tesseract-lang`.
-  EOS
+  def caveats
+    <<~EOS
+      This formula contains only the "eng", "osd", and "snum" language data files.
+      If you need any other supported languages, run `brew install tesseract-lang`.
+    EOS
   end
 
   test do
