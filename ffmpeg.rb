@@ -36,7 +36,6 @@ class Ffmpeg < Formula
   depends_on "libvidstab"
   depends_on "libvorbis"
   depends_on "libvpx"
-  depends_on "libxml2"
   depends_on "opencore-amr"
   depends_on "openssl@1.1"
   depends_on "opus"
@@ -68,6 +67,7 @@ class Ffmpeg < Formula
   depends_on "zeromq" => :optional
 
   uses_from_macos "bzip2"
+  uses_from_macos "libxml2"
   uses_from_macos "zlib"
 
   def install
