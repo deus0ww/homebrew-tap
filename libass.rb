@@ -16,8 +16,6 @@ class Libass < Formula
   depends_on "pkg-config" => :build
 
   depends_on "deus0ww/tap/harfbuzz"
-
-  depends_on "fontconfig"
   depends_on "freetype"
   depends_on "fribidi"
 
@@ -32,6 +30,7 @@ class Libass < Formula
     system "autoreconf", "-i" if build.head?
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
+                          "--disable-fontconfig"
                           "--enable-large-tiles"
     system "make", "install"
   end
