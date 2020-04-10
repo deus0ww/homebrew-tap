@@ -34,12 +34,12 @@ class Mpv < Formula
   depends_on "sdl2" => :optional
 
   def install
-    ENV.append "CFLAGS",      "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "CPPFLAGS",    "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "CXXFLAGS",    "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "OBJCFLAGS",   "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "OBJCXXFLAGS", "-Ofast -flto=thin -march=native -mtune=native"
-    ENV.append "LDFLAGS",     "-Ofast -flto=thin -march=native -mtune=native -dead_strip"
+    ENV.append "CFLAGS",      "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
+    ENV.append "CPPFLAGS",    "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
+    ENV.append "CXXFLAGS",    "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
+    ENV.append "OBJCFLAGS",   "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
+    ENV.append "OBJCXXFLAGS", "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
+    ENV.append "LDFLAGS",     "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections -dead_strip"
 
     ENV["LC_ALL"] = "en_US.UTF-8"
     ENV["LANG"]   = "en_US.UTF-8"
@@ -56,7 +56,7 @@ class Mpv < Formula
       --enable-html-build
       --enable-libmpv-shared
     ]
-    args << "--swift-flags=-O -wmo -Xcc -Ofast -Xcc -flto=thin -Xcc -march=native -Xcc -mtune=native"
+    args << "--swift-flags=-O -wmo -Xcc -Ofast -Xcc -march=native -Xcc -mtune=native -Xcc -flto=thin -Xcc -fwhole-program-vtables -Xcc -ffunction-sections -Xcc -fdata-sections"
 
     args << "--enable-dvdnav" if build.with? "libdvdnav"
     args << "--enable-cdda"   if build.with? "libcdio"

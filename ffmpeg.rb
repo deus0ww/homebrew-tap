@@ -144,10 +144,10 @@ class Ffmpeg < Formula
 
     args << "--enable-hardcoded-tables"
     args << "--enable-lto"
-    args << "--extra-cflags=-march=native -mtune=native"
-    args << "--extra-cxxflags=-march=native -mtune=native"
-    args << "--extra-objcflags=-march=native -mtune=native"
-    args << "--extra-ldflags=-march=native -mtune=native"
+    args << "--extra-cflags=-march=native -mtune=native -ffunction-sections -fdata-sections"
+    args << "--extra-cxxflags=-march=native -mtune=native -ffunction-sections -fdata-sections"
+    args << "--extra-objcflags=-march=native -mtune=native -ffunction-sections -fdata-sections"
+    args << "--extra-ldflags=-march=native -mtune=native -ffunction-sections -fdata-sections"
     args << "--optflags=-Ofast"
 
     system "./configure", *args
