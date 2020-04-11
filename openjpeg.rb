@@ -14,12 +14,13 @@ class Openjpeg < Formula
   depends_on "libtiff"
 
   def install
-    ENV.append "CFLAGS",      "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
-    ENV.append "CPPFLAGS",    "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
-    ENV.append "CXXFLAGS",    "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
-    ENV.append "OBJCFLAGS",   "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
-    ENV.append "OBJCXXFLAGS", "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
-    ENV.append "LDFLAGS",     "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections -dead_strip"
+    opts = "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
+    ENV.append "CFLAGS",      opts
+    ENV.append "CPPFLAGS",    opts
+    ENV.append "CXXFLAGS",    opts
+    ENV.append "OBJCFLAGS",   opts
+    ENV.append "OBJCXXFLAGS", opts
+    ENV.append "LDFLAGS",     opts + " -dead_strip"
 
     system "cmake", ".", *std_cmake_args, "-DBUILD_DOC=ON"
     system "make", "install"
