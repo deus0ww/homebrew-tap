@@ -29,7 +29,7 @@ class Vapoursynth < Formula
     ENV.append "OBJCFLAGS",   opts
     ENV.append "OBJCXXFLAGS", opts
     ENV.append "LDFLAGS",     opts + " -dead_strip"
-    venv = virtualenv_create(buildpath/"cython", "python3")
+    venv = virtualenv_create(buildpath/"cython", Formula["python@3.8"].opt_bin/"python3")
     venv.pip_install "Cython"
     system "./autogen.sh"
     inreplace "Makefile.in", "pkglibdir = $(libdir)", "pkglibdir = $(exec_prefix)"
@@ -68,9 +68,9 @@ class Vapoursynth < Formula
   end
 
   test do
-    py3 = Language::Python.major_minor_version "python3"
-    ENV.prepend_path "PYTHONPATH", lib/"python#{py3}/site-packages"
-    system "python3", "-c", "import vapoursynth"
+    xy = Language::Python.major_minor_version Formula["python@3.8"].opt_bin/"python3"
+    ENV.prepend_path "PYTHONPATH", lib/"python#{xy}/site-packages"
+    system Formula["python@3.8"].opt_bin/"python3", "-c", "import vapoursynth"
     system bin/"vspipe", "--version"
   end
 end
