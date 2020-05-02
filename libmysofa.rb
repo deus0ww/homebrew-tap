@@ -10,7 +10,7 @@ class Libmysofa < Formula
   depends_on "cunit"
 
   def install
-    opts = "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
+    opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -fwhole-program-vtables -ffunction-sections -fdata-sections"
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts

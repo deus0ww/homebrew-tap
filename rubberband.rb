@@ -10,7 +10,7 @@ class Rubberband < Formula
   depends_on "libsndfile"
 
   def install
-    opts = "-Ofast -march=native -mtune=native -flto=thin -fwhole-program-vtables -ffunction-sections -fdata-sections"
+    opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -fwhole-program-vtables -ffunction-sections -fdata-sections"
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts
@@ -19,8 +19,8 @@ class Rubberband < Formula
     ENV.append "LDFLAGS",     opts + " -dead_strip"
 
     inreplace ["Makefile.osx"] do |s|
-      s.gsub! "-ffast-math -mfpmath=sse -msse -msse2 -O3 -ftree-vectorize", "-Ofast -flto -march=native -mtune=native"
-      s.gsub! "-lpthread", "-lpthread -Ofast -flto -march=native -mtune=native"
+      s.gsub! "-ffast-math -mfpmath=sse -msse -msse2 -O3 -ftree-vectorize", opts
+      s.gsub! "-lpthread", opts + " -lpthread -dead_strip"
       s.gsub! "DUSE_SPEEX", "DHAVE_LIBSAMPLERATE"
       s.gsub! "-framework Accelerate", "-framework Accelerate -L/usr/local/lib -lsamplerate"
     end

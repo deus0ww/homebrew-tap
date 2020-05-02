@@ -13,7 +13,7 @@ class Zimg < Formula
   depends_on :macos => :el_capitan
 
   def install
-    opts = "-Ofast -march=native -mtune=native -flto=thin -ffunction-sections -fdata-sections"
+    opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections"
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts
