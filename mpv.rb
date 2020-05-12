@@ -34,7 +34,7 @@ class Mpv < Formula
   depends_on "sdl2" => :optional
 
   def install
-    opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -fwhole-program-vtables -ffunction-sections -fdata-sections"
+    opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fforce-emit-vtables -fstrict-vtable-pointers -fwhole-program-vtables"
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts
@@ -57,7 +57,7 @@ class Mpv < Formula
       --enable-html-build
       --enable-libmpv-shared
     ]
-    args << "--swift-flags=-O -wmo -Xcc -Ofast -Xcc -march=native -Xcc -mtune=native -Xcc -flto=thin -Xcc -funroll-loops -Xcc -fomit-frame-pointer -Xcc -fwhole-program-vtables -Xcc -ffunction-sections -Xcc -fdata-sections"
+    args << "--swift-flags=-O -wmo -Xcc -Ofast -Xcc -march=native -Xcc -mtune=native -Xcc -flto=thin -Xcc -funroll-loops -Xcc -fomit-frame-pointer -Xcc -ffunction-sections -Xcc -fdata-sections -Xcc -fforce-emit-vtables -Xcc -fstrict-vtable-pointers -Xcc -fwhole-program-vtables"
 
     args << "--enable-dvdnav" if build.with? "libdvdnav"
     args << "--enable-cdda"   if build.with? "libcdio"
