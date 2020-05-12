@@ -15,7 +15,7 @@ class Dav1d < Formula
   end
 
   def install
-    opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fforce-emit-vtables -fstrict-vtable-pointers -fwhole-program-vtables"
+    opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts
@@ -23,7 +23,7 @@ class Dav1d < Formula
     ENV.append "OBJCXXFLAGS", opts
     ENV.append "LDFLAGS",     opts + " -dead_strip"
 
-    system "meson", *std_meson_args, "build", "--buildtype", "release", "-Doptimization=3", "-Db_lto=true"
+    system "meson", *std_meson_args, "build", "--buildtype", "release"
     system "ninja", "install", "-C", "build"
   end
 

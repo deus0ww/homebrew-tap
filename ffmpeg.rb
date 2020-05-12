@@ -146,10 +146,10 @@ class Ffmpeg < Formula
 
     args << "--enable-hardcoded-tables"
     args << "--enable-lto"
-    args << "--extra-cflags=-march=native -mtune=native -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fforce-emit-vtables -fstrict-vtable-pointers"
-    args << "--extra-cxxflags=-march=native -mtune=native -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fforce-emit-vtables -fstrict-vtable-pointers -fwhole-program-vtables"
-    args << "--extra-objcflags=-march=native -mtune=native -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fforce-emit-vtables -fstrict-vtable-pointers"
-    args << "--extra-ldflags=-march=native -mtune=native -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fforce-emit-vtables -fstrict-vtable-pointers -fwhole-program-vtables"
+    args << "--extra-cflags=-march=native -mtune=native -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers"
+    args << "--extra-cxxflags=-march=native -mtune=native -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
+    args << "--extra-objcflags=-march=native -mtune=native -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers"
+    args << "--extra-ldflags=-march=native -mtune=native -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
     args << "--optflags=-Ofast"
 
     system "./configure", *args
