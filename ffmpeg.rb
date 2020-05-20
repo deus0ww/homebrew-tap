@@ -11,7 +11,6 @@ class Ffmpeg < Formula
   option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-openh264", "Enable OpenH264 library"
   option "with-zeromq", "Enable using libzeromq to receive commands sent through a libzeromq client"
-  option "with-srt", "Enable SRT library"
   option "with-libvmaf", "Enable libvmaf scoring library"
 
   depends_on "nasm" => :build
@@ -27,6 +26,7 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/tesseract"
   depends_on "deus0ww/tap/zimg"
 
+  depends_on "aom"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
@@ -53,7 +53,6 @@ class Ffmpeg < Formula
 
   depends_on "chromaprint" => :optional
   depends_on "fdk-aac" => :optional
-  depends_on "fontconfig" => :optional
   depends_on "game-music-emu" => :optional
   depends_on "libcaca" => :optional
   depends_on "libgsm" => :optional
@@ -62,7 +61,6 @@ class Ffmpeg < Formula
   depends_on "libssh" => :optional
   depends_on "libvmaf" => :optional
   depends_on "openh264" => :optional
-  depends_on "srt" => :optional
   depends_on "two-lame" => :optional
   depends_on "wavpack" => :optional
   depends_on "zeromq" => :optional
@@ -93,6 +91,7 @@ class Ffmpeg < Formula
       --enable-videotoolbox
 
       --enable-frei0r
+      --enable-libaom
       --enable-libass
       --enable-libbluray
       --enable-libbs2b
@@ -137,7 +136,6 @@ class Ffmpeg < Formula
     args << "--enable-libmodplug" if build.with? "libmodplug"
     args << "--enable-libopenh264" if build.with? "openh264"
     args << "--enable-librsvg" if build.with? "librsvg"
-    args << "--enable-libsrt" if build.with? "srt"
     args << "--enable-libssh" if build.with? "libssh"
     args << "--enable-libtwolame" if build.with? "two-lame"
     args << "--enable-libvmaf" if build.with? "libvmaf"
