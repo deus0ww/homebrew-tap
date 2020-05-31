@@ -37,6 +37,7 @@ class Vapoursynth < Formula
     system "./configure", "--prefix=#{prefix}",
                           "--with-cython=#{buildpath}/cython/bin/cython",
                           "--with-plugindir=#{HOMEBREW_PREFIX}/lib/vapoursynth"
+    system "make", 'LIBS="$(python3-config --ldflags --embed)"'
     system "make", "install"
     %w[eedi3 miscfilters morpho removegrain vinverse vivtc].each do |filter|
       rm prefix/"vapoursynth/lib#{filter}.la"
@@ -64,7 +65,7 @@ class Vapoursynth < Formula
         brew install ffms2
         ln -s "../libffms2.dylib" "#{HOMEBREW_PREFIX}/lib/vapoursynth/libffms2.dylib"
       For more information regarding plugins, please visit:
-        \x1B[4mhttp://www.vapoursynth.com/doc/pluginlist.html\x1B[0m
+        \x1B[4mhttp://www.vapoursynth.com/doc/plugins.html\x1B[0m
     EOS
   end
 
