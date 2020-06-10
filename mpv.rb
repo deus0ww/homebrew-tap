@@ -47,6 +47,9 @@ class Mpv < Formula
     ENV["LANG"]   = "en_US.UTF-8"
     ENV["TOOLCHAINS"] = "swift"
 
+    # libarchive is keg-only
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig"
+
     args = %W[
       --prefix=#{prefix}
       --confdir=#{etc}/mpv
