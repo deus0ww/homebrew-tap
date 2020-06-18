@@ -39,6 +39,7 @@ class Ffmpeg < Formula
   depends_on "opencore-amr"
   depends_on "openssl@1.1"
   depends_on "opus"
+  depends_on "rav1e"
   depends_on "rtmpdump"
   depends_on "sdl2"
   depends_on "snappy"
@@ -70,10 +71,6 @@ class Ffmpeg < Formula
   uses_from_macos "zlib"
 
   def install
-    # Work around Xcode 11 clang bug
-    # https://bitbucket.org/multicoreware/x265/issues/514/wrong-code-generated-on-macos-1015
-    ENV.append_to_cflags "-fno-stack-check" if DevelopmentTools.clang_build_version >= 1010
-
     args = %W[
       --cc=#{ENV.cc}
       --host-cflags=#{ENV.cflags}
@@ -104,6 +101,7 @@ class Ffmpeg < Formula
       --enable-libopencore-amrwb
       --enable-libopenjpeg
       --enable-libopus
+      --enable-librav1e
       --enable-librtmp
       --enable-librubberband
       --enable-libsnappy
