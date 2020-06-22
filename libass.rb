@@ -19,6 +19,10 @@ class Libass < Formula
   depends_on "freetype"
   depends_on "fribidi"
 
+  on_linux do
+    depends_on "fontconfig"
+  end
+
   def install
     opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
     opts += " -fforce-emit-vtables" if MacOS.version >= :mojave
