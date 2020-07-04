@@ -6,7 +6,6 @@ class Ffmpeg < Formula
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
-  option "with-fdk-aac", "Enable the Fraunhofer FDK AAC library"
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-openh264", "Enable OpenH264 library"
@@ -27,6 +26,7 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/zimg"
 
   depends_on "aom"
+  depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
@@ -53,7 +53,6 @@ class Ffmpeg < Formula
   depends_on "xz"
 
   depends_on "chromaprint" => :optional
-  depends_on "fdk-aac" => :optional
   depends_on "game-music-emu" => :optional
   depends_on "libcaca" => :optional
   depends_on "libgsm" => :optional
@@ -93,6 +92,7 @@ class Ffmpeg < Formula
       --enable-libbluray
       --enable-libbs2b
       --enable-libdav1d
+      --enable-libfdk-aac
       --enable-libfontconfig
       --enable-libfreetype
       --enable-libmp3lame
@@ -122,13 +122,16 @@ class Ffmpeg < Formula
       --enable-lzma
       --enable-openssl
 
+      --disable-htmlpages
+      --disable-podpages
+      --disable-txtpages
+
       --disable-libjack
       --disable-indev=jack
     ]
 
     args << "--enable-chromaprint" if build.with? "chromaprint"
     args << "--enable-libcaca" if build.with? "libcaca"
-    args << "--enable-libfdk-aac" if build.with? "fdk-aac"
     args << "--enable-libgme" if build.with? "game-music-emu"
     args << "--enable-libgsm" if build.with? "libgsm"
     args << "--enable-libmodplug" if build.with? "libmodplug"
