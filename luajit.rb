@@ -3,6 +3,7 @@ class Luajit < Formula
   homepage "https://luajit.org/luajit.html"
   url "https://github.com/moonjit/moonjit/archive/2.2.0.tar.gz"
   sha256 "83deb2c880488dfe7dd8ebf09e3b1e7613ef4b8420de53de6f712f01aabca2b6"
+  license "MIT"
   head "https://github.com/moonjit/moonjit.git" # , :branch => "v2.1"
   # url "https://github.com/LuaJIT/LuaJIT/archive/v2.1.0-beta3.tar.gz"
   # sha256 "1ad2e34b111c802f9d0cdf019e986909123237a28c746b21295b63c9e785d9c3"
