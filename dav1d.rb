@@ -25,7 +25,7 @@ class Dav1d < Formula
     ENV.append "OBJCXXFLAGS", opts
     ENV.append "LDFLAGS",     opts + " -dead_strip"
 
-    system "meson", *std_meson_args, "build", "--buildtype", "release"
+    system "meson", *std_meson_args, "build"
     system "ninja", "install", "-C", "build"
   end
 
