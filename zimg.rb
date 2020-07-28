@@ -11,7 +11,7 @@ class Zimg < Formula
   depends_on "libtool" => :build
 
   # Upstream has decided not to fix https://github.com/sekrit-twc/zimg/issues/52
-  depends_on :macos => :el_capitan
+  depends_on macos: :el_capitan
 
   def install
     opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers"

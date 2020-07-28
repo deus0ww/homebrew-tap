@@ -6,7 +6,7 @@ class Squid < Formula
   license "GPL-2.0"
 
   head do
-    url "lp:squid", :using => :bzr
+    url "lp:squid", using: :bzr
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
@@ -56,7 +56,7 @@ class Squid < Formula
     system "make", "install"
   end
 
-  plist_options :manual => "squid"
+  plist_options manual: "squid"
 
   def plist
     <<~EOS

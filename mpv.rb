@@ -4,12 +4,12 @@ class Mpv < Formula
   url "https://github.com/mpv-player/mpv/archive/v0.32.0.tar.gz"
   sha256 "9163f64832226d22e24bbc4874ebd6ac02372cd717bef15c28a0aa858c5fe592"
   license "GPL-2.0"
-  head "https://github.com/mpv-player/mpv.git" # , :branch => 'name'
+  head "https://github.com/mpv-player/mpv.git" # , branch: "name"
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
   depends_on "python@3.8" => :build
-  depends_on :xcode => :build
+  depends_on xcode: :build
 
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "deus0ww/tap/libass"
@@ -77,5 +77,6 @@ class Mpv < Formula
 
   test do
     system bin/"mpv", "--ao=null", test_fixtures("test.wav")
+    assert_match "vapoursynth", shell_output(bin/"mpv --vf=help")
   end
 end
