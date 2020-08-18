@@ -14,14 +14,13 @@ class Zimg < Formula
   depends_on macos: :el_capitan
 
   def install
-    opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers"
+    opts = "-Ofast -march=native -mtune=native -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers"
     opts += " -fforce-emit-vtables" if MacOS.version >= :mojave
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts
     ENV.append "OBJCFLAGS",   opts
-    ENV.append "OBJCXXFLAGS", opts
-    ENV.append "LDFLAGS",     opts + " -dead_strip"
+    ENV.append "OBJCXXFLAGS", opts + " -dead_strip"
 
     system "./autogen.sh"
     system "./configure", "--prefix=#{prefix}"
