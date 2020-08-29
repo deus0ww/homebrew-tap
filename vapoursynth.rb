@@ -6,6 +6,11 @@ class Vapoursynth < Formula
   license "LGPL-2.1"
   head "https://github.com/vapoursynth/vapoursynth.git"
 
+  livecheck do
+    url :head
+    regex(/^R(\d+(?:\.\d+)*?)$/i)
+  end
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "cython" => :build

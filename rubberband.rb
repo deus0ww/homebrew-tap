@@ -6,6 +6,11 @@ class Rubberband < Formula
   license "GPL-2.0"
   head "https://hg.sr.ht/~breakfastquay/rubberband", using: :hg
 
+  livecheck do
+    url :homepage
+    regex(/Rubber Band Library v?(\d+(?:\.\d+)+) released/i)
+  end
+
   depends_on "pkg-config" => :build
   depends_on "libsamplerate"
   depends_on "libsndfile"

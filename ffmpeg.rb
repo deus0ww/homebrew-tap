@@ -8,6 +8,11 @@ class Ffmpeg < Formula
   license "GPL-2.0"
   head "https://github.com/FFmpeg/FFmpeg.git"
 
+  livecheck do
+    url "https://ffmpeg.org/download.html"
+    regex(/href=.*?ffmpeg[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"

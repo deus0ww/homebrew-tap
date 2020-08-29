@@ -5,6 +5,11 @@ class Leptonica < Formula
   sha256 "ec9c46c2aefbb960fb6a6b7f800fe39de48343437b6ce08e30a8d9688ed14ba4"
   license "BSD-2-Clause"
 
+  livecheck do
+    url "http://www.leptonica.org/download.html"
+    regex(/href=.*?leptonica[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
   depends_on "pkg-config" => :build
   depends_on "deus0ww/tap/openjpeg"
   depends_on "giflib"

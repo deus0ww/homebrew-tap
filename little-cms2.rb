@@ -1,12 +1,22 @@
 class LittleCms2 < Formula
   desc "Color management engine supporting ICC profiles"
   homepage "http://www.littlecms.com/"
-  # Ensure release is announced on http://www.littlecms.com/download.html
+  # Ensure release is announced at http://www.littlecms.com/categories/releases/
+  # (or http://www.littlecms.com/blog/)
   url "https://downloads.sourceforge.net/project/lcms/lcms/2.11/lcms2-2.11.tar.gz"
   sha256 "dc49b9c8e4d7cdff376040571a722902b682a795bf92985a85b48854c270772e"
   license "MIT"
   version_scheme 1
   head "https://github.com/deus0ww/Little-CMS.git"
+
+  # The Little CMS website has been redesigned and there's no longer a
+  # "Download" page we can check for releases. As of writing this, checking the
+  # "Releases" blog posts seems to be our best option and we just have to hope
+  # that the post URLs, headings, etc. maintain a consistent format.
+  livecheck do
+    url "http://www.littlecms.com/categories/releases/"
+    regex(%r{href=.*lcms2[._-]v?(\d+(?:\.\d+)+)/?["' >]}i)
+  end
 
   depends_on "jpeg"
   depends_on "libtiff"

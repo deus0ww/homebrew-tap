@@ -6,6 +6,11 @@ class Luajit < Formula
   license "MIT"
   head "https://github.com/moonjit/moonjit.git" # , branch: "v2.1"
 
+  livecheck do
+    url "https://luajit.org/download.html"
+    regex(/class="downname">LuaJIT[._-]v?([\d.]+)</i)
+  end
+
   def install
     # 1 - Override the hardcoded gcc.
     # 2 - Remove the "-march=i686" so we can set the march in cflags.

@@ -6,6 +6,11 @@ class Tesseract < Formula
   license "Apache-2.0"
   head "https://github.com/tesseract-ocr/tesseract.git"
 
+  livecheck do
+    url :head
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
   depends_on "autoconf" => :build
   depends_on "autoconf-archive" => :build
   depends_on "automake" => :build
