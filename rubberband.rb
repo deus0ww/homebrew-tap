@@ -1,9 +1,9 @@
 class Rubberband < Formula
   desc "Audio time stretcher tool and library"
   homepage "https://breakfastquay.com/rubberband/"
-  url "https://breakfastquay.com/files/releases/rubberband-1.8.2.tar.bz2"
-  sha256 "86bed06b7115b64441d32ae53634fcc0539a50b9b648ef87443f936782f6c3ca"
-  license "GPL-2.0-or-later"
+  url "https://breakfastquay.com/files/releases/rubberband-1.9.0.tar.bz2"
+  sha256 "4f5b9509364ea876b4052fc390c079a3ad4ab63a2683aad09662fb905c2dc026"
+  license "GPL-2.0"
   head "https://hg.sr.ht/~breakfastquay/rubberband", using: :hg
 
   livecheck do
@@ -30,10 +30,6 @@ class Rubberband < Formula
       s.gsub! "-lpthread", opts + " -lpthread -dead_strip"
       s.gsub! "DUSE_SPEEX", "DHAVE_LIBSAMPLERATE"
       s.gsub! "-framework Accelerate", "-framework Accelerate -L/usr/local/lib -lsamplerate"
-    end
-
-    inreplace ["src/StretcherImpl.cpp"] do |s|
-      s.gsub! "Resampler::FastestTolerable", "Resampler::Best"
     end
 
     system "make", "-f", "Makefile.osx"
