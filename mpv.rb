@@ -59,7 +59,7 @@ class Mpv < Formula
       --mandir=#{man}
       --zshdir=#{zsh_completion}
 
-      --enable-html-build
+      --disable-html-build
       --enable-libmpv-shared
     ]
     args << "--swift-flags=-O -wmo -Xcc -Ofast -Xcc -march=native -Xcc -mtune=native -Xcc -flto=thin -Xcc -funroll-loops -Xcc -fomit-frame-pointer -Xcc -ffunction-sections -Xcc -fdata-sections -Xcc -fstrict-vtable-pointers -Xcc -fwhole-program-vtables"
