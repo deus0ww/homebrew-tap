@@ -25,6 +25,8 @@ class Mpv < Formula
   depends_on "uchardet"
   depends_on "youtube-dl"
 
+  depends_on "subliminal" => :recommended
+
   depends_on "jack" => :optional
   depends_on "libaacs" => :optional
   depends_on "libbluray" => :optional
@@ -33,6 +35,11 @@ class Mpv < Formula
   depends_on "libdvdnav" => :optional
   depends_on "libdvdread" => :optional
   depends_on "sdl2" => :optional
+
+  on_macos do
+    depends_on "tag" => :recommended
+    depends_on "trash" => :recommended
+  end
 
   def install
     opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
