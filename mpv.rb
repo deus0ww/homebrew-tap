@@ -44,7 +44,8 @@ class Mpv < Formula
   end
 
   def install
-    opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
+    opts  = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer"
+    opts += " -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
     opts += " -fforce-emit-vtables" if MacOS.version >= :mojave
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts
@@ -60,6 +61,10 @@ class Mpv < Formula
     # libarchive is keg-only
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig"
 
+    swiftflags  = "--swift-flags=-O -wmo -Xcc -Ofast -Xcc -march=native -Xcc -mtune=native -Xcc -flto=thin"
+    swiftflags += " -Xcc -funroll-loops -Xcc -fomit-frame-pointer -Xcc -ffunction-sections -Xcc -fdata-sections"
+    swiftflags += " -Xcc -fstrict-vtable-pointers -Xcc -fwhole-program-vtables"
+
     args = %W[
       --prefix=#{prefix}
       --confdir=#{etc}/mpv
@@ -71,7 +76,7 @@ class Mpv < Formula
       --disable-html-build
       --enable-libmpv-shared
     ]
-    args << "--swift-flags=-O -wmo -Xcc -Ofast -Xcc -march=native -Xcc -mtune=native -Xcc -flto=thin -Xcc -funroll-loops -Xcc -fomit-frame-pointer -Xcc -ffunction-sections -Xcc -fdata-sections -Xcc -fstrict-vtable-pointers -Xcc -fwhole-program-vtables"
+    args << swiftflags
 
     args << "--enable-dvdnav" if build.with? "libdvdnav"
     args << "--enable-cdda"   if build.with? "libcdio"

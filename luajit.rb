@@ -29,7 +29,8 @@ class Luajit < Formula
     # is not set then it's forced to 10.4, which breaks compile on Mojave.
     ENV["MACOSX_DEPLOYMENT_TARGET"] = MacOS.version
 
-    opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
+    opts  = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer"
+    opts += " -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
     opts += " -fforce-emit-vtables" if MacOS.version >= :mojave
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts

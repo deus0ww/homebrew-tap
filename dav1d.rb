@@ -18,7 +18,8 @@ class Dav1d < Formula
   end
 
   def install
-    opts = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
+    opts  = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer"
+    opts += " -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
     opts += " -fforce-emit-vtables" if MacOS.version >= :mojave
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts

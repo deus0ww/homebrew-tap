@@ -25,6 +25,7 @@ class Ffmpeg < Formula
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
 
+  depends_on "aom"
   depends_on "deus0ww/tap/dav1d"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
@@ -33,8 +34,6 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/rubberband"
   depends_on "deus0ww/tap/tesseract"
   depends_on "deus0ww/tap/zimg"
-
-  depends_on "aom"
   depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
@@ -156,12 +155,13 @@ class Ffmpeg < Formula
     args << "--enable-lto"
     args << "--optflags=-Ofast"
 
-    opts = "-march=native -mtune=native -funroll-loops -fomit-frame-pointer -ffunction-sections -fdata-sections -fstrict-vtable-pointers"
+    opts  = "-march=native -mtune=native -funroll-loops -fomit-frame-pointer"
+    opts += " -ffunction-sections -fdata-sections -fstrict-vtable-pointers"
     opts += " -fforce-emit-vtables" if MacOS.version >= :mojave
-    args << "--extra-cflags=" + opts
-    args << "--extra-cxxflags=" + opts + " -fwhole-program-vtables"
+    args << "--extra-cflags="    + opts
+    args << "--extra-cxxflags="  + opts + " -fwhole-program-vtables"
     args << "--extra-objcflags=" + opts
-    args << "--extra-ldflags=" + opts + " -fwhole-program-vtables"
+    args << "--extra-ldflags="   + opts + " -fwhole-program-vtables"
 
     system "./configure", *args
     system "make", "install"
