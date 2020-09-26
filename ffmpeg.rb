@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Rubberband < Formula
   desc "Audio time stretcher tool and library"
   homepage "https://breakfastquay.com/rubberband/"

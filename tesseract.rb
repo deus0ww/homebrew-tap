@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tesseract < Formula
   desc "OCR (Optical Character Recognition) engine"
   homepage "https://github.com/tesseract-ocr/"

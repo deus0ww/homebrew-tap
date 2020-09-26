@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Vapoursynth < Formula
   desc "Video processing framework with simplicity in mind"
   homepage "http://www.vapoursynth.com"

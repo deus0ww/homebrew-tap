@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Zimg < Formula
   desc "Scaling, colorspace conversion, and dithering library"
   homepage "https://github.com/sekrit-twc/zimg"

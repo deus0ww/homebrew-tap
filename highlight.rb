@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Highlight < Formula
   desc "Convert source code to formatted text with syntax highlighting"
   homepage "http://www.andre-simon.de/doku/highlight/en/highlight.php"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Openjpeg < Formula
   desc "Library for JPEG-2000 image manipulation"
   homepage "https://www.openjpeg.org/"

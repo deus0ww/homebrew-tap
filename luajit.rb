@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Luajit < Formula
   desc "Just-In-Time Compiler (JIT) for the Lua programming language"
   homepage "https://luajit.org/luajit.html"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Leptonica < Formula
   desc "Image processing and image analysis library"
   homepage "http://www.leptonica.org/"

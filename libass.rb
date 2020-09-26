@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Libass < Formula
   desc "Subtitle renderer for the ASS/SSA subtitle format"
   homepage "https://github.com/libass/libass"

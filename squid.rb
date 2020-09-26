@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Squid < Formula
   desc "Advanced proxy caching server for HTTP, HTTPS, FTP, and Gopher"
   homepage "http://www.squid-cache.org/"

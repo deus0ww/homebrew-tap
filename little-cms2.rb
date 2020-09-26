@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LittleCms2 < Formula
   desc "Color management engine supporting ICC profiles"
   homepage "https://www.littlecms.com/"
