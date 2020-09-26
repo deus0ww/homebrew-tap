@@ -3,10 +3,10 @@
 class Luajit < Formula
   desc "Just-In-Time Compiler (JIT) for the Lua programming language"
   homepage "https://luajit.org/luajit.html"
-  url "https://github.com/moonjit/moonjit/archive/2.2.0.tar.gz"
-  sha256 "83deb2c880488dfe7dd8ebf09e3b1e7613ef4b8420de53de6f712f01aabca2b6"
+  url "https://github.com/LuaJIT/LuaJIT/archive/v2.1.0-beta3.tar.gz"
+  sha256 "409f7fe570d3c16558e594421c47bdd130238323c9d6fd6c83dedd2aaeb082a8"
   license "MIT"
-  head "https://github.com/moonjit/moonjit.git" # , branch: "v2.1"
+  head "https://github.com/LuaJIT/LuaJIT.git", branch: "v2.1"
 
   livecheck do
     url "https://luajit.org/download.html"
