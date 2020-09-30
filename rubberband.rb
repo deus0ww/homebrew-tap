@@ -17,6 +17,13 @@ class Rubberband < Formula
   depends_on "libsamplerate"
   depends_on "libsndfile"
 
+  on_linux do
+    depends_on "fftw"
+    depends_on "ladspa-sdk"
+    depends_on "openjdk"
+    depends_on "vamp-plugin-sdk"
+  end
+
   def install
     opts  = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer"
     opts += " -ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables"
