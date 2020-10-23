@@ -10,7 +10,7 @@ class Mpv < Formula
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.8" => :build
+  depends_on "python@3.9" => :build
   depends_on xcode: :build
 
   depends_on "deus0ww/tap/ffmpeg"
@@ -54,6 +54,9 @@ class Mpv < Formula
     ENV.append "OBJCXXFLAGS", opts
     ENV.append "LDFLAGS",     opts + " -dead_strip"
 
+    # LANG is unset by default on macOS and causes issues when calling getlocale
+    # or getdefaultlocale in docutils. Force the default c/posix locale since
+    # that's good enough for building the manpage.
     ENV["LC_ALL"] = "en_US.UTF-8"
     ENV["LANG"]   = "en_US.UTF-8"
     ENV["TOOLCHAINS"] = "swift"
@@ -82,10 +85,10 @@ class Mpv < Formula
     args << "--enable-cdda"   if build.with? "libcdio"
     args << "--enable-sdl2"   if build.with? "sdl2"
 
-    system Formula["python@3.8"].opt_bin/"python3", "bootstrap.py"
-    system Formula["python@3.8"].opt_bin/"python3", "waf", "configure", *args
-    system Formula["python@3.8"].opt_bin/"python3", "waf", "install"
-    system Formula["python@3.8"].opt_bin/"python3", "TOOLS/osxbundle.py", "build/mpv"
+    system Formula["python@3.9"].opt_bin/"python3", "bootstrap.py"
+    system Formula["python@3.9"].opt_bin/"python3", "waf", "configure", *args
+    system Formula["python@3.9"].opt_bin/"python3", "waf", "install"
+    system Formula["python@3.9"].opt_bin/"python3", "TOOLS/osxbundle.py", "build/mpv"
     prefix.install "build/mpv.app"
   end
 

@@ -21,7 +21,7 @@ class Vapoursynth < Formula
   depends_on "pkg-config" => :build
   depends_on "deus0ww/tap/zimg"
   depends_on macos: :el_capitan # due to zimg dependency
-  depends_on "python@3.8"
+  depends_on "python@3.9"
 
   def install
     opts  = "-Ofast -march=native -mtune=native -flto=thin -funroll-loops -fomit-frame-pointer"
@@ -74,9 +74,9 @@ class Vapoursynth < Formula
   end
 
   test do
-    xy = Language::Python.major_minor_version Formula["python@3.8"].opt_bin/"python3"
+    xy = Language::Python.major_minor_version Formula["python@3.9"].opt_bin/"python3"
     ENV.prepend_path "PYTHONPATH", lib/"python#{xy}/site-packages"
-    system Formula["python@3.8"].opt_bin/"python3", "-c", "import vapoursynth"
+    system Formula["python@3.9"].opt_bin/"python3", "-c", "import vapoursynth"
     system bin/"vspipe", "--version"
   end
 end
