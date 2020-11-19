@@ -5,7 +5,7 @@ class Squid < Formula
   homepage "http://www.squid-cache.org/"
   url "http://www.squid-cache.org/Versions/v4/squid-4.13.tar.xz"
   sha256 "6891a0f540e60779b4f24f1802a302f813c6f473ec7336a474ed68c3e2e53ee0"
-  license "GPL-2.0-or-later"
+  license "GPL-2.0"
 
   livecheck do
     url "http://www.squid-cache.org/Versions/v4/"
