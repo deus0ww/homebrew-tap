@@ -3,8 +3,8 @@
 class Vapoursynth < Formula
   desc "Video processing framework with simplicity in mind"
   homepage "http://www.vapoursynth.com"
-  url "https://github.com/vapoursynth/vapoursynth/archive/R50.tar.gz"
-  sha256 "b9dc7ce904c6a3432df7491b7052bc4cf09ccf1e7a703053f8079a2267522f97"
+  url "https://github.com/vapoursynth/vapoursynth/archive/R52.tar.gz"
+  sha256 "4d5dc7950f4357da695d29708bc98013bc3e0bd72fc5d697f8c91ce3c4a4b2ac"
   license "LGPL-2.1-or-later"
   head "https://github.com/vapoursynth/vapoursynth.git"
 
@@ -40,8 +40,6 @@ class Vapoursynth < Formula
                           "--disable-dependency-tracking",
                           "--with-cython=#{Formula["cython"].bin}/cython",
                           "--with-plugindir=#{HOMEBREW_PREFIX}/lib/vapoursynth"
-    pyflags = `python3-config --ldflags --embed`.chomp
-    system "make", "LIBS=#{pyflags}"
     system "make", "install"
     %w[eedi3 miscfilters morpho removegrain vinverse vivtc].each do |filter|
       rm prefix/"vapoursynth/lib#{filter}.la"
