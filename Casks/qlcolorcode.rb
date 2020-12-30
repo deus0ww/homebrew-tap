@@ -8,6 +8,8 @@ cask "qlcolorcode" do
   desc "QuickLook plug-in that renders source code with syntax highlighting"
   homepage "https://github.com/anthonygelibert/QLColorCode"
 
+  depends_on macos: ">= :mojave"
+
   depends_on formula: "deus0ww/tap/highlight"
 
   qlplugin "QLColorCode.qlgenerator"
