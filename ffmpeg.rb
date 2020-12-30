@@ -69,6 +69,7 @@ class Ffmpeg < Formula
   depends_on "x265"
   depends_on "xvid"
   depends_on "xz"
+  depends_on "zeromq"
 
   depends_on "chromaprint" => :optional
   depends_on "game-music-emu" => :optional
@@ -137,6 +138,7 @@ class Ffmpeg < Formula
       --enable-libxml2
       --enable-libxvid
       --enable-libzimg
+      --enable-libzmq
       --enable-lzma
       --enable-openssl
 
