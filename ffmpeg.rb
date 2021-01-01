@@ -29,7 +29,6 @@ class Ffmpeg < Formula
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-openh264", "Enable OpenH264 library"
-  option "with-zeromq", "Enable using libzeromq to receive commands sent through a libzeromq client"
   option "with-libvmaf", "Enable libvmaf scoring library"
 
   depends_on "nasm" => :build
@@ -41,9 +40,7 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/libmysofa"
   depends_on "deus0ww/tap/libsoxr"
   depends_on "deus0ww/tap/openjpeg"
-  depends_on "deus0ww/tap/rubberband"
   depends_on "deus0ww/tap/tesseract"
-  depends_on "deus0ww/tap/zimg"
   depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
@@ -59,6 +56,7 @@ class Ffmpeg < Formula
   depends_on "opus"
   depends_on "rav1e"
   depends_on "rtmpdump"
+  depends_on "rubberband"
   depends_on "sdl2"
   depends_on "snappy"
   depends_on "speex"
@@ -70,6 +68,7 @@ class Ffmpeg < Formula
   depends_on "xvid"
   depends_on "xz"
   depends_on "zeromq"
+  depends_on "zimg"
 
   depends_on "chromaprint" => :optional
   depends_on "game-music-emu" => :optional
@@ -82,7 +81,6 @@ class Ffmpeg < Formula
   depends_on "openh264" => :optional
   depends_on "two-lame" => :optional
   depends_on "wavpack" => :optional
-  depends_on "zeromq" => :optional
 
   uses_from_macos "bzip2"
   uses_from_macos "libxml2"
@@ -161,7 +159,6 @@ class Ffmpeg < Formula
     args << "--enable-libtwolame" if build.with? "two-lame"
     args << "--enable-libvmaf" if build.with? "libvmaf"
     args << "--enable-libwavpack" if build.with? "wavpack"
-    args << "--enable-libzmq" if build.with? "zeromq"
 
     args << "--enable-hardcoded-tables"
     args << "--enable-lto"
