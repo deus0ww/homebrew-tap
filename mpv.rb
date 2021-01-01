@@ -17,15 +17,15 @@ class Mpv < Formula
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/little-cms2"
   depends_on "deus0ww/tap/luajit"
-  depends_on "deus0ww/tap/rubberband"
-  depends_on "deus0ww/tap/vapoursynth"
-  depends_on "deus0ww/tap/zimg"
 
   depends_on "jpeg"
   depends_on "libarchive"
   depends_on "mujs"
+  depends_on "rubberband"
   depends_on "uchardet"
+  depends_on "vapoursynth"
   depends_on "youtube-dl"
+  depends_on "zimg"
 
   depends_on "subliminal" => :recommended
 
