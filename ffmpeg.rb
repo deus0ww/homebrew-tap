@@ -80,7 +80,6 @@ class Ffmpeg < Formula
   depends_on "libvmaf" => :optional
   depends_on "openh264" => :optional
   depends_on "two-lame" => :optional
-  depends_on "wavpack" => :optional
 
   uses_from_macos "bzip2"
   uses_from_macos "libxml2"
@@ -158,7 +157,6 @@ class Ffmpeg < Formula
     args << "--enable-libssh" if build.with? "libssh"
     args << "--enable-libtwolame" if build.with? "two-lame"
     args << "--enable-libvmaf" if build.with? "libvmaf"
-    args << "--enable-libwavpack" if build.with? "wavpack"
 
     args << "--enable-hardcoded-tables"
     args << "--enable-lto"
