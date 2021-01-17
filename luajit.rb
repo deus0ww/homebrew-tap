@@ -8,11 +8,6 @@ class Luajit < Formula
   license "MIT"
   head "https://github.com/openresty/luajit2.git", branch: "v2.1-agentzh"
 
-  livecheck do
-    url "https://luajit.org/download.html"
-    regex(/class="downname">LuaJIT[._-]v?([\d.]+)</i)
-  end
-
   def install
     # 1 - Override the hardcoded gcc.
     # 2 - Remove the "-march=i686" so we can set the march in cflags.
@@ -36,8 +31,10 @@ class Luajit < Formula
     ENV.append "OBJCXXFLAGS", opts
     ENV.append "LDFLAGS",     opts + " -dead_strip"
 
-    args = %W[PREFIX=#{prefix}]
-    args << "XCFLAGS=-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT"
+    args = %W[
+      PREFIX=#{prefix}
+      XCFLAGS=-DLUAJIT_ENABLE_GC64\ -DLUAJIT_ENABLE_LUA52COMPAT
+    ]
 
     system "make", "amalg", *args
     system "make", "install", *args
