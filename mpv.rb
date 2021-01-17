@@ -39,6 +39,7 @@ class Mpv < Formula
   depends_on "sdl2" => :optional
 
   on_macos do
+    depends_on "coreutils" => :recommended
     depends_on "tag" => :recommended
     depends_on "trash" => :recommended
   end
