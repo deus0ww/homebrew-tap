@@ -17,7 +17,6 @@ class Libass < Formula
 
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
-
   depends_on "freetype"
   depends_on "fribidi"
   depends_on "harfbuzz"
@@ -38,10 +37,16 @@ class Libass < Formula
     ENV.append "LDFLAGS",     opts + " -dead_strip"
 
     system "autoreconf", "-i" if build.head?
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
-                          "--disable-fontconfig",
-                          "--enable-large-tiles"
+    args = %W[
+      --disable-dependency-tracking
+      --prefix=#{prefix}
+      --enable-large-tiles
+    ]
+    on_macos do
+      # libass uses coretext on macOS, fontconfig on Linux
+      args << "--disable-fontconfig"
+    end
+    system "./configure", *args
     system "make", "install"
   end
 

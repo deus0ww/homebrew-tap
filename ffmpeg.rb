@@ -85,6 +85,10 @@ class Ffmpeg < Formula
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
 
+  on_linux do
+    depends_on "libxv"
+  end
+
   def install
     args = %W[
       --cc=#{ENV.cc}
@@ -100,7 +104,6 @@ class Ffmpeg < Formula
       --enable-pthreads
       --enable-shared
       --enable-version3
-      --enable-videotoolbox
 
       --enable-frei0r
       --enable-libaom
@@ -146,6 +149,11 @@ class Ffmpeg < Formula
       --disable-libjack
       --disable-indev=jack
     ]
+
+    on_macos do
+      # Needs corefoundation, coremedia, corevideo
+      args << "--enable-videotoolbox"
+    end
 
     args << "--enable-chromaprint" if build.with? "chromaprint"
     args << "--enable-libcaca" if build.with? "libcaca"
