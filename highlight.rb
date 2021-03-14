@@ -8,6 +8,11 @@ class Highlight < Formula
   license "GPL-3.0-or-later"
   head "https://gitlab.com/saalen/highlight.git"
 
+  livecheck do
+    url "http://www.andre-simon.de/zip/download.php"
+    regex(/href=.*?highlight[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
   depends_on "boost" => :build
   depends_on "pkg-config" => :build
   depends_on "deus0ww/tap/luajit"
