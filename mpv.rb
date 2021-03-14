@@ -16,6 +16,7 @@ class Mpv < Formula
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/luajit"
+  depends_on "deus0ww/tap/yt-dlp"
 
   depends_on "jpeg"
   depends_on "libarchive"
@@ -24,7 +25,6 @@ class Mpv < Formula
   depends_on "rubberband"
   depends_on "uchardet"
   depends_on "vapoursynth"
-  depends_on "youtube-dl"
   depends_on "zimg"
 
   depends_on "subliminal" => :recommended
