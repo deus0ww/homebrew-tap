@@ -8,6 +8,7 @@ class YtDlp < Formula
   license "Unlicense"
   head "https://github.com/yt-dlp/yt-dlp.git"
 
+  depends_on "aria2"
   depends_on "pandoc"
   depends_on "python@3.9"
   depends_on "zip"
