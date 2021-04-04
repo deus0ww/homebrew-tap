@@ -3,8 +3,8 @@ class YtDlp < Formula
 
   desc "Download YouTube videos from the command-line"
   homepage "https://github.com/yt-dlp/yt-dlp"
-  url "https://github.com/yt-dlp/yt-dlp/archive/2021.03.07.tar.gz"
-  sha256 "16c03bcc4e0ff81ef73e4bee4fe3c6d74b41fed5891a10c0293bd7e7f23a5f1d"
+  url "https://github.com/yt-dlp/yt-dlp/archive/refs/tags/2021.04.03.tar.gz"
+  sha256 "757a315b4c6bb10aa9289727e85a49ce303cec3ee066bdb1b96203584051af3d"
   license "Unlicense"
   head "https://github.com/yt-dlp/yt-dlp.git"
 
