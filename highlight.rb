@@ -29,7 +29,7 @@ class Highlight < Formula
     ENV.append "LDFLAGS",     opts + " -dead_strip"
 
     inreplace ["src/makefile"] do |s|
-      s.gsub! /^(LUA_PKG_NAME)=(.*)$/, "\\1 = luajit"
+      s.gsub!(/^(LUA_PKG_NAME)=(.*)$/, "\\1 = luajit")
     end
 
     conf_dir = etc/"highlight/" # highlight needs a final / for conf_dir
