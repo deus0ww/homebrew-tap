@@ -83,7 +83,6 @@ class Ffmpeg < Formula
       --host-ldflags=#{ENV.ldflags}
       --prefix=#{prefix}
 
-      --enable-avresample
       --enable-ffplay
       --enable-gpl
       --enable-nonfree
