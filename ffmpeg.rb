@@ -154,9 +154,9 @@ class Ffmpeg < Formula
     args << "--enable-lto"
     args << "--optflags=-Ofast"
 
-    opts  = "-march=native -mtune=native -funroll-loops -fomit-frame-pointer"
-    opts += " -ffunction-sections -fdata-sections -fstrict-vtable-pointers"
-    opts += " -fforce-emit-vtables" if MacOS.version >= :mojave
+    opts  = "-funroll-loops -fomit-frame-pointer "
+    opts += "-ffunction-sections -fdata-sections -fstrict-vtable-pointers "
+    opts += "-fforce-emit-vtables " if MacOS.version >= :mojave
     args << "--extra-cflags="    + opts
     args << "--extra-cxxflags="  + opts + " -fwhole-program-vtables"
     args << "--extra-objcflags=" + opts
