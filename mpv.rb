@@ -15,19 +15,17 @@ class Mpv < Formula
 
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "deus0ww/tap/libass"
-  depends_on "deus0ww/tap/luajit"
-  depends_on "deus0ww/tap/yt-dlp"
+  depends_on "deus0ww/tap/yt-dlp" => :optional
 
   depends_on "jpeg"
   depends_on "libarchive"
   depends_on "little-cms2"
+  depends_on "luajit-openresty"
   depends_on "mujs"
   depends_on "rubberband"
   depends_on "uchardet"
   depends_on "vapoursynth"
   depends_on "zimg"
-
-  depends_on "subliminal" => :recommended
 
   depends_on "jack" => :optional
   depends_on "libaacs" => :optional
@@ -38,8 +36,11 @@ class Mpv < Formula
   depends_on "libdvdread" => :optional
   depends_on "sdl2" => :optional
 
+  depends_on "subliminal" => :recommended
+
   on_macos do
     depends_on "coreutils" => :recommended
+    depends_on "dockutil" => :recommended
     depends_on "tag" => :recommended
     depends_on "trash" => :recommended
   end
@@ -64,10 +65,8 @@ class Mpv < Formula
 
     # libarchive is keg-only
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig"
-
-    swiftflags  = "--swift-flags=-O -wmo -Xcc -Ofast -Xcc -march=native -Xcc -mtune=native -Xcc -flto=thin"
-    swiftflags += " -Xcc -funroll-loops -Xcc -fomit-frame-pointer -Xcc -ffunction-sections -Xcc -fdata-sections"
-    swiftflags += " -Xcc -fstrict-vtable-pointers -Xcc -fwhole-program-vtables"
+    # luajit-openresty is keg-only
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["luajit-openresty"].opt_lib/"pkgconfig"
 
     args = %W[
       --prefix=#{prefix}
@@ -80,11 +79,7 @@ class Mpv < Formula
       --disable-html-build
       --enable-libmpv-shared
     ]
-    args << swiftflags
-
-    args << "--enable-dvdnav" if build.with? "libdvdnav"
-    args << "--enable-cdda"   if build.with? "libcdio"
-    args << "--enable-sdl2"   if build.with? "sdl2"
+    args << "--swift-flags=-O -wmo"
 
     system Formula["python@3.9"].opt_bin/"python3", "bootstrap.py"
     system Formula["python@3.9"].opt_bin/"python3", "waf", "configure", *args

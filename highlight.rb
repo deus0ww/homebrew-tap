@@ -15,7 +15,7 @@ class Highlight < Formula
 
   depends_on "boost" => :build
   depends_on "pkg-config" => :build
-  depends_on "deus0ww/tap/luajit"
+  depends_on "luajit-openresty"
 
   def install
     opts  = "-Ofast -flto=thin -funroll-loops -fomit-frame-pointer "
