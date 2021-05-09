@@ -8,17 +8,11 @@ class YtDlp < Formula
   license "Unlicense"
   head "https://github.com/yt-dlp/yt-dlp.git"
 
-  depends_on "aria2"
-  depends_on "pandoc"
   depends_on "python@3.9"
-  depends_on "zip"
+  depends_on "aria2" => :recommended
 
   def install
-    system "make"
     virtualenv_install_with_resources
-    man1.install_symlink libexec/"share/man/man1/yt-dlp.1" => "yt-dlp.1"
-    bash_completion.install libexec/"share/bash-completion/completions/yt-dlp"
-    fish_completion.install libexec/"share/fish/vendor_completions.d/yt-dlp.fish"
   end
 
   test do
