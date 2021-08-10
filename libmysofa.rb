@@ -13,7 +13,8 @@ class Libmysofa < Formula
   depends_on "cunit"
 
   def install
-    opts  = "-Ofast -flto=thin -funroll-loops -fomit-frame-pointer "
+    opts  = Hardware::CPU.arm? ? "" : "-march=native -mtune=native "
+    opts += "-Ofast -flto=thin -funroll-loops -fomit-frame-pointer "
     opts += "-ffunction-sections -fdata-sections -fstrict-vtable-pointers -fwhole-program-vtables "
     opts += "-fforce-emit-vtables " if MacOS.version >= :mojave
     ENV.append "CFLAGS",      opts
