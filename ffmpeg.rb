@@ -154,7 +154,7 @@ class Ffmpeg < Formula
     args << "--enable-lto"
     args << "--optflags=-Ofast"
 
-    opts  = Hardware::CPU.arm? ? "" : "-march=native -mtune=native "
+    opts  = Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native "
     opts += "-funroll-loops -fomit-frame-pointer "
     opts += "-ffunction-sections -fdata-sections -fstrict-vtable-pointers "
     opts += "-fforce-emit-vtables " if MacOS.version >= :mojave
