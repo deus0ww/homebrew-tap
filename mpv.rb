@@ -78,7 +78,6 @@ class Mpv < Formula
       --zshdir=#{zsh_completion}
 
       --disable-html-build
-      --enable-ffmpeg-strict-abi
       --enable-libmpv-shared
     ]
     args << "--swift-flags=-O -wmo"
