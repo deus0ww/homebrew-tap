@@ -139,10 +139,8 @@ class Ffmpeg < Formula
     # Remove in the next release
     args << "--enable-avresample" unless build.head?
 
-    on_macos do
-      # Needs corefoundation, coremedia, corevideo
-      args << "--enable-videotoolbox"
-    end
+    # Needs corefoundation, coremedia, corevideo
+    args << "--enable-videotoolbox" if OS.mac?
 
     args << "--enable-libcaca" if build.with? "libcaca"
     args << "--enable-libgme" if build.with? "game-music-emu"
