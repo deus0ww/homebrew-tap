@@ -83,13 +83,13 @@ class Ffmpeg < Formula
       --host-ldflags=#{ENV.ldflags}
       --prefix=#{prefix}
 
-      --enable-ffplay
       --enable-gpl
       --enable-nonfree
+      --enable-version3
+
       --enable-opencl
       --enable-pthreads
       --enable-shared
-      --enable-version3
 
       --enable-frei0r
       --enable-libaom
