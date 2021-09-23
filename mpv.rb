@@ -62,7 +62,6 @@ class Mpv < Formula
     # that's good enough for building the manpage.
     ENV["LC_ALL"] = "en_US.UTF-8"
     ENV["LANG"]   = "en_US.UTF-8"
-    ENV["TOOLCHAINS"] = "swift"
 
     # libarchive is keg-only
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig"
