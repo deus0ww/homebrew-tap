@@ -6,7 +6,9 @@ class Mpv < Formula
   url "https://github.com/mpv-player/mpv/archive/v0.33.1.tar.gz"
   sha256 "100a116b9f23bdcda3a596e9f26be3a69f166a4f1d00910d1789b6571c46f3a9"
   license :cannot_represent
-  head "https://github.com/mpv-player/mpv.git" # , branch: "name"
+  head "https://github.com/mpv-player/mpv.git", branch: "master"
+
+  bottle :unneeded
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
@@ -15,8 +17,6 @@ class Mpv < Formula
 
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "deus0ww/tap/libass"
-  depends_on "deus0ww/tap/yt-dlp" => :optional
-
   depends_on "jpeg"
   depends_on "libarchive"
   depends_on "little-cms2"
@@ -27,6 +27,9 @@ class Mpv < Formula
   depends_on "vapoursynth"
   depends_on "zimg"
 
+  depends_on "deus0ww/tap/yt-dlp" => :recommended
+  depends_on "subliminal" => :recommended
+
   depends_on "jack" => :optional
   depends_on "libaacs" => :optional
   depends_on "libbluray" => :optional
@@ -35,8 +38,6 @@ class Mpv < Formula
   depends_on "libdvdnav" => :optional
   depends_on "libdvdread" => :optional
   depends_on "sdl2" => :optional
-
-  depends_on "subliminal" => :recommended
 
   on_macos do
     depends_on "coreutils" => :recommended

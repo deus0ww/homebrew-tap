@@ -13,6 +13,8 @@ class Highlight < Formula
     regex(/href=.*?highlight[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+  bottle :unneeded
+
   depends_on "boost" => :build
   depends_on "pkg-config" => :build
   depends_on "luajit-openresty"

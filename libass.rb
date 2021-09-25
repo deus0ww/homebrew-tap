@@ -8,12 +8,14 @@ class Libass < Formula
   license "ISC"
 
   head do
-    url "https://github.com/libass/libass.git"
+    url "https://github.com/libass/libass.git", branch: "master"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
     depends_on "libtool" => :build
   end
+
+  bottle :unneeded
 
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
@@ -43,10 +45,8 @@ class Libass < Formula
       --prefix=#{prefix}
       --enable-large-tiles
     ]
-    on_macos do
-      # libass uses coretext on macOS, fontconfig on Linux
-      args << "--disable-fontconfig"
-    end
+    # libass uses coretext on macOS, fontconfig on Linux
+    args << "--disable-fontconfig" if OS.mac?
     system "./configure", *args
     system "make", "install"
   end
