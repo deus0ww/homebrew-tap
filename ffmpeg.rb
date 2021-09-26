@@ -15,8 +15,6 @@ class Ffmpeg < Formula
     regex(/href=.*?ffmpeg[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle :unneeded
-
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-openh264", "Enable OpenH264 library"

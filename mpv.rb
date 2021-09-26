@@ -8,8 +8,6 @@ class Mpv < Formula
   license :cannot_represent
   head "https://github.com/mpv-player/mpv.git", branch: "master"
 
-  bottle :unneeded
-
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
   depends_on "python@3.9" => :build

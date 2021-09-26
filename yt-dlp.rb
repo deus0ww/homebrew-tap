@@ -7,7 +7,6 @@ class YtDlp < Formula
   sha256 "e7b8dd0ee9498abbd80eb38d9753696d6ca3d02f64980322ab3bf39ba1bc31ee"
   license "Unlicense"
 
-  bottle :unneeded
 
   depends_on "python@3.9"
   depends_on "aria2" => :recommended

@@ -8,8 +8,6 @@ class Dav1d < Formula
   license "BSD-2-Clause"
   head "https://github.com/videolan/dav1d.git", branch: "master"
 
-  bottle :unneeded
-
   depends_on "meson" => :build
   depends_on "nasm" => :build
   depends_on "ninja" => :build

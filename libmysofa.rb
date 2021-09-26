@@ -8,8 +8,6 @@ class Libmysofa < Formula
   license "BSD-3-Clause"
   head "https://github.com/hoene/libmysofa.git"
 
-  bottle :unneeded
-
   depends_on "cmake" => :build
 
   depends_on "cunit"

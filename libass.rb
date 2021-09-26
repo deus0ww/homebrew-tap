@@ -15,8 +15,6 @@ class Libass < Formula
     depends_on "libtool" => :build
   end
 
-  bottle :unneeded
-
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
   depends_on "freetype"
