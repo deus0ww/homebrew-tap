@@ -12,7 +12,7 @@ class YtDlp < Formula
     depends_on "pandoc" => :build
   end
 
-  depends_on "python@3.9"
+  depends_on "python@3.10"
   depends_on "aria2" => :recommended
 
   resource "mutagen" do

@@ -10,7 +10,7 @@ class Mpv < Formula
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.9" => :build
+  depends_on "python@3.10" => :build
   depends_on xcode: :build
 
   depends_on "deus0ww/tap/ffmpeg"
@@ -80,10 +80,10 @@ class Mpv < Formula
     ]
     args << "--swift-flags=-O -wmo"
 
-    system Formula["python@3.9"].opt_bin/"python3", "bootstrap.py"
-    system Formula["python@3.9"].opt_bin/"python3", "waf", "configure", *args
-    system Formula["python@3.9"].opt_bin/"python3", "waf", "install"
-    system Formula["python@3.9"].opt_bin/"python3", "TOOLS/osxbundle.py", "build/mpv"
+    system Formula["python@3.10"].opt_bin/"python3", "bootstrap.py"
+    system Formula["python@3.10"].opt_bin/"python3", "waf", "configure", *args
+    system Formula["python@3.10"].opt_bin/"python3", "waf", "install"
+    system Formula["python@3.10"].opt_bin/"python3", "TOOLS/osxbundle.py", "build/mpv"
     prefix.install "build/mpv.app"
   end
 
