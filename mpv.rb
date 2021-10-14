@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"

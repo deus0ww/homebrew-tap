@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Libmysofa < Formula
   desc "Library for reading AES SOFA files"
   homepage "https://github.com/hoene/libmysofa"
