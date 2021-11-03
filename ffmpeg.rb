@@ -21,7 +21,7 @@ class Ffmpeg < Formula
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
 
-  depends_on "aom"
+  depends_on "deus0ww/tap/aom"
   depends_on "deus0ww/tap/dav1d"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
