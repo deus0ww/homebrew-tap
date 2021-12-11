@@ -13,6 +13,7 @@ class Mpv < Formula
 
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "deus0ww/tap/libass"
+  depends_on "deus0ww/tap/yt-dlp"
   depends_on "jpeg"
   depends_on "libarchive"
   depends_on "little-cms2"
@@ -23,7 +24,6 @@ class Mpv < Formula
   depends_on "vapoursynth"
   depends_on "zimg"
 
-  depends_on "deus0ww/tap/yt-dlp" => :recommended
   depends_on "subliminal" => :recommended
 
   depends_on "jack" => :optional
