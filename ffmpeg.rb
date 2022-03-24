@@ -95,7 +95,6 @@ class Ffmpeg < Formula
       --enable-shared
 
       --enable-frei0r
-      --enable-libaom
       --enable-libass
       --enable-libbluray
       --enable-libbs2b
