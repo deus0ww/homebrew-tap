@@ -36,8 +36,9 @@ class Mpv < Formula
   depends_on "sdl2" => :optional
 
   on_macos do
+    depends_on "deus0ww/tap/dockutil@2" => :recommended if MacOS.version <  :big_sur
+    depends_on "deus0ww/tap/dockutil@3" => :recommended if MacOS.version >= :big_sur
     depends_on "coreutils" => :recommended
-    depends_on "dockutil" => :recommended
     depends_on "tag" => :recommended
     depends_on "trash" => :recommended
   end
