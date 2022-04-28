@@ -161,10 +161,10 @@ class Ffmpeg < Formula
     opts += "-funroll-loops -fomit-frame-pointer "
     opts += "-ffunction-sections -fdata-sections -fstrict-vtable-pointers "
     opts += "-fforce-emit-vtables " if MacOS.version >= :mojave
-    args << "--extra-cflags="    + opts
-    args << "--extra-cxxflags="  + opts + " -fwhole-program-vtables"
-    args << "--extra-objcflags=" + opts
-    args << "--extra-ldflags="   + opts + " -fwhole-program-vtables"
+    args << ("--extra-cflags="    + opts)
+    args << ("--extra-cxxflags="  + opts + " -fwhole-program-vtables")
+    args << ("--extra-objcflags=" + opts)
+    args << ("--extra-ldflags="   + opts + " -fwhole-program-vtables")
 
     system "./configure", *args
     system "make", "install"
