@@ -21,10 +21,11 @@ class Ffmpeg < Formula
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
 
-  # depends_on "deus0ww/tap/aom"
   depends_on "deus0ww/tap/dav1d"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
+
+  depends_on "aom"
   depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
@@ -74,7 +75,7 @@ class Ffmpeg < Formula
 
   on_linux do
     depends_on "libxv"
-    depends_on "gcc" # because rubbernand is compiled with gcc
+    depends_on "gcc" # because rubberband is compiled with gcc
   end
 
   fails_with gcc: "5"
@@ -142,6 +143,15 @@ class Ffmpeg < Formula
     # Needs corefoundation, coremedia, corevideo
     args << "--enable-videotoolbox" if OS.mac?
     args << "--enable-neon" if Hardware::CPU.arm?
+
+    # Replace hardcoded default VMAF model path
+    unless build.head?
+      %w[doc/filters.texi libavfilter/vf_libvmaf.c].each do |f|
+        inreplace f, "/usr/local/share/model", HOMEBREW_PREFIX/"share/libvmaf/model"
+        # Since libvmaf v2.0.0, `.pkl` model files have been deprecated in favor of `.json` model files.
+        inreplace f, "vmaf_v0.6.1.pkl", "vmaf_v0.6.1.json"
+      end
+    end
 
     args << "--enable-libcaca" if build.with? "libcaca"
     args << "--enable-libgme" if build.with? "game-music-emu"

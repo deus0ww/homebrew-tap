@@ -15,6 +15,7 @@ class Mpv < Formula
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/yt-dlp"
   depends_on "jpeg"
+  depends_on "jpeg-xl"
   depends_on "libarchive"
   depends_on "little-cms2"
   depends_on "luajit-openresty"
