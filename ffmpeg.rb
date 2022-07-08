@@ -59,6 +59,8 @@ class Ffmpeg < Formula
   depends_on "zeromq"
   depends_on "zimg"
 
+  depends_on "jpeg-xl" => :optional
+
   depends_on "game-music-emu" => :optional
   depends_on "libcaca" => :optional
   depends_on "libgsm" => :optional
@@ -139,6 +141,8 @@ class Ffmpeg < Formula
       --disable-libjack
       --disable-indev=jack
     ]
+    
+    args << "--enable-libjxl" if build.with? "jpeg-xl"
 
     # Needs corefoundation, coremedia, corevideo
     args << "--enable-videotoolbox" if OS.mac?
