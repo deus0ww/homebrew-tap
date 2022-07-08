@@ -19,6 +19,10 @@ class Libass < Formula
   depends_on "fribidi"
   depends_on "harfbuzz"
 
+  on_macos do
+    depends_on "fontconfig" => :optional
+  end
+
   on_linux do
     depends_on "fontconfig"
   end
@@ -42,7 +46,7 @@ class Libass < Formula
       --enable-large-tiles
     ]
     # libass uses coretext on macOS, fontconfig on Linux
-    args << "--disable-fontconfig" if OS.mac?
+    args << "--disable-fontconfig" if OS.mac? && (build.without? "fontconfig")
     system "./configure", *args
     system "make", "install"
   end
