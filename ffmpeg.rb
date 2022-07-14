@@ -21,11 +21,12 @@ class Ffmpeg < Formula
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
 
+  depends_on "deus0ww/tap/aom"
   depends_on "deus0ww/tap/dav1d"
+  depends_on "deus0ww/tap/jpeg-xl"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
 
-  depends_on "aom"
   depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
@@ -98,6 +99,7 @@ class Ffmpeg < Formula
       --enable-shared
 
       --enable-frei0r
+      --enable-libaom
       --enable-libass
       --enable-libbluray
       --enable-libbs2b
@@ -105,6 +107,7 @@ class Ffmpeg < Formula
       --enable-libfdk-aac
       --enable-libfontconfig
       --enable-libfreetype
+      --enable-libjxl
       --enable-libmp3lame
       --enable-libmysofa
       --enable-libopencore-amrnb
