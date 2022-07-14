@@ -79,7 +79,7 @@ class Mpv < Formula
     ]
     args << "--swift-flags=-O -wmo"
 
-    inreplace "TOOLS/dylib-unhell.py", "libraries(lib, result)", "lib = lib.replace(\"@loader_path\", \"/usr/local/lib\"); libraries(lib, result)"
+    inreplace "TOOLS/dylib-unhell.py", "libraries(lib, result)", "lib = lib.replace(\"@loader_path\", \"" + "#{HOMEBREW_PREFIX}/lib" + "\"); libraries(lib, result)"
 
     system Formula["python@3.10"].opt_bin/"python3", "bootstrap.py"
     system Formula["python@3.10"].opt_bin/"python3", "waf", "configure", *args
