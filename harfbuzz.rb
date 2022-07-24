@@ -1,11 +1,12 @@
 class Harfbuzz < Formula
   desc "OpenType text shaping engine"
   homepage "https://github.com/harfbuzz/harfbuzz"
-  url "https://github.com/harfbuzz/harfbuzz/archive/4.4.1.tar.gz"
-  sha256 "1a95b091a40546a211b6f38a65ccd0950fa5be38d95c77b5c4fa245130b418e1"
+  url "https://github.com/harfbuzz/harfbuzz/archive/5.0.1.tar.gz"
+  sha256 "a3ebdef007189f7df4dd50b73a955006d012b3aef81fa9650dbcf73a614e83c6"
   license "MIT"
   head "https://github.com/harfbuzz/harfbuzz.git", branch: "main"
 
+  depends_on "glib-utils" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "cairo"
