@@ -15,9 +15,9 @@ class Libass < Formula
 
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
-  depends_on "deus0ww/tap/harfbuzz"
   depends_on "freetype"
   depends_on "fribidi"
+  depends_on "harfbuzz"
 
   on_macos do
     depends_on "fontconfig" => :optional
