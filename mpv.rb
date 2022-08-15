@@ -43,6 +43,10 @@ class Mpv < Formula
     depends_on "trash" => :recommended
   end
 
+  on_linux do
+    depends_on "alsa-lib"
+  end
+
   def install
     opts  = Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native "
     opts += "-Ofast -flto=thin -funroll-loops -fomit-frame-pointer "
