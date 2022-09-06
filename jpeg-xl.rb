@@ -6,12 +6,17 @@ class JpegXl < Formula
   license "BSD-3-Clause"
   head "https://github.com/libjxl/libjxl.git", branch: "main"
 
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "brotli"
   depends_on "giflib"
   depends_on "imath"
-  depends_on "jpeg"
+  depends_on "jpeg-turbo"
   depends_on "libpng"
   depends_on "openexr"
   depends_on "webp"
@@ -35,17 +40,17 @@ class JpegXl < Formula
 
   resource "libpng" do
     url "https://github.com/glennrp/libpng.git",
-        revision: "a40189cf881e9f0db80511c382292a5604c3c3d1"
+        revision: "403422674d246921354b61a40041f84dadad830d"
   end
 
   resource "sjpeg" do
     url "https://github.com/webmproject/sjpeg.git",
-        revision: "868ab558fad70fcbe8863ba4e85179eeb81cc840"
+        revision: "e255c464b33e2d2dba6beefe7924a366601798b7"
   end
 
   resource "skcms" do
     url "https://skia.googlesource.com/skcms.git",
-        revision: "64374756e03700d649f897dbd98c95e78c30c7da"
+        revision: "c2639b59758f405a37877e228ef0716551dfb3db"
   end
 
   def install
