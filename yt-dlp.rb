@@ -37,7 +37,10 @@ class YtDlp < Formula
   end
 
   def install
-    system "make", "yt-dlp", "completions", "lazy-extractors" if build.head?
+    if build.head?
+      system "python3.10", "devscripts/make_lazy_extractors.py"
+      system "make", "lazy-extractors", "yt-dlp", "completions"
+    end
     virtualenv_install_with_resources
     man1.install_symlink libexec/"share/man/man1/yt-dlp.1"
     bash_completion.install "completions/bash/yt-dlp"
