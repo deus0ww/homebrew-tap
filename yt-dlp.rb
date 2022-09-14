@@ -3,12 +3,11 @@ class YtDlp < Formula
 
   desc "Fork of youtube-dl with additional features and fixes"
   homepage "https://github.com/yt-dlp/yt-dlp"
-  url "https://files.pythonhosted.org/packages/00/05/fc7d6be0bd5641a756f7d63a15fa81453b7189e4a5a7212834bd2bd98c20/yt-dlp-2022.8.14.tar.gz"
-  sha256 "9a2ceb76a4cc48aa80127eff8a853d9c8b7efe8be121c2123dcbfd3d06bc945f"
+  url "https://files.pythonhosted.org/packages/f8/ef/cdf55266ace06a9451e94a594dd57202910f86b24adfc5f5af4c66331322/yt-dlp-2022.9.1.tar.gz"
+  sha256 "bc74ee255790043e458197aaf25c6c104fefc9fcda4458f652619447ab4ae0d7"
   license "Unlicense"
   head "https://github.com/yt-dlp/yt-dlp.git", branch: "master"
 
-  depends_on "pandoc" => :build
   depends_on "python@3.10"
   depends_on "aria2" => :recommended
 
@@ -18,8 +17,8 @@ class YtDlp < Formula
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/cc/85/319a8a684e8ac6d87a1193090e06b6bbb302717496380e225ee10487c888/certifi-2022.6.15.tar.gz"
-    sha256 "84c85a9078b11105f04f3036a9482ae10e4621616db313fe045dd24743a0820d"
+    url "https://files.pythonhosted.org/packages/05/a8/e0966dcf948a9ab9321f23f121a37b96be191b15dc28e9134927fd42a8af/certifi-2022.6.15.2.tar.gz"
+    sha256 "aa08c101214127b9b0472ca6338315113c9487d45376fd3e669201b477c71003"
   end
 
   resource "mutagen" do
@@ -38,7 +37,7 @@ class YtDlp < Formula
   end
 
   def install
-    system "make", "pypi-files" if build.head?
+    system "make", "yt-dlp", "completions", "lazy-extractors" if build.head?
     virtualenv_install_with_resources
     man1.install_symlink libexec/"share/man/man1/yt-dlp.1"
     bash_completion.install "completions/bash/yt-dlp"
