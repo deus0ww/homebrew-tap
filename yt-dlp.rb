@@ -17,8 +17,8 @@ class YtDlp < Formula
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/05/a8/e0966dcf948a9ab9321f23f121a37b96be191b15dc28e9134927fd42a8af/certifi-2022.6.15.2.tar.gz"
-    sha256 "aa08c101214127b9b0472ca6338315113c9487d45376fd3e669201b477c71003"
+    url "https://files.pythonhosted.org/packages/ca/48/88ec470f8b68319b6782ca3a0570789886ad5ca24c1af2f3771699135baa/certifi-2022.9.14.tar.gz"
+    sha256 "36973885b9542e6bd01dea287b2b4b3b21236307c56324fcc3f1160f2d655ed5"
   end
 
   resource "mutagen" do
