@@ -38,6 +38,7 @@ class YtDlp < Formula
 
   def install
     if build.head?
+      system "python3.10", "devscripts/update-version.py"
       system "python3.10", "devscripts/make_lazy_extractors.py"
       system "make", "lazy-extractors", "yt-dlp", "completions"
     end
