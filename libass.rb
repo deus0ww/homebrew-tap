@@ -15,6 +15,7 @@ class Libass < Formula
 
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
+  depends_on "deus0ww/tap/libunibreak"
   depends_on "freetype"
   depends_on "fribidi"
   depends_on "harfbuzz"
