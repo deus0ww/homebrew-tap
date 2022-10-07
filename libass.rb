@@ -19,7 +19,7 @@ class Libass < Formula
   depends_on "fribidi"
   depends_on "harfbuzz"
 
-  depends_on "deus0ww/tap/libunibreak" if Hardware::CPU.intel?
+  depends_on "deus0ww/tap/libunibreak" unless Hardware::CPU.arm?
 
   on_macos do
     depends_on "fontconfig" => :optional
