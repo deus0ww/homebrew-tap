@@ -20,10 +20,7 @@ class Highlight < Formula
   def install
     opts = "-Ofast -flto=thin " + (Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native ")
     ENV.append "CFLAGS",      opts
-    ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts
-    ENV.append "OBJCFLAGS",   opts
-    ENV.append "OBJCXXFLAGS", opts
     ENV.append "LDFLAGS",     opts + " -dead_strip"
 
     inreplace ["src/makefile"] do |s|

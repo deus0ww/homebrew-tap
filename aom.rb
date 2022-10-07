@@ -24,7 +24,6 @@ class Aom < Formula
   def install
     opts = "-Ofast -flto=thin " + (Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native ")
     ENV.append "CFLAGS",      opts
-    ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts
 
     ENV.runtime_cpu_detection unless Hardware::CPU.arm?

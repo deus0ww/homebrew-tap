@@ -52,7 +52,6 @@ class JpegXl < Formula
   def install
     opts = "-Ofast " + (Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native ")
     ENV.append "CFLAGS",      opts
-    ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts
 
     resources.each { |r| r.stage buildpath/"third_party"/r.download_name }
