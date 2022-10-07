@@ -11,6 +11,10 @@ class Libunibreak < Formula
   depends_on "wget" => :build
 
   def install
+    opts = "-Ofast -flto=thin " + (Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native ")
+    ENV.append "CFLAGS",      opts
+    ENV.append "LDFLAGS",     opts + " -dead_strip"
+
     system "./configure", "--prefix=#{prefix}"
     system "make", "linebreakdata"
     system "make", "wordbreakdata"
