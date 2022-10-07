@@ -8,12 +8,10 @@ class Libunibreak < Formula
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
-  depends_on "doxygen" => :build
   depends_on "wget" => :build
 
   def install
     system "./configure", "--prefix=#{prefix}"
-    system "make", "doc"
     system "make", "linebreakdata"
     system "make", "wordbreakdata"
     system "make", "graphemebreakdata"

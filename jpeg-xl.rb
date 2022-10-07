@@ -50,8 +50,7 @@ class JpegXl < Formula
   end
 
   def install
-    opts  = Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native "
-    opts += "-Ofast "
+    opts = "-Ofast " + (Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native ")
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts

@@ -16,10 +16,7 @@ class Dav1d < Formula
   end
 
   def install
-    opts  = Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native "
-    opts += "-Ofast -funroll-loops -fomit-frame-pointer "
-    opts += "-ffunction-sections -fdata-sections -fstrict-vtable-pointers "
-    opts += "-fforce-emit-vtables " if MacOS.version >= :mojave
+    opts = "-Ofast " + (Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native ")
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts

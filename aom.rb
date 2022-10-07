@@ -22,8 +22,7 @@ class Aom < Formula
   end
 
   def install
-    opts  = Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native "
-    opts += "-Ofast -flto=thin "
+    opts = "-Ofast -flto=thin " + (Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native ")
     ENV.append "CFLAGS",      opts
     ENV.append "CPPFLAGS",    opts
     ENV.append "CXXFLAGS",    opts

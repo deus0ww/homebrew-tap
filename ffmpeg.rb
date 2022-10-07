@@ -163,13 +163,10 @@ class Ffmpeg < Formula
     args << "--optflags=-Ofast"
 
     opts  = Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native "
-    opts += "-funroll-loops -fomit-frame-pointer "
-    opts += "-ffunction-sections -fdata-sections -fstrict-vtable-pointers "
-    opts += "-fforce-emit-vtables " if MacOS.version >= :mojave
     args << ("--extra-cflags="    + opts)
-    args << ("--extra-cxxflags="  + opts + " -fwhole-program-vtables")
+    args << ("--extra-cxxflags="  + opts)
     args << ("--extra-objcflags=" + opts)
-    args << ("--extra-ldflags="   + opts + " -fwhole-program-vtables")
+    args << ("--extra-ldflags="   + opts)
 
     system "./configure", *args
     system "make", "install"
