@@ -26,6 +26,7 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/jpeg-xl"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
+  depends_on "deus0ww/tap/rubberband"
 
   depends_on "fdk-aac"
   depends_on "fontconfig"
@@ -45,7 +46,6 @@ class Ffmpeg < Formula
   depends_on "openssl@1.1"
   depends_on "opus"
   depends_on "rav1e"
-  depends_on "rubberband"
   depends_on "sdl2"
   depends_on "snappy"
   depends_on "speex"
