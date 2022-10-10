@@ -11,15 +11,6 @@ class Rubberband < Formula
     regex(/href=.*?rubberband[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  bottle do
-    sha256 cellar: :any, arm64_monterey: "3935d034c124ca2e208173635ccdc395d11e4e80f908c4cf76b089d1e61e5047"
-    sha256 cellar: :any, arm64_big_sur:  "a636f9233b3c92c2385dcc6cdd63e69f931758362716bbbf3f932a8a5483e025"
-    sha256 cellar: :any, monterey:       "aac53b3162aaa30be4101651cfb290c0485d08acb2dfdc567cad52d161441f98"
-    sha256 cellar: :any, big_sur:        "07bdee9696a48269d55018409af7716ea083b4bf033644de6054c7b0b1a06516"
-    sha256 cellar: :any, catalina:       "3c5e26d5b78b67fcb8db228dc2d0c6846920c76127f5798cfcc264738b5ebdb5"
-    sha256               x86_64_linux:   "5a045984bac7b8318f1f222c44605370e5a97ec24768dc64cf29d7a46cdb424c"
-  end
-
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
