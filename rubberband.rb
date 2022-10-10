@@ -24,7 +24,7 @@ class Rubberband < Formula
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
   depends_on "libsndfile"
-  depends_on "speexdsp"  # "libsamplerate"
+  depends_on "libsamplerate"
 
   on_linux do
     depends_on "fftw"
@@ -35,7 +35,7 @@ class Rubberband < Formula
   fails_with gcc: "5"
 
   def install
-    args = ["-Dresampler=libspeexdsp"]  # libsamplerate
+    args = ["-Dresampler=libsamplerate"]
     args << "-Dextra_include_dirs=/Library/Java/JavaVirtualMachines/Current/Contents/Home/include,/Library/Java/JavaVirtualMachines/Current/Contents/Home/include/darwin"
     args << "-Dextra_lib_dirs=/Library/Java/JavaVirtualMachines/Current/Contents/Home/lib"
     args << "-Dfft=fftw" if OS.linux?
