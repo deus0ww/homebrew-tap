@@ -1,14 +1,14 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/v0.34.1.tar.gz"
-  sha256 "32ded8c13b6398310fa27767378193dc1db6d78b006b70dbcbd3123a1445e746"
+  url "https://github.com/mpv-player/mpv/archive/v0.35.0.tar.gz"
+  sha256 "dc411c899a64548250c142bf1fa1aa7528f1b4398a24c86b816093999049ec00"
   license :cannot_represent
   head "https://github.com/mpv-player/mpv.git", branch: "master"
 
   depends_on "docutils" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.10" => :build
+  depends_on "python@3.11" => :build
   depends_on xcode: :build
 
   depends_on "deus0ww/tap/ffmpeg"
@@ -89,7 +89,7 @@ class Mpv < Formula
 
     inreplace "TOOLS/dylib-unhell.py", "libraries(lib, result)", "lib = lib.replace(\"@loader_path\", \"" + "#{HOMEBREW_PREFIX}/lib" + "\"); libraries(lib, result)"
 
-    python3 = "python3.10"
+    python3 = "python3.11"
     system python3, "bootstrap.py"
     system python3, "waf", "configure", *args
     system python3, "waf", "install"
