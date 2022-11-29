@@ -13,6 +13,7 @@ class Mpv < Formula
 
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "deus0ww/tap/libass"
+  depends_on "deus0ww/tap/libplacebo"
   depends_on "deus0ww/tap/rubberband"
   depends_on "deus0ww/tap/yt-dlp"
   depends_on "jpeg-turbo"
