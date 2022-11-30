@@ -32,6 +32,7 @@ class Libplacebo < Formula
   end
 
   def install
+    ENV.append "PYTHONOPTIMIZE", 1
     python = "python3.11"
     venv_root = buildpath/"venv"
     venv = virtualenv_create(venv_root, python)

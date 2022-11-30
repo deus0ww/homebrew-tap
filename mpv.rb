@@ -55,6 +55,7 @@ class Mpv < Formula
     ENV.append "CFLAGS",      opts
     ENV.append "OBJCFLAGS",   opts
     ENV.append "LDFLAGS",     opts + " -dead_strip"
+    ENV.append "PYTHONOPTIMIZE", 1
 
     # LANG is unset by default on macOS and causes issues when calling getlocale
     # or getdefaultlocale in docutils. Force the default c/posix locale since

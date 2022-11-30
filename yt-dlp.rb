@@ -40,6 +40,7 @@ class YtDlp < Formula
   end
 
   def install
+    ENV.append "PYTHONOPTIMIZE", 1
     if build.head?
       python3 = "python3.11"
       system python3, "devscripts/update-version.py"
