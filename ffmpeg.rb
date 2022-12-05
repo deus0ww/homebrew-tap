@@ -22,6 +22,7 @@ class Ffmpeg < Formula
 
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
+  depends_on "deus0ww/tap/libplacebo"
   depends_on "deus0ww/tap/rubberband"
 
   depends_on "aom"
@@ -115,6 +116,7 @@ class Ffmpeg < Formula
       --enable-libopencore-amrwb
       --enable-libopenjpeg
       --enable-libopus
+      --enable-libplacebo
       --enable-librav1e
       --enable-librist
       --enable-librubberband
