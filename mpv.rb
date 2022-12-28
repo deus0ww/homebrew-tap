@@ -25,8 +25,6 @@ class Mpv < Formula
   depends_on "vapoursynth"
   depends_on "zimg"
 
-  depends_on "subliminal" => :recommended
-
   depends_on "jack" => :optional
   depends_on "libaacs" => :optional
   depends_on "libbluray" => :optional
