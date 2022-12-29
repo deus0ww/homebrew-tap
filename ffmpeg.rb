@@ -56,8 +56,10 @@ class Ffmpeg < Formula
   depends_on "x265"
   depends_on "xvid"
   depends_on "xz"
-  depends_on "zeromq"
   depends_on "zimg"
+
+  # depends_on "snappy"  # Build issue on macOS 10.13
+  # depends_on "zeromq"  # Avoiding installing Boost
 
   depends_on "game-music-emu" => :optional
   depends_on "libcaca" => :optional
@@ -134,7 +136,6 @@ class Ffmpeg < Formula
       --enable-libxml2
       --enable-libxvid
       --enable-libzimg
-      --enable-libzmq
       --enable-lzma
       --enable-openssl
 
@@ -146,6 +147,7 @@ class Ffmpeg < Formula
       --disable-indev=jack
       --disable-vulkan
     ]
+    # --enable-libsnappy --enable-libzmq
 
     # Needs corefoundation, coremedia, corevideo
     args << "--enable-videotoolbox" if OS.mac?
