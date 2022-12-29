@@ -16,9 +16,9 @@ class Ffmpeg < Formula
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-openh264", "Enable OpenH264 library"
-  option "with-snappy", "Enable Snappy"
-  option "with-zeromq", "Enable ZeroMQ"
-  option "with-rav1e", "Enable Rav1e"
+  option "with-rav1e", "Enable Rav1e AV1 encoder library"
+  option "with-snappy", "Enable HAP/Snappy library"
+  option "with-zeromq", "Enable using libzeromq to receive commands sent through a libzeromq client"
 
   depends_on "pkg-config" => :build
 
@@ -156,12 +156,12 @@ class Ffmpeg < Formula
     args << "--enable-libgsm" if build.with? "libgsm"
     args << "--enable-libmodplug" if build.with? "libmodplug"
     args << "--enable-libopenh264" if build.with? "openh264"
+    args << "--enable-librav1e" if build.with? "rav1e"
     args << "--enable-librsvg" if build.with? "librsvg"
     args << "--enable-libsnappy" if build.with? "snappy"
     args << "--enable-libssh" if build.with? "libssh"
     args << "--enable-libtwolame" if build.with? "two-lame"
     args << "--enable-libzmq" if build.with? "zeromq"
-    args << "--enable-librav1e" if build.with? "rav1e"
 
     args << "--enable-hardcoded-tables"
     args << "--enable-lto"
