@@ -47,7 +47,6 @@ class Ffmpeg < Formula
   depends_on "rav1e"
   depends_on "rubberband"
   depends_on "sdl2"
-  depends_on "snappy"
   depends_on "speex"
   depends_on "srt"
   depends_on "tesseract"
@@ -120,7 +119,6 @@ class Ffmpeg < Formula
       --enable-librav1e
       --enable-librist
       --enable-librubberband
-      --enable-libsnappy
       --enable-libsoxr
       --enable-libspeex
       --enable-libsrt
