@@ -16,7 +16,9 @@ class Ffmpeg < Formula
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"
   option "with-openh264", "Enable OpenH264 library"
-  option "with-libvmaf", "Enable libvmaf scoring library"
+  option "with-snappy", "Enable Snappy"
+  option "with-zeromq", "Enable ZeroMQ"
+  option "with-rav1e", "Enable Rav1e"
 
   depends_on "pkg-config" => :build
 
@@ -44,7 +46,6 @@ class Ffmpeg < Formula
   depends_on "openjpeg"
   depends_on "openssl@1.1"
   depends_on "opus"
-  depends_on "rav1e"
   depends_on "rubberband"
   depends_on "sdl2"
   depends_on "speex"
@@ -58,18 +59,17 @@ class Ffmpeg < Formula
   depends_on "xz"
   depends_on "zimg"
 
-  # depends_on "snappy"  # Build issue on macOS 10.13
-  # depends_on "zeromq"  # Avoiding installing Boost
-
   depends_on "game-music-emu" => :optional
   depends_on "libcaca" => :optional
   depends_on "libgsm" => :optional
   depends_on "libmodplug" => :optional
   depends_on "librsvg" => :optional
   depends_on "libssh" => :optional
-  depends_on "libvmaf" => :optional
   depends_on "openh264" => :optional
+  depends_on "rav1e" => :optional     # Avoiding building Rust
+  depends_on "snappy" => :optional    # Build issue on macOS 10.13
   depends_on "two-lame" => :optional
+  depends_on "zeromq" => :optional    # Avoiding building Boost
 
   uses_from_macos "bzip2"
   uses_from_macos "libxml2"
@@ -118,7 +118,6 @@ class Ffmpeg < Formula
       --enable-libopenjpeg
       --enable-libopus
       --enable-libplacebo
-      --enable-librav1e
       --enable-librist
       --enable-librubberband
       --enable-libsoxr
@@ -147,7 +146,6 @@ class Ffmpeg < Formula
       --disable-indev=jack
       --disable-vulkan
     ]
-    # --enable-libsnappy --enable-libzmq
 
     # Needs corefoundation, coremedia, corevideo
     args << "--enable-videotoolbox" if OS.mac?
@@ -159,9 +157,11 @@ class Ffmpeg < Formula
     args << "--enable-libmodplug" if build.with? "libmodplug"
     args << "--enable-libopenh264" if build.with? "openh264"
     args << "--enable-librsvg" if build.with? "librsvg"
+    args << "--enable-libsnappy" if build.with? "snappy"
     args << "--enable-libssh" if build.with? "libssh"
     args << "--enable-libtwolame" if build.with? "two-lame"
-    args << "--enable-libvmaf" if build.with? "libvmaf"
+    args << "--enable-libzmq" if build.with? "zeromq"
+    args << "--enable-librav1e" if build.with? "rav1e"
 
     args << "--enable-hardcoded-tables"
     args << "--enable-lto"
