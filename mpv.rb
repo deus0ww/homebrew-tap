@@ -18,7 +18,7 @@ class Mpv < Formula
   depends_on "jpeg-turbo"
   depends_on "libarchive"
   depends_on "little-cms2"
-  depends_on "luajit-openresty"
+  depends_on "luajit"
   depends_on "mujs"
   depends_on "rubberband"
   depends_on "uchardet"
