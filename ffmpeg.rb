@@ -22,17 +22,17 @@ class Ffmpeg < Formula
 
   depends_on "pkg-config" => :build
 
+  depends_on "deus0ww/tap/aom"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
   depends_on "deus0ww/tap/libplacebo"
+  depends_on "deus0ww/tap/jpeg-xl"
 
-  depends_on "aom"
   depends_on "dav1d"
   depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
-  depends_on "jpeg-xl"
   depends_on "lame"
   depends_on "libbluray"
   depends_on "libbs2b"
