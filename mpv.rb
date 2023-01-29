@@ -71,8 +71,6 @@ class Mpv < Formula
 
     # libarchive is keg-only
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig"
-    # luajit-openresty is keg-only
-    ENV.prepend_path "PKG_CONFIG_PATH", Formula["luajit-openresty"].opt_lib/"pkgconfig"
 
     args = %W[
       --prefix=#{prefix}
