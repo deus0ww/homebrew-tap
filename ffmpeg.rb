@@ -162,7 +162,7 @@ class Ffmpeg < Formula
     args << "--enable-libtwolame" if build.with? "two-lame"
     args << "--enable-libzmq" if build.with? "zeromq"
 
-    args << "--enable-hardcoded-tables"
+    # args << "--enable-hardcoded-tables"
     args << "--enable-lto"
     args << "--optflags=-Ofast"
 
