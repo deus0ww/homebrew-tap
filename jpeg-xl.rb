@@ -1,8 +1,8 @@
 class JpegXl < Formula
   desc "New file format for still image compression"
   homepage "https://jpeg.org/jpegxl/index.html"
-  url "https://github.com/libjxl/libjxl/archive/v0.8.0.tar.gz"
-  sha256 "6b4c140c1738acbed6b7d22858e0526373f0e9938e3f6c0a6b8943189195aad1"
+  url "https://github.com/libjxl/libjxl/archive/v0.8.1.tar.gz"
+  sha256 "60f43921ad3209c9e180563025eda0c0f9b1afac51a2927b9ff59fff3950dc56"
   license "BSD-3-Clause"
 
   livecheck do
@@ -34,12 +34,12 @@ class JpegXl < Formula
   # https://github.com/libjxl/libjxl/tree/v#{version}/third_party
   resource "sjpeg" do
     url "https://github.com/webmproject/sjpeg.git",
-        revision: "868ab558fad70fcbe8863ba4e85179eeb81cc840"
+        revision: "04c9a4d10f7309f30cdd7fa0094576db3b6f97fb"
   end
 
   resource "skcms" do
     url "https://skia.googlesource.com/skcms.git",
-        revision: "b25b07b4b07990811de121c0356155b2ba0f4318"
+        revision: "ba39d81f9797aa973bdf01aa6b0363b280352fba"
   end
 
   def install

@@ -28,6 +28,7 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/libplacebo"
   depends_on "deus0ww/tap/jpeg-xl"
 
+  depends_on "aribb24"
   depends_on "dav1d"
   depends_on "fdk-aac"
   depends_on "fontconfig"
@@ -50,6 +51,7 @@ class Ffmpeg < Formula
   depends_on "sdl2"
   depends_on "speex"
   depends_on "srt"
+  depends_on "svt-av1"
   depends_on "tesseract"
   depends_on "theora"
   depends_on "webp"
@@ -103,6 +105,7 @@ class Ffmpeg < Formula
 
       --enable-frei0r
       --enable-libaom
+      --enable-libaribb24
       --enable-libass
       --enable-libbluray
       --enable-libbs2b
@@ -123,6 +126,7 @@ class Ffmpeg < Formula
       --enable-libsoxr
       --enable-libspeex
       --enable-libsrt
+      --enable-libsvtav1
       --enable-libtesseract
       --enable-libtheora
       --enable-libvidstab
