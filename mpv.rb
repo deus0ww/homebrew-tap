@@ -70,12 +70,17 @@ class Mpv < Formula
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native"))
     args << "-Dswift-flags=-O -wmo"
 
-    inreplace "TOOLS/dylib-unhell.py", "libraries(lib, result)", "lib = lib.replace(\"@loader_path\", \"" + "#{HOMEBREW_PREFIX}/lib" + "\"); libraries(lib, result)"
-
     system "meson", "setup", "build", *args, *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
+
+    inreplace "TOOLS/dylib-unhell.py", "libraries(lib, result)", "lib = lib.replace(\"@loader_path\", \"" + "#{HOMEBREW_PREFIX}/lib" + "\"); libraries(lib, result)"
     system "python3.11", "TOOLS/osxbundle.py", "build/mpv"
+    bindir = "build/mpv.app/Contents/MacOS/"
+    rm   bindir + "mpv-bundle"
+    mv   bindir + "mpv",        bindir + "mpv-bundle"
+    ln_s bindir + "mpv-bundle", bindir + "mpv"
+    system "codesign", "--deep", "-fs", "-", "build/mpv.app"
     prefix.install "build/mpv.app"
   end
 
