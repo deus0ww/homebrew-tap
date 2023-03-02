@@ -25,6 +25,7 @@ class Mpv < Formula
   depends_on "luajit"
   depends_on "mujs"
   depends_on "rubberband"
+  depends_on "sdl2"
   depends_on "uchardet"
   depends_on "vapoursynth"
   depends_on "zimg"
@@ -59,14 +60,13 @@ class Mpv < Formula
       -Db_lto_mode=thin
 
       -Dlibmpv=true
-      -Dhtml-build=disabled
       -Ddvdnav=enabled
+      -Dsdl2=enabled
 
       --sysconfdir=#{pkgetc}
       --datadir=#{pkgshare}
       --mandir=#{man}
     ]
-
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native"))
     args << "-Dswift-flags=-O -wmo"
 
