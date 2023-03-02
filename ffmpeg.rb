@@ -37,6 +37,7 @@ class Ffmpeg < Formula
   depends_on "lame"
   depends_on "libbluray"
   depends_on "libbs2b"
+  depends_on "libcdio"
   depends_on "librist"
   depends_on "libsoxr"
   depends_on "libvidstab"
@@ -109,6 +110,7 @@ class Ffmpeg < Formula
       --enable-libass
       --enable-libbluray
       --enable-libbs2b
+      --enable-libcdio
       --enable-libdav1d
       --enable-libfdk-aac
       --enable-libfontconfig
