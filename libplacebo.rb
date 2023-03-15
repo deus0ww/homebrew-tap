@@ -3,8 +3,8 @@ class Libplacebo < Formula
 
   desc "Reusable library for GPU-accelerated image/video processing primitives"
   homepage "https://code.videolan.org/videolan/libplacebo"
-  url "https://code.videolan.org/videolan/libplacebo/-/archive/v5.229.1/libplacebo-v5.229.1.tar.bz2"
-  sha256 "fef7000bd498921c2f6eb567a60c95fbb3ea39ff0a3d5cc68176eb27b5dd882c"
+  url "https://code.videolan.org/videolan/libplacebo/-/archive/v5.264.0/libplacebo-v5.264.0.tar.bz2"
+  sha256 "361c2936b0c9d18ca4a56a7aee63f91f3024c3206f72d42205ca58ed941e0c6b"
   license "LGPL-2.1-or-later"
   head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
 
