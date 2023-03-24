@@ -63,11 +63,12 @@ class Mpv < Formula
       -Ddvdnav=enabled
       -Dsdl2=enabled
 
+      --default-library=both
       --sysconfdir=#{pkgetc}
       --datadir=#{pkgshare}
       --mandir=#{man}
     ]
-    args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native"))
+    args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
     args << "-Dswift-flags=-O -wmo"
 
     system "meson", "setup", "build", *args, *std_meson_args
@@ -92,8 +93,8 @@ class Mpv < Formula
     system "python3.11", "TOOLS/osxbundle.py", "build/mpv"
     bindir = "build/mpv.app/Contents/MacOS/"
     rm   bindir + "mpv-bundle"
-    mv   bindir + "mpv",        bindir + "mpv-bundle"
-    ln_s bindir + "mpv-bundle", bindir + "mpv"
+    mv   bindir + "mpv", bindir + "mpv-bundle"
+    ln_s "mpv-bundle", bindir + "mpv"
     system "codesign", "--deep", "-fs", "-", "build/mpv.app"
     prefix.install "build/mpv.app"
   end
