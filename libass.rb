@@ -17,7 +17,7 @@ class Libass < Formula
   depends_on "freetype"
   depends_on "fribidi"
   depends_on "harfbuzz"
-  depends_on "libunibreak" # unless Hardware::CPU.arm?
+  depends_on "libunibreak"
 
   on_macos do
     depends_on "fontconfig" => :optional
