@@ -18,6 +18,7 @@ class Ffmpeg < Formula
   option "with-openh264", "Enable OpenH264 library"
   option "with-rav1e", "Enable Rav1e AV1 encoder library"
   option "with-snappy", "Enable HAP/Snappy library"
+  option "with-tesseract", "Enable the tesseract OCR engine"
   option "with-zeromq", "Enable using libzeromq to receive commands sent through a libzeromq client"
 
   depends_on "pkg-config" => :build
@@ -52,7 +53,6 @@ class Ffmpeg < Formula
   depends_on "speex"
   depends_on "srt"
   depends_on "svt-av1"
-  depends_on "tesseract"
   depends_on "theora"
   depends_on "webp"
   depends_on "x264"
@@ -70,6 +70,7 @@ class Ffmpeg < Formula
   depends_on "openh264" => :optional
   depends_on "rav1e" => :optional     # Avoiding building Rust
   depends_on "snappy" => :optional    # Build issue on macOS 10.13
+  depends_on "tesseract" => :optional
   depends_on "two-lame" => :optional
   depends_on "zeromq" => :optional    # Avoiding building Boost
 
@@ -127,7 +128,6 @@ class Ffmpeg < Formula
       --enable-libspeex
       --enable-libsrt
       --enable-libsvtav1
-      --enable-libtesseract
       --enable-libtheora
       --enable-libvidstab
       --enable-libvmaf
@@ -163,6 +163,7 @@ class Ffmpeg < Formula
     args << "--enable-librsvg" if build.with? "librsvg"
     args << "--enable-libsnappy" if build.with? "snappy"
     args << "--enable-libssh" if build.with? "libssh"
+    args << "--enable-libtesseract" if build.with? "tesseract"
     args << "--enable-libtwolame" if build.with? "two-lame"
     args << "--enable-libzmq" if build.with? "zeromq"
 
