@@ -40,7 +40,7 @@ class Libplacebo < Formula
     venv.pip_install resources
     ENV.prepend_path "PYTHONPATH", venv_root/Language::Python.site_packages(python)
 
-    args = %W[
+    args = %w[
       -Db_lto=true
       -Db_lto_mode=thin
     ]

@@ -24,10 +24,10 @@ class Ffmpeg < Formula
   depends_on "pkg-config" => :build
 
   depends_on "deus0ww/tap/aom"
+  depends_on "deus0ww/tap/jpeg-xl"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
   depends_on "deus0ww/tap/libplacebo"
-  depends_on "deus0ww/tap/jpeg-xl"
 
   depends_on "aribb24"
   depends_on "dav1d"
@@ -70,7 +70,7 @@ class Ffmpeg < Formula
   depends_on "openh264" => :optional
   depends_on "rav1e" => :optional     # Avoiding building Rust
   depends_on "snappy" => :optional    # Build issue on macOS 10.13
-  depends_on "tesseract" => :optional
+  depends_on "tesseract" => :optional # Build issue on macOS <10.15
   depends_on "two-lame" => :optional
   depends_on "zeromq" => :optional    # Avoiding building Boost
 
