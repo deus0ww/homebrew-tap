@@ -91,7 +91,7 @@ class Mpv < Formula
     zsh_completion.install "etc/_mpv.zsh" => "_mpv"
 
     inreplace "TOOLS/dylib-unhell.py", "libraries(lib, result)", "lib = lib.replace(\"@loader_path\", \"" + "#{HOMEBREW_PREFIX}/lib" + "\"); libraries(lib, result)"
-    inreplace "TOOLS/dylib-unhell.py", "libraries(lib, result)", "lib = lib.replace(\"@rpath\", \"" + "#{HOMEBREW_PREFIX}/lib" + "\"); libraries(lib, result)"
+    inreplace "TOOLS/dylib-unhell.py", "libraries(lib, result)", "lib = lib.replace(      \"@rpath\", \"" + "#{HOMEBREW_PREFIX}/lib" + "\"); libraries(lib, result)"
     system "python3.11", "TOOLS/osxbundle.py", "build/mpv"
     bindir = "build/mpv.app/Contents/MacOS/"
     rm   bindir + "mpv-bundle"
@@ -99,6 +99,7 @@ class Mpv < Formula
     ln_s "mpv-bundle", bindir + "mpv"
     system "codesign", "--deep", "-fs", "-", "build/mpv.app"
     prefix.install "build/mpv.app"
+    system "dockutil", "--add", "#{prefix}/mpv.app", "--replacing", "mpv", "--allhomes" if (build.with? "dockutil@2" or build.with? "dockutil@3")
   end
 
   test do
