@@ -23,14 +23,13 @@ class Ffmpeg < Formula
 
   depends_on "pkg-config" => :build
 
+  depends_on "aribb24"
+  depends_on "dav1d"
   depends_on "deus0ww/tap/aom"
   depends_on "deus0ww/tap/jpeg-xl"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
   depends_on "deus0ww/tap/libplacebo"
-
-  depends_on "aribb24"
-  depends_on "dav1d"
   depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"

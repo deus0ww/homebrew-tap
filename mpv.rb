@@ -16,7 +16,6 @@ class Mpv < Formula
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libplacebo"
   depends_on "deus0ww/tap/yt-dlp"
-
   depends_on "jpeg-turbo"
   depends_on "libaacs"
   depends_on "libarchive"
