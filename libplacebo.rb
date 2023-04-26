@@ -43,6 +43,7 @@ class Libplacebo < Formula
     args = %w[
       -Db_lto=true
       -Db_lto_mode=thin
+      -Ddemos=false
     ]
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
 
