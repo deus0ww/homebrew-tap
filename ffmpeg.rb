@@ -150,7 +150,7 @@ class Ffmpeg < Formula
     ]
 
     # Needs corefoundation, coremedia, corevideo
-    args << "--enable-videotoolbox" if OS.mac?
+    args += %w[--enable-videotoolbox --enable-audiotoolbox] if OS.mac?
     args << "--enable-neon" if Hardware::CPU.arm?
 
     args << "--enable-libcaca" if build.with? "libcaca"
