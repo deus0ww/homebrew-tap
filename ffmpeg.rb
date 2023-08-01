@@ -47,7 +47,6 @@ class Ffmpeg < Formula
   depends_on "openjpeg"
   depends_on "openssl@1.1"
   depends_on "opus"
-  depends_on "rubberband"
   depends_on "sdl2"
   depends_on "speex"
   depends_on "srt"
@@ -67,11 +66,12 @@ class Ffmpeg < Formula
   depends_on "librsvg" => :optional
   depends_on "libssh" => :optional
   depends_on "openh264" => :optional
-  depends_on "rav1e" => :optional     # Avoiding building Rust
-  depends_on "snappy" => :optional    # Build issue on macOS 10.13
-  depends_on "tesseract" => :optional # Build issue on macOS <10.15
+  depends_on "rav1e" => :optional        # Avoiding building Rust
+  depends_on "rubberband" => :optional   # MPV bundling issue
+  depends_on "snappy" => :optional       # Build issue on macOS 10.13
+  depends_on "tesseract" => :optional    # Build issue on macOS <10.15
   depends_on "two-lame" => :optional
-  depends_on "zeromq" => :optional    # Avoiding building Boost
+  depends_on "zeromq" => :optional       # Avoiding building Boost
 
   uses_from_macos "bzip2"
   uses_from_macos "libxml2"
@@ -122,7 +122,6 @@ class Ffmpeg < Formula
       --enable-libopus
       --enable-libplacebo
       --enable-librist
-      --enable-librubberband
       --enable-libsoxr
       --enable-libspeex
       --enable-libsrt
@@ -160,6 +159,7 @@ class Ffmpeg < Formula
     args << "--enable-libopenh264" if build.with? "openh264"
     args << "--enable-librav1e" if build.with? "rav1e"
     args << "--enable-librsvg" if build.with? "librsvg"
+    args << "--enable-librubberband" if build.with? "rubberband"
     args << "--enable-libsnappy" if build.with? "snappy"
     args << "--enable-libssh" if build.with? "libssh"
     args << "--enable-libtesseract" if build.with? "tesseract"

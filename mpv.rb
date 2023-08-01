@@ -24,11 +24,12 @@ class Mpv < Formula
   depends_on "little-cms2"
   depends_on "luajit"
   depends_on "mujs"
-  depends_on "rubberband"
   depends_on "sdl2"
   depends_on "uchardet"
   depends_on "vapoursynth"
   depends_on "zimg"
+
+  depends_on "rubberband" => :optional
 
   on_macos do
     depends_on "coreutils" => :recommended
