@@ -26,7 +26,7 @@ class Mpv < Formula
   depends_on "mujs"
   depends_on "sdl2"
   depends_on "uchardet"
-  depends_on "vapoursynth"
+  depends_on "vapoursynth" if MacOS.version >= :mojave
   depends_on "zimg"
 
   depends_on "rubberband" => :optional
