@@ -17,9 +17,7 @@ class Mpv < Formula
   depends_on "deus0ww/tap/libplacebo"
   depends_on "deus0ww/tap/yt-dlp"
   depends_on "jpeg-turbo"
-  depends_on "libaacs"
   depends_on "libarchive"
-  depends_on "libbluray"
   depends_on "libdvdnav"
   depends_on "little-cms2"
   depends_on "luajit"
@@ -27,6 +25,7 @@ class Mpv < Formula
   depends_on "uchardet"
   depends_on "zimg"
 
+  depends_on "libbluray" => :optional
   depends_on "rubberband" => :optional
   depends_on "sdl2" => :optional
   depends_on "vapoursynth" => :optional
@@ -62,13 +61,14 @@ class Mpv < Formula
 
       -Dlibmpv=true
       -Ddvdnav=enabled
-      -Dsdl2=enabled
 
       --default-library=both
       --sysconfdir=#{pkgetc}
       --datadir=#{pkgshare}
       --mandir=#{man}
     ]
+    args << "-Dsdl2=enabled" if build.with? "sdl2"
+    
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
     args << "-Dswift-flags=-O -wmo"
 
