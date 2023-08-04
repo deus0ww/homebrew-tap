@@ -3,8 +3,8 @@ class Libplacebo < Formula
 
   desc "Reusable library for GPU-accelerated image/video processing primitives"
   homepage "https://code.videolan.org/videolan/libplacebo"
-  url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.292.0/libplacebo-v6.292.0.tar.bz2"
-  sha256 "9182be99fc5e27f64e9193ba371380b10d5f78d09836c0afad1d3998f275e72b"
+  url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.292.1/libplacebo-v6.292.1.tar.bz2"
+  sha256 "51f0b7b400b35ce5f131a763c0cebb8e46680c17bed58cc9296b20c603f7f65f"
   license "LGPL-2.1-or-later"
   head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
 
@@ -34,11 +34,9 @@ class Libplacebo < Formula
   end
 
   def install
-    python = "python3.11"
-    venv_root = buildpath/"venv"
-    venv = virtualenv_create(venv_root, python)
-    venv.pip_install resources
-    ENV.prepend_path "PYTHONPATH", venv_root/Language::Python.site_packages(python)
+    resources.each do |r|
+      r.stage(Pathname("3rdparty")/r.name)
+    end
 
     args = %w[
       -Db_lto=true
