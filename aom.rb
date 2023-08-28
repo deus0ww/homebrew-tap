@@ -5,7 +5,6 @@ class Aom < Formula
       tag:      "v3.6.1",
       revision: "7ade96172b95adc91a5d85bf80c90989cd543ee8"
   license "BSD-2-Clause"
-  revision 2
 
   depends_on "cmake" => :build
 
@@ -13,7 +12,7 @@ class Aom < Formula
   on_macos do
     depends_on "pkg-config" => :build
     depends_on "deus0ww/tap/jpeg-xl"
-    depends_on "libvmaf"
+    depends_on "libvmaf" => :optional
   end
 
   on_intel do
@@ -41,7 +40,7 @@ class Aom < Formula
     args << "-DCONFIG_RUNTIME_CPU_DETECT=0" if Hardware::CPU.arm?
 
     # Make unconditional when `jpeg-xl` is bottled on Linux
-    if OS.mac?
+    if OS.mac? and build.with? "libvmaf"
       args += [
         # "-DCONFIG_TUNE_BUTTERAUGLI=1",
         "-DCONFIG_TUNE_VMAF=1",

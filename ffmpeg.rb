@@ -15,6 +15,7 @@ class Ffmpeg < Formula
 
   option "with-librsvg", "Enable SVG files as inputs via librsvg"
   option "with-libssh", "Enable SFTP protocol via libssh"
+  option "with-libvmaf", "Enable libvmaf scoring library"
   option "with-openh264", "Enable OpenH264 library"
   option "with-rav1e", "Enable Rav1e AV1 encoder library"
   option "with-snappy", "Enable HAP/Snappy library"
@@ -40,7 +41,6 @@ class Ffmpeg < Formula
   depends_on "librist"
   depends_on "libsoxr"
   depends_on "libvidstab"
-  depends_on "libvmaf"
   depends_on "libvorbis"
   depends_on "libvpx"
   depends_on "opencore-amr"
@@ -66,6 +66,7 @@ class Ffmpeg < Formula
   depends_on "libmodplug" => :optional
   depends_on "librsvg" => :optional
   depends_on "libssh" => :optional
+  depends_on "libvmaf" => :optional      # Avoiding building Rust
   depends_on "openh264" => :optional
   depends_on "rav1e" => :optional        # Avoiding building Rust
   depends_on "snappy" => :optional       # Build issue on macOS 10.13
@@ -171,6 +172,7 @@ class Ffmpeg < Formula
     args << "--enable-libssh" if build.with? "libssh"
     args << "--enable-libtesseract" if build.with? "tesseract"
     args << "--enable-libtwolame" if build.with? "two-lame"
+    args << "--enable-libvmaf" if build.with? "libvmaf"
     args << "--enable-libzmq" if build.with? "zeromq"
 
     # args << "--enable-hardcoded-tables"
