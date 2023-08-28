@@ -137,7 +137,6 @@ class Ffmpeg < Formula
       --enable-libsvtav1
       --enable-libtheora
       --enable-libvidstab
-      --enable-libvmaf
       --enable-libvorbis
       --enable-libvpx
       --enable-libwebp
