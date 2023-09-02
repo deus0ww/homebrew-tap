@@ -13,7 +13,9 @@ class Libplacebo < Formula
   depends_on "python@3.11" => :build
   depends_on "vulkan-headers" => :build
 
-  depends_on "glslang"
+  depends_on "deus0ww/tap/glslang" if MacOS.version <  :big_sur
+  depends_on "glslang"             if MacOS.version >= :big_sur
+
   depends_on "little-cms2"
   depends_on "sdl2"
   depends_on "vulkan-loader"
