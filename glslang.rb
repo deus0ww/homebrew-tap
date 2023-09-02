@@ -11,16 +11,6 @@ class Glslang < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
-  bottle do
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d32f53806b60877733b8a054cfdebed20c4ab024b0d12f60293d7173d91d1922"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ba30ede37b5aeb6ce8dac772e48afe89472a5b0601399134c136f5ad27fde2dd"
-    sha256 cellar: :any_skip_relocation, arm64_big_sur:  "60dfac0253d11e3bb3e4bea1f3b97c10dd8cdd2e3edbf35bbe109ed7164486eb"
-    sha256 cellar: :any_skip_relocation, ventura:        "3aa531dff095e45f3e509b23f1425b5ce5d50139ef33f9803e9c41179824ec41"
-    sha256 cellar: :any_skip_relocation, monterey:       "48b8e5575c92a72e4979527871f22342abe04ee068ca0d2aebc2fcdfcaeb31cf"
-    sha256 cellar: :any_skip_relocation, big_sur:        "d7c133d9edbbe5d719dfe2a8738bf709a05b0e63c76f83604b60aa084084953a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "08cf771bce60b40a83a3f01df0d83daf3f51ed925670f918e246f4212e9e81b9"
-  end
-
   depends_on "cmake" => :build
   depends_on "python@3.11" => :build
 
