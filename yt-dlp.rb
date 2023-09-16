@@ -11,14 +11,22 @@ class YtDlp < Formula
     url "https://github.com/yt-dlp/yt-dlp.git", branch: "master"
   end
 
-  depends_on "python-certifi"
-  depends_on "python-mutagen"
   depends_on "python@3.11"
   depends_on "aria2" => :recommended
 
   resource "brotli" do
-    url "https://files.pythonhosted.org/packages/2a/18/70c32fe9357f3eea18598b23aa9ed29b1711c3001835f7cf99a9818985d0/Brotli-1.0.9.zip"
-    sha256 "4d1b810aa0ed773f81dceda2cc7b403d01057458730e309856356d4ef4188438"
+    url "https://files.pythonhosted.org/packages/2f/c2/f9e977608bdf958650638c3f1e28f85a1b075f075ebbe77db8555463787b/Brotli-1.1.0.tar.gz"
+    sha256 "81de08ac11bcb85841e440c13611c00b67d3bf82698314928d0b676362546724"
+  end
+
+  resource "certifi" do
+    url "https://files.pythonhosted.org/packages/98/98/c2ff18671db109c9f10ed27f5ef610ae05b73bd876664139cf95bd1429aa/certifi-2023.7.22.tar.gz"
+    sha256 "539cc1d13202e33ca466e88b2807e29f4c13049d6d87031a3c110744495cb082"
+  end
+
+  resource "mutagen" do
+    url "https://files.pythonhosted.org/packages/81/e6/64bc71b74eef4b68e61eb921dcf72dabd9e4ec4af1e11891bbd312ccbb77/mutagen-1.47.0.tar.gz"
+    sha256 "719fadef0a978c31b4cf3c956261b3c58b6948b32023078a2117b1de09f0fc99"
   end
 
   resource "pycryptodomex" do
