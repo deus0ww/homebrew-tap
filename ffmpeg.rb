@@ -107,6 +107,9 @@ class Ffmpeg < Formula
   end
 
   def install
+    # The new linker leads to duplicate symbol issue https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/issues/140
+    ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
+
     args = %W[
       --cc=#{ENV.cc}
       --host-cflags=#{ENV.cflags}
