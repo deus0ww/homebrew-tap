@@ -42,6 +42,8 @@ class Mpv < Formula
     depends_on "alsa-lib"
   end
 
+  patch :p1, :DATA
+
   def install
     # LANG is unset by default on macOS and causes issues when calling getlocale
     # or getdefaultlocale in docutils. Force the default c/posix locale since
@@ -113,3 +115,26 @@ class Mpv < Formula
     system "pkg-config", "mpv"
   end
 end
+__END__
+diff --git a/video/out/mac_common.swift b/video/out/mac_common.swift
+index 12d2870add..fd3e2c0018 100644
+--- a/video/out/mac_common.swift
++++ b/video/out/mac_common.swift
+@@ -111,11 +111,11 @@ class MacCommon: Common {
+                                          _ flagsOut: UnsafeMutablePointer<CVOptionFlags>) -> CVReturn
+     {
+         let frameTimer = mpv?.macOpts.macos_render_timer ?? Int32(RENDER_TIMER_CALLBACK)
+-        let signalSwap = { [self] in
+-            swapLock.lock()
+-            swapTime += 1
+-            swapLock.signal()
+-            swapLock.unlock()
++        let signalSwap = {
++            self.swapLock.lock()
++            self.swapTime += 1
++            self.swapLock.signal()
++            self.swapLock.unlock()
+         }
+ 
+         if frameTimer != RENDER_TIMER_SYSTEM {
+
