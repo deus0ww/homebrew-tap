@@ -21,10 +21,11 @@ class Mpv < Formula
   depends_on "libdvdnav"
   depends_on "little-cms2"
   depends_on "luajit"
-  depends_on "molten-vk" if MacOS.version >= :mojave
   depends_on "mujs"
   depends_on "uchardet"
   depends_on "zimg"
+
+  depends_on "molten-vk" if MacOS.version >= :catalina
 
   depends_on "libbluray" => :optional
   depends_on "rubberband" => :optional
