@@ -44,7 +44,7 @@ class Mpv < Formula
     depends_on "alsa-lib"
   end
 
-  patch :p1, :DATA
+  patch :p1, :DATA if build.head
 
   def install
     # LANG is unset by default on macOS and causes issues when calling getlocale
