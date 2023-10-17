@@ -21,12 +21,12 @@ class Libplacebo < Formula
   depends_on "little-cms2"
   depends_on "sdl2"
   depends_on "vulkan-loader"
-  
+
   resource "fast_float" do
     url "https://github.com/fastfloat/fast_float/archive/refs/tags/v5.2.0.tar.gz"
     sha256 "72bbfd1914e414c920e39abdc81378adf910a622b62c45b4c61d344039425d18"
   end
-    
+
   resource "glad2" do
     url "https://files.pythonhosted.org/packages/8b/b3/191508033476b6a409c070c6166b1c41ebb547cc6136260e9157343e6a2b/glad2-2.0.4.tar.gz"
     sha256 "ede1639f69f2ba08f1f498a40a707f34a609d24eb2ea0d6c9364689a798cf7d0"
