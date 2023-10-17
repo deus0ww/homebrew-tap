@@ -4,7 +4,11 @@ class Mpv < Formula
   url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.36.0.tar.gz"
   sha256 "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6"
   license :cannot_represent
-  head "https://github.com/mpv-player/mpv.git", branch: "master"
+
+  head do
+    url "https://github.com/mpv-player/mpv.git", branch: "master"
+    patch :DATA if MacOS.version < :big_sur
+  end
 
   depends_on "docutils" => :build
   depends_on "meson" => :build
@@ -21,11 +25,10 @@ class Mpv < Formula
   depends_on "libdvdnav"
   depends_on "little-cms2"
   depends_on "luajit"
+  depends_on "molten-vk" if MacOS.version >= :big_sur
   depends_on "mujs"
   depends_on "uchardet"
   depends_on "zimg"
-
-  depends_on "molten-vk" if MacOS.version >= :catalina
 
   depends_on "libbluray" => :optional
   depends_on "rubberband" => :optional
@@ -43,8 +46,6 @@ class Mpv < Formula
   on_linux do
     depends_on "alsa-lib"
   end
-
-  patch :p1, :DATA if build.head
 
   def install
     # LANG is unset by default on macOS and causes issues when calling getlocale
@@ -72,7 +73,7 @@ class Mpv < Formula
       --mandir=#{man}
     ]
     args << "-Dsdl2=enabled" if build.with? "sdl2"
-    
+
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
     args << "-Dswift-flags=-O -wmo"
 
