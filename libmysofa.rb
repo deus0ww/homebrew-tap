@@ -1,8 +1,8 @@
 class Libmysofa < Formula
   desc "Library for reading AES SOFA files"
   homepage "https://github.com/hoene/libmysofa"
-  url "https://github.com/hoene/libmysofa/archive/refs/tags/v1.3.1.tar.gz"
-  sha256 "a8a8cbf7b0b2508a6932278799b9bf5c63d833d9e7d651aea4622f3bc6b992aa"
+  url "https://github.com/hoene/libmysofa/archive/refs/tags/v1.3.2.tar.gz"
+  sha256 "6c5224562895977e87698a64cb7031361803d136057bba35ed4979b69ab4ba76"
   license "BSD-3-Clause"
   head "https://github.com/hoene/libmysofa.git", branch: "master"
 
