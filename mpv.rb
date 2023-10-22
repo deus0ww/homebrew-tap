@@ -21,9 +21,11 @@ class Mpv < Formula
       sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
     end
 
-    resource "0003-osdep-macos-fix-display-name.patch" do
-      url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0003-osdep-macos-fix-display-name.patch"
-      sha256 "399174c17380c5fb8a7ec80f7699d1390cdd28a79fae91b49a05bf11331099ae"
+    if MacOS.version >= :big_sur
+      resource "0003-osdep-macos-fix-display-name.patch" do
+        url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0003-osdep-macos-fix-display-name.patch"
+        sha256 "399174c17380c5fb8a7ec80f7699d1390cdd28a79fae91b49a05bf11331099ae"
+      end
     end
   end
 
