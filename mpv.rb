@@ -98,7 +98,7 @@ class Mpv < Formula
 
     resources.each do |r|
       r.stage(buildpath)
-      system "git",  "apply", r.name
+      system "git", "apply", r.name
     end
 
     system "meson", "setup", "build", *args, *std_meson_args
