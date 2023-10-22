@@ -7,7 +7,24 @@ class Mpv < Formula
 
   head do
     url "https://github.com/mpv-player/mpv.git", branch: "master"
+
+    # https://github.com/mpv-player/mpv/issues/12653
     patch :DATA if MacOS.version < :big_sur
+
+    resource "0001-vo-gpu-next-videotoolbox.patch" do
+      url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
+      sha256 "4be3036bf4b03222f48f2c15399439e00d9d55f8051bef6d077be8c8f6463b32"
+    end
+
+    resource "0002-ao-coreaudio-fix-idle.patch" do
+      url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
+      sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
+    end
+
+    resource "0003-osdep-macos-fix-display-name.patch" do
+      url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0003-osdep-macos-fix-display-name.patch"
+      sha256 "399174c17380c5fb8a7ec80f7699d1390cdd28a79fae91b49a05bf11331099ae"
+    end
   end
 
   depends_on "docutils" => :build
@@ -76,6 +93,11 @@ class Mpv < Formula
 
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
     args << "-Dswift-flags=-O -wmo"
+
+    resources.each do |r|
+      r.stage(buildpath)
+      system "git",  "apply", r.name
+    end
 
     system "meson", "setup", "build", *args, *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
