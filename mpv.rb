@@ -13,7 +13,7 @@ class Mpv < Formula
 
     resource "0001-vo-gpu-next-videotoolbox.patch" do
       url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
-      sha256 "4be3036bf4b03222f48f2c15399439e00d9d55f8051bef6d077be8c8f6463b32"
+      sha256 "549cbf6383e5a1b9884666ffc53f98e2d84eedf501ccc82941cc5f761f5946b6"
     end
 
     resource "0002-ao-coreaudio-fix-idle.patch" do
