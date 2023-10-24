@@ -3,14 +3,30 @@ class Libplacebo < Formula
 
   desc "Reusable library for GPU-accelerated image/video processing primitives"
   homepage "https://code.videolan.org/videolan/libplacebo"
-  url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.292.1/libplacebo-v6.292.1.tar.bz2"
-  sha256 "51f0b7b400b35ce5f131a763c0cebb8e46680c17bed58cc9296b20c603f7f65f"
   license "LGPL-2.1-or-later"
-  head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
+
+  if MacOS.version >= :big_sur
+    url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.338.1/libplacebo-v6.338.1.tar.bz2"
+    sha256 "66f173e511884ad96c23073e6c3a846215db804f098e11698132abe5a63d6f72"
+    head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
+  else
+    url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.292.1/libplacebo-v6.292.1.tar.bz2"
+    sha256 "51f0b7b400b35ce5f131a763c0cebb8e46680c17bed58cc9296b20c603f7f65f"
+    if MacOS.version == :mojave
+      head "https://github.com/deus0ww/libplacebo.git", branch: "master"
+    else
+      head do
+        url "https://code.videolan.org/videolan/libplacebo/-/archive/d3c109058a31e8a8bdd0b182f2b70a0762620a73/libplacebo-d3c109058a31e8a8bdd0b182f2b70a0762620a73.tar.bz2"
+        sha256 "76d853a0c4d19df9933a4e26d1b5da08a11ac6cc91b90443b23af709d4dacbb1"
+        patch :DATA # https://github.com/haasn/libplacebo/issues/195
+      end
+    end
+  end
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "python@3.11" => :build
+  depends_on "python-setuptools" => :build
+  depends_on "python@3.12" => :build
   depends_on "vulkan-headers" => :build
 
   depends_on "deus0ww/tap/glslang" if MacOS.version <  :big_sur
@@ -19,6 +35,7 @@ class Libplacebo < Formula
   depends_on "shaderc"             if MacOS.version >= :big_sur
 
   depends_on "little-cms2"
+  depends_on "python-markupsafe"
   depends_on "sdl2"
   depends_on "vulkan-loader"
 
@@ -35,11 +52,6 @@ class Libplacebo < Formula
   resource "jinja2" do
     url "https://files.pythonhosted.org/packages/7a/ff/75c28576a1d900e87eb6335b063fab47a8ef3c8b4d88524c4bf78f670cce/Jinja2-3.1.2.tar.gz"
     sha256 "31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852"
-  end
-
-  resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/6d/7c/59a3248f411813f8ccba92a55feaac4bf360d29e2ff05ee7d8e1ef2d7dbf/MarkupSafe-2.1.3.tar.gz"
-    sha256 "af598ed32d6ae86f1b747b82783958b1a4ab8f617b06fe68795c7f026abbdcad"
   end
 
   def install
@@ -87,3 +99,31 @@ class Libplacebo < Formula
     system "./test"
   end
 end
+
+__END__
+
+diff --git a/src/dispatch.c b/src/dispatch.c
+index 85180bda..2be20f5f 100644
+--- a/src/dispatch.c
++++ b/src/dispatch.c
+@@ -407,6 +407,20 @@ static void generate_shaders(pl_dispatch dp,
+         ADD(pre, "precision highp int; \n");
+     }
+ 
++    // textureLod() doesn't work on external/rect samplers, simply disable
++    // LOD sampling in this case. We don't currently support mipmaps anyway.
++    for (int i = 0; i < sh->descs.num; i++) {
++        if (pass_params->descriptors[i].type != PL_DESC_SAMPLED_TEX)
++            continue;
++        pl_tex tex = sh->descs.elem[i].binding.object;
++        if (tex->sampler_type != PL_SAMPLER_NORMAL) {
++            ADD(pre, "#define textureLod(t, p, b) texture(t, p) \n"
++                     "#define textureLodOffset(t, p, b, o)    \\\n"
++                     "        textureOffset(t, p, o)            \n");
++            break;
++        }
++    }
++
+     // Add all of the push constants as their own element
+     if (pass_params->push_constants_size) {
+         // We re-use add_buffer_vars to make sure variables are sorted, this

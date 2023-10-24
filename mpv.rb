@@ -5,26 +5,41 @@ class Mpv < Formula
   sha256 "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6"
   license :cannot_represent
 
-  head do
-    url "https://github.com/mpv-player/mpv.git", branch: "master"
+  if MacOS.version >= :big_sur
+    head do
+      url "https://github.com/mpv-player/mpv.git", branch: "master"
 
-    # https://github.com/mpv-player/mpv/issues/12653
-    patch :DATA if MacOS.version < :big_sur
+      resource "0001-vo-gpu-next-videotoolbox.patch" do
+        url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
+        sha256 "549cbf6383e5a1b9884666ffc53f98e2d84eedf501ccc82941cc5f761f5946b6"
+      end
 
-    resource "0001-vo-gpu-next-videotoolbox.patch" do
-      url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
-      sha256 "549cbf6383e5a1b9884666ffc53f98e2d84eedf501ccc82941cc5f761f5946b6"
-    end
+      resource "0002-ao-coreaudio-fix-idle.patch" do
+        url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
+        sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
+      end
 
-    resource "0002-ao-coreaudio-fix-idle.patch" do
-      url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
-      sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
-    end
-
-    if MacOS.version >= :big_sur
       resource "0003-osdep-macos-fix-display-name.patch" do
         url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0003-osdep-macos-fix-display-name.patch"
         sha256 "399174c17380c5fb8a7ec80f7699d1390cdd28a79fae91b49a05bf11331099ae"
+      end
+    end
+  else
+    head do
+      # url "https://github.com/mpv-player/mpv/archive/0a799547aa601b75705900772b343e9c9f1da150.tar.gz"
+      # sha256 "7db38c7ae55fff7129a9a8a40f2c4f651c21e500f6e547772597eba6cefcd868"
+      url "https://github.com/mpv-player/mpv.git", branch: "master"
+
+      patch :DATA # https://github.com/mpv-player/mpv/issues/12653 + libplacebo downgrade
+
+      resource "0001-vo-gpu-next-videotoolbox.patch" do
+        url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
+        sha256 "549cbf6383e5a1b9884666ffc53f98e2d84eedf501ccc82941cc5f761f5946b6"
+      end
+
+      resource "0002-ao-coreaudio-fix-idle.patch" do
+        url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
+        sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
       end
     end
   end
@@ -142,7 +157,28 @@ class Mpv < Formula
     system "pkg-config", "mpv"
   end
 end
+
 __END__
+diff --git a/VERSION b/VERSION
+index 109a6b660a..2f332255ac 100644
+--- a/VERSION
++++ b/VERSION
+@@ -1 +1 @@
+-0.36.0-UNKNOWN
++0.36.0-680-g729f2fed2c
+diff --git a/meson.build b/meson.build
+index 345b591a8c..0e091ca379 100644
+--- a/meson.build
++++ b/meson.build
+@@ -23,7 +23,7 @@ libavutil = dependency('libavutil', version: '>= 56.70.100')
+ libswresample = dependency('libswresample', version: '>= 3.9.100')
+ libswscale = dependency('libswscale', version: '>= 5.9.100')
+ 
+-libplacebo = dependency('libplacebo', version: '>=6.338.0')
++libplacebo = dependency('libplacebo', version: '>=6.292.1')
+ 
+ libass = dependency('libass', version: '>= 0.12.2')
+ 
 diff --git a/video/out/mac_common.swift b/video/out/mac_common.swift
 index 12d2870add..fd3e2c0018 100644
 --- a/video/out/mac_common.swift
@@ -164,4 +200,3 @@ index 12d2870add..fd3e2c0018 100644
          }
  
          if frameTimer != RENDER_TIMER_SYSTEM {
-
