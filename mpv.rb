@@ -47,7 +47,8 @@ class Mpv < Formula
   depends_on "docutils" => :build
   depends_on "meson" => :build
   depends_on "pkg-config" => [:build, :test]
-  depends_on "python@3.11" => :build
+  depends_on "python-packaging" => :build
+  depends_on "python@3.12" => :build
   depends_on xcode: :build
 
   depends_on "deus0ww/tap/ffmpeg"
