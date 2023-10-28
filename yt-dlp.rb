@@ -11,7 +11,7 @@ class YtDlp < Formula
     url "https://github.com/yt-dlp/yt-dlp.git", branch: "master"
   end
 
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   depends_on "aria2" => :recommended
 
   resource "brotli" do
@@ -41,7 +41,7 @@ class YtDlp < Formula
 
   def install
     if build.head?
-      python3 = "python3.11"
+      python3 = "python3.12"
       system python3, "devscripts/update-version.py"
       system python3, "devscripts/make_lazy_extractors.py"
       system "make", "lazy-extractors", "yt-dlp", "completions"

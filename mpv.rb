@@ -136,7 +136,7 @@ class Mpv < Formula
     zsh_completion.install "etc/_mpv.zsh" => "_mpv"
 
     # Build, Fix, and Codesign App Bundle
-    system "python3.11", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
+    system "python3.12", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
     bindir = "build/mpv.app/Contents/MacOS/"
     rm   bindir + "mpv-bundle"
     mv   bindir + "mpv", bindir + "mpv-bundle"
