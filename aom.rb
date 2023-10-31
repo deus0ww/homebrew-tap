@@ -8,8 +8,8 @@ class Aom < Formula
 
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
-  depends_on "jpeg-xl"
-  depends_on "libvmaf":optional
+  depends_on "deus0ww/tap/jpeg-xl"
+  depends_on "libvmaf" => :optional
 
   on_intel do
     depends_on "yasm" => :build
