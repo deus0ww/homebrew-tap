@@ -29,15 +29,14 @@ class Libplacebo < Formula
   depends_on "python@3.12" => :build
   depends_on "vulkan-headers" => :build
 
-  depends_on "deus0ww/tap/glslang" if MacOS.version <  :big_sur
   depends_on "deus0ww/tap/shaderc" if MacOS.version <  :big_sur
-  depends_on "glslang"             if MacOS.version >= :big_sur
   depends_on "shaderc"             if MacOS.version >= :big_sur
 
   depends_on "little-cms2"
   depends_on "python-markupsafe"
   depends_on "sdl2"
   depends_on "vulkan-loader"
+  depends_on "xxhash"
 
   resource "fast_float" do
     url "https://github.com/fastfloat/fast_float/archive/refs/tags/v5.2.0.tar.gz"
