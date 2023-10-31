@@ -34,6 +34,7 @@ class Ffmpeg < Formula
   depends_on "jpeg-xl"             if MacOS.version >= :big_sur
 
   depends_on "aribb24"
+  depends_on "bzip2"               # uses_from_macos
   depends_on "dav1d"
   depends_on "fdk-aac"
   depends_on "fontconfig"
@@ -48,7 +49,7 @@ class Ffmpeg < Formula
   depends_on "libvmaf"             if MacOS.version >= :big_sur  # Avoiding building Rust
   depends_on "libvorbis"
   depends_on "libvpx"
-  depends_on "libxml2"
+  depends_on "libxml2"             # uses_from_macos
   depends_on "opencore-amr"
   depends_on "openjpeg"
   depends_on "openssl@3"
@@ -69,6 +70,7 @@ class Ffmpeg < Formula
   depends_on "xz"
   depends_on "zeromq"              if MacOS.version >= :big_sur  # Avoiding building Boost
   depends_on "zimg"
+  depends_on "zlib"                # uses_from_macos
 
   depends_on "chromaprint" => :optional
   depends_on "game-music-emu" => :optional
@@ -81,9 +83,6 @@ class Ffmpeg < Formula
   depends_on "openh264" => :optional
   depends_on "rtmpdump" => :optional
   depends_on "two-lame" => :optional
-
-  uses_from_macos "bzip2"
-  uses_from_macos "zlib"
 
   on_linux do
     depends_on "alsa-lib"
