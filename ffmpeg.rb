@@ -23,24 +23,18 @@ class Ffmpeg < Formula
     regex(/href=.*?ffmpeg[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  option "with-librsvg", "Enable SVG files as inputs via librsvg"
-  option "with-libssh", "Enable SFTP protocol via libssh"
-  option "with-libvmaf", "Enable libvmaf scoring library"
-  option "with-openh264", "Enable OpenH264 library"
-  option "with-rav1e", "Enable Rav1e AV1 encoder library"
-  option "with-snappy", "Enable HAP/Snappy library"
-  option "with-tesseract", "Enable the tesseract OCR engine"
-  option "with-zeromq", "Enable using libzeromq to receive commands sent through a libzeromq client"
-
   depends_on "pkg-config" => :build
 
-  depends_on "aribb24"
-  depends_on "dav1d"
-  depends_on "deus0ww/tap/aom"
-  depends_on "deus0ww/tap/jpeg-xl"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
   depends_on "deus0ww/tap/libplacebo"
+  depends_on "deus0ww/tap/aom"     if MacOS.version <  :big_sur
+  depends_on "aom"                 if MacOS.version >= :big_sur
+  depends_on "deus0ww/tap/jpeg-xl" if MacOS.version <  :big_sur
+  depends_on "jpeg-xl"             if MacOS.version >= :big_sur
+
+  depends_on "aribb24"
+  depends_on "dav1d"
   depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
@@ -51,41 +45,44 @@ class Ffmpeg < Formula
   depends_on "librist"
   depends_on "libsoxr"
   depends_on "libvidstab"
+  depends_on "libvmaf"             if MacOS.version >= :big_sur  # Avoiding building Rust
   depends_on "libvorbis"
   depends_on "libvpx"
+  depends_on "libxml2"
   depends_on "opencore-amr"
   depends_on "openjpeg"
   depends_on "openssl@3"
   depends_on "opus"
+  depends_on "rav1e"               if MacOS.version >= :big_sur  # Avoiding building Rust
   depends_on "rubberband"
   depends_on "sdl2"
+  depends_on "snappy"              if MacOS.version >= :big_sur  # Build issue on macOS 10.13
   depends_on "speex"
   depends_on "srt"
   depends_on "svt-av1"
+  depends_on "tesseract"           if MacOS.version >= :big_sur  # Build issue on macOS <10.15
   depends_on "theora"
   depends_on "webp"
   depends_on "x264"
   depends_on "x265"
   depends_on "xvid"
   depends_on "xz"
+  depends_on "zeromq"              if MacOS.version >= :big_sur  # Avoiding building Boost
   depends_on "zimg"
 
+  depends_on "chromaprint" => :optional
   depends_on "game-music-emu" => :optional
   depends_on "libcaca" => :optional
   depends_on "libgsm" => :optional
   depends_on "libmodplug" => :optional
+  depends_on "libopenmpt" => :optional
   depends_on "librsvg" => :optional
   depends_on "libssh" => :optional
-  depends_on "libvmaf" => :optional      # Avoiding building Rust
   depends_on "openh264" => :optional
-  depends_on "rav1e" => :optional        # Avoiding building Rust
-  depends_on "snappy" => :optional       # Build issue on macOS 10.13
-  depends_on "tesseract" => :optional    # Build issue on macOS <10.15
+  depends_on "rtmpdump" => :optional
   depends_on "two-lame" => :optional
-  depends_on "zeromq" => :optional       # Avoiding building Boost
 
   uses_from_macos "bzip2"
-  uses_from_macos "libxml2"
   uses_from_macos "zlib"
 
   on_linux do
@@ -118,11 +115,9 @@ class Ffmpeg < Formula
 
       --enable-gpl
       --enable-nonfree
-      --enable-version3
-
-      --enable-opencl
       --enable-pthreads
       --enable-shared
+      --enable-version3
 
       --enable-frei0r
       --enable-libaom
@@ -170,32 +165,35 @@ class Ffmpeg < Formula
     ]
 
     # Needs corefoundation, coremedia, corevideo
-    args += %w[--enable-videotoolbox --enable-audiotoolbox] if OS.mac?
+    args += %w[--enable-opencl --enable-videotoolbox --enable-audiotoolbox] if OS.mac?
     args << "--enable-neon" if Hardware::CPU.arm?
 
-    args << "--enable-libcaca" if build.with? "libcaca"
-    args << "--enable-libgme" if build.with? "game-music-emu"
-    args << "--enable-libgsm" if build.with? "libgsm"
-    args << "--enable-libmodplug" if build.with? "libmodplug"
-    args << "--enable-libopenh264" if build.with? "openh264"
-    args << "--enable-librav1e" if build.with? "rav1e"
-    args << "--enable-librsvg" if build.with? "librsvg"
-    args << "--enable-libsnappy" if build.with? "snappy"
-    args << "--enable-libssh" if build.with? "libssh"
+    args << "--enable-librav1e"     if build.with? "rav1e"
+    args << "--enable-libsnappy"    if build.with? "snappy"
     args << "--enable-libtesseract" if build.with? "tesseract"
-    args << "--enable-libtwolame" if build.with? "two-lame"
-    args << "--enable-libvmaf" if build.with? "libvmaf"
-    args << "--enable-libzmq" if build.with? "zeromq"
+    args << "--enable-libvmaf"      if build.with? "libvmaf"
+    args << "--enable-libzmq"       if build.with? "zeromq"
 
-    # args << "--enable-hardcoded-tables"
-    args << "--enable-lto"
-    args << "--optflags=-Ofast"
+    args << "--enable-chromaprint"  if build.with? "chromaprint"
+    args << "--enable-libcaca"      if build.with? "libcaca"
+    args << "--enable-libgme"       if build.with? "game-music-emu"
+    args << "--enable-libgsm"       if build.with? "libgsm"
+    args << "--enable-libmodplug"   if build.with? "libmodplug"
+    args << "--enable-libopenh264"  if build.with? "openh264"
+    args << "--enable-libopenmpt"   if build.with? "libopenmpt"
+    args << "--enable-librsvg"      if build.with? "librsvg"
+    args << "--enable-librtmp"      if build.with? "rtmpdump"
+    args << "--enable-libssh"       if build.with? "libssh"
+    args << "--enable-libtwolame"   if build.with? "two-lame"
 
     opts  = Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native "
     args << ("--extra-cflags="    + opts)
     args << ("--extra-cxxflags="  + opts)
     args << ("--extra-objcflags=" + opts)
     args << ("--extra-ldflags="   + opts)
+    args << "--enable-hardcoded-tables"
+    args << "--enable-lto"
+    args << "--optflags=-Ofast"
 
     system "./configure", *args
     system "make", "install"
