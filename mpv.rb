@@ -106,8 +106,6 @@ class Mpv < Formula
       --datadir=#{pkgshare}
       --mandir=#{man}
     ]
-    args << "-Dsdl2=enabled" if build.with? "sdl2"
-
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
     args << "-Dswift-flags=-O -wmo"
 
