@@ -29,8 +29,11 @@ class Mpv < Formula
       # url "https://github.com/mpv-player/mpv/archive/0a799547aa601b75705900772b343e9c9f1da150.tar.gz"
       # sha256 "7db38c7ae55fff7129a9a8a40f2c4f651c21e500f6e547772597eba6cefcd868"
       url "https://github.com/mpv-player/mpv.git", branch: "master"
-
-      patch :DATA # https://github.com/mpv-player/mpv/issues/12653 + libplacebo downgrade
+  
+      patch do
+        url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-01.patch"
+        sha256 "08396c7edb6de924b65cd58327b3006c7d3d23e3518c2bfdcbb582b7efeab49c"
+      end
 
       resource "0001-vo-gpu-next-videotoolbox.patch" do
         url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
@@ -155,46 +158,3 @@ class Mpv < Formula
     system "pkg-config", "mpv"
   end
 end
-
-__END__
-diff --git a/VERSION b/VERSION
-index 109a6b660a..2f332255ac 100644
---- a/VERSION
-+++ b/VERSION
-@@ -1 +1 @@
--0.36.0-UNKNOWN
-+0.36.0-680-g729f2fed2c
-diff --git a/meson.build b/meson.build
-index 345b591a8c..0e091ca379 100644
---- a/meson.build
-+++ b/meson.build
-@@ -23,7 +23,7 @@ libavutil = dependency('libavutil', version: '>= 56.70.100')
- libswresample = dependency('libswresample', version: '>= 3.9.100')
- libswscale = dependency('libswscale', version: '>= 5.9.100')
- 
--libplacebo = dependency('libplacebo', version: '>=6.338.0')
-+libplacebo = dependency('libplacebo', version: '>=6.292.1')
- 
- libass = dependency('libass', version: '>= 0.12.2')
- 
-diff --git a/video/out/mac_common.swift b/video/out/mac_common.swift
-index 12d2870add..fd3e2c0018 100644
---- a/video/out/mac_common.swift
-+++ b/video/out/mac_common.swift
-@@ -111,11 +111,11 @@ class MacCommon: Common {
-                                          _ flagsOut: UnsafeMutablePointer<CVOptionFlags>) -> CVReturn
-     {
-         let frameTimer = mpv?.macOpts.macos_render_timer ?? Int32(RENDER_TIMER_CALLBACK)
--        let signalSwap = { [self] in
--            swapLock.lock()
--            swapTime += 1
--            swapLock.signal()
--            swapLock.unlock()
-+        let signalSwap = {
-+            self.swapLock.lock()
-+            self.swapTime += 1
-+            self.swapLock.signal()
-+            self.swapLock.unlock()
-         }
- 
-         if frameTimer != RENDER_TIMER_SYSTEM {
