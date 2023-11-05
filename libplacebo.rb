@@ -17,7 +17,7 @@ class Libplacebo < Formula
       if MacOS.version == :mojave
         url "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
       else
-        # Last buildable commit on macOS 10.13
+        # Last buildable commit on macOS 10.13 - v.6.318
         url "https://code.videolan.org/videolan/libplacebo/-/archive/0df53c2e23ab04a4c213085a9aaaef342c8214ff/libplacebo-0df53c2e23ab04a4c213085a9aaaef342c8214ff.tar.bz2"
         sha256 "b8eb1c34b7584b0286054ca7879af37ea039db2adaa884fb4cb902c74fddffae"
         patch do

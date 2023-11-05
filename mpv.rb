@@ -32,14 +32,18 @@ class Mpv < Formula
         # Last buildable commit on macOS 10.13
         url "https://github.com/mpv-player/mpv/archive/7480efa62c0a2a1779b4fdaa804a6512aa488400.tar.gz"
         sha256 "28c456b51f43509d65b0bcf433bc56a7ad3f6d5f99c28ffc9bf8f660e1c6dd1f"
-        patch do
+        patch do  # Set required libplacebo version to v.6.292.1
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-02.patch"
+          sha256 "067efc9798cf69b9176250ce95506540c54760050f06846bd4d9c97855e26ce0"
+        end
+        patch do  # Change version string
+          url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-03.patch"
           sha256 "e997c86fec6d07b6d184eecf647f793a9bfca5a9e015d3d195988caac4302f84"
         end
       end
-      patch do
+      patch do  # Fix an issue with old Swift
         url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-01.patch"
-        sha256 "08396c7edb6de924b65cd58327b3006c7d3d23e3518c2bfdcbb582b7efeab49c"
+        sha256 "5d0647dd8c167ec5ea49fcc296ce58abead4a5234213b62993d88d50500dd6c7"
       end
       resource "0001-vo-gpu-next-videotoolbox.patch" do
         url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
