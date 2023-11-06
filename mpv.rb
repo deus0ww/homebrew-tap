@@ -36,7 +36,7 @@ class Mpv < Formula
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-02.patch"
           sha256 "067efc9798cf69b9176250ce95506540c54760050f06846bd4d9c97855e26ce0"
         end
-        patch do  # Change version string
+        patch do  # Change version string - 0.36.0-722-g7480efa62c
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-03.patch"
           sha256 "e997c86fec6d07b6d184eecf647f793a9bfca5a9e015d3d195988caac4302f84"
         end

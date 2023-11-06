@@ -20,12 +20,12 @@ class Libplacebo < Formula
         # Last buildable commit on macOS 10.13 - v.6.318
         url "https://code.videolan.org/videolan/libplacebo/-/archive/0df53c2e23ab04a4c213085a9aaaef342c8214ff/libplacebo-0df53c2e23ab04a4c213085a9aaaef342c8214ff.tar.bz2"
         sha256 "b8eb1c34b7584b0286054ca7879af37ea039db2adaa884fb4cb902c74fddffae"
-        patch do
+        patch do  # Extra changes needed to apply first patch on macOS 10.13
           url "https://github.com/deus0ww/homebrew-tap/raw/master/libplacebo-02.patch"
           sha256 "124d74ab62dcda482671a020575dea58d9aeecf8eec6e93162bf49f35122f2a2"
         end
       end
-      patch do
+      patch do  # Revert convert.cc changes that's incompatible with C++17 on macOS < 10.15
         url "https://github.com/deus0ww/homebrew-tap/raw/master/libplacebo-01.patch"
         sha256 "dd3824540dea6133810fa649630a2861b47e818e036f8076d9d69577145fb131"
       end
