@@ -38,8 +38,9 @@ class Libplacebo < Formula
   depends_on "python@3.12" => :build
   depends_on "vulkan-headers" => :build
 
-  depends_on "deus0ww/tap/shaderc" if MacOS.version <  :big_sur
-  depends_on "shaderc"             if MacOS.version >= :big_sur
+  depends_on "deus0ww/tap/dovi_tool" if MacOS.version >= :big_sur
+  depends_on "deus0ww/tap/shaderc"   if MacOS.version <  :big_sur
+  depends_on "shaderc"               if MacOS.version >= :big_sur
 
   depends_on "little-cms2"
   depends_on "python-markupsafe"
@@ -82,8 +83,6 @@ class Libplacebo < Formula
 
       -Dvulkan=enabled
       -Dopengl=enabled
-      -Dshaderc=enabled
-      -Dlcms=enabled
     ]
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
 

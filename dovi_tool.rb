@@ -23,7 +23,7 @@ class DoviTool < Formula
     system "cargo", "install", *std_cargo_args
     pkgshare.install "assets"
     cd "dolby_vision" do
-      system "cargo", "cinstall", "--release", "--prefix", prefix
+      system "cargo", "cinstall", "--prefix", prefix
     end
   end
 
