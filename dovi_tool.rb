@@ -11,6 +11,7 @@ class DoviTool < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
+  depends_on "cargo-c" => :build
   depends_on "rust" => :build
 
   on_linux do
@@ -21,6 +22,9 @@ class DoviTool < Formula
   def install
     system "cargo", "install", *std_cargo_args
     pkgshare.install "assets"
+    cd "dolby_vision" do
+      system "cargo", "cinstall", "--release", "--prefix", prefix
+    end
   end
 
   test do
