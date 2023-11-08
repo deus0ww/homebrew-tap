@@ -10,7 +10,7 @@ class Mpv < Formula
       url "https://github.com/mpv-player/mpv.git", branch: "master"
       resource "0001-vo-gpu-next-videotoolbox.patch" do
         url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
-        sha256 "549cbf6383e5a1b9884666ffc53f98e2d84eedf501ccc82941cc5f761f5946b6"
+        sha256 "cb133b3a18ea7a4a3ee9eb3a2c83eb69db1596847a77e24c345ad2975248fd00"
       end
       resource "0002-ao-coreaudio-fix-idle.patch" do
         url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
@@ -47,7 +47,7 @@ class Mpv < Formula
       end
       resource "0001-vo-gpu-next-videotoolbox.patch" do
         url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
-        sha256 "549cbf6383e5a1b9884666ffc53f98e2d84eedf501ccc82941cc5f761f5946b6"
+        sha256 "cb133b3a18ea7a4a3ee9eb3a2c83eb69db1596847a77e24c345ad2975248fd00"
       end
       resource "0002-ao-coreaudio-fix-idle.patch" do
         url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
