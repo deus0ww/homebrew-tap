@@ -1,0 +1,12 @@
+diff --git a/meson.build b/meson.build
+index 345b591a8c..0e091ca379 100644
+--- a/meson.build
++++ b/meson.build
+@@ -23,7 +23,7 @@ libavutil = dependency('libavutil', version: '>= 56.70.100')
+ libswresample = dependency('libswresample', version: '>= 3.9.100')
+ libswscale = dependency('libswscale', version: '>= 5.9.100')
+ 
+-libplacebo = dependency('libplacebo', version: '>=6.338.0')
++libplacebo = dependency('libplacebo', version: '>=6.292.1')
+ 
+ libass = dependency('libass', version: '>= 0.12.2')

@@ -1,0 +1,67 @@
+diff --git a/osdep/macos/swift_extensions.swift b/osdep/macos/swift_extensions.swift
+index 127c568abe..a1aeb0abf7 100644
+--- a/osdep/macos/swift_extensions.swift
++++ b/osdep/macos/swift_extensions.swift
+@@ -28,6 +28,37 @@ extension NSScreen {
+             return deviceDescription[.screenNumber] as? CGDirectDisplayID ?? 0
+         }
+     }
++
++    public var displayName: String? {
++        get {
++            var name: String? = nil
++            var object: io_object_t
++            var iter = io_iterator_t()
++            let matching = IOServiceMatching("IODisplayConnect")
++            let result = IOServiceGetMatchingServices(kIOMasterPortDefault, matching, &iter)
++
++            if result != KERN_SUCCESS || iter == 0 { return nil }
++
++            repeat {
++                object = IOIteratorNext(iter)
++                if let info = IODisplayCreateInfoDictionary(object, IOOptionBits(kIODisplayOnlyPreferredName)).takeRetainedValue() as? [String:AnyObject],
++                    (info[kDisplayVendorID] as? UInt32 == CGDisplayVendorNumber(displayID) &&
++                    info[kDisplayProductID] as? UInt32 == CGDisplayModelNumber(displayID) &&
++                    info[kDisplaySerialNumber] as? UInt32 ?? 0 == CGDisplaySerialNumber(displayID))
++                {
++                    if let productNames = info["DisplayProductName"] as? [String:String],
++                       let productName = productNames.first?.value
++                    {
++                        name = productName
++                        break
++                    }
++                }
++            } while object != 0
++
++            IOObjectRelease(iter)
++            return name
++        }
++    }
+ }
+ 
+ extension NSColor {
+diff --git a/video/out/mac/common.swift b/video/out/mac/common.swift
+index aac705005f..6da99ca20b 100644
+--- a/video/out/mac/common.swift
++++ b/video/out/mac/common.swift
+@@ -396,7 +396,7 @@ class Common: NSObject {
+ 
+     func getScreenBy(name screenName: String?) -> NSScreen? {
+         for screen in NSScreen.screens {
+-            if screen.localizedName == screenName {
++            if screen.displayName == screenName {
+                 return screen
+             }
+         }
+@@ -628,7 +628,7 @@ class Common: NSObject {
+             let dnames = data!.assumingMemoryBound(to: UnsafeMutablePointer<UnsafeMutablePointer<Int8>?>?.self)
+             var array: UnsafeMutablePointer<UnsafeMutablePointer<Int8>?>? = nil
+             var count: Int32 = 0
+-            let displayName = getCurrentScreen()?.localizedName ?? "Unknown"
++            let displayName = getCurrentScreen()?.displayName ?? "Unknown"
+ 
+             SWIFT_TARRAY_STRING_APPEND(nil, &array, &count, ta_xstrdup(nil, displayName))
+             SWIFT_TARRAY_STRING_APPEND(nil, &array, &count, nil)
+-- 
+2.42.1
+
