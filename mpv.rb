@@ -136,7 +136,7 @@ class Mpv < Formula
     if MacOS.version >= :big_sur
       bash_completion.install "etc/mpv.bash-completion" => "mpv"
       zsh_completion.install "etc/_mpv.zsh" => "_mpv"
-    if MacOS.version >= :big_sur
+    end
 
     # Build, Fix, and Codesign App Bundle
     system "python3.12", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
