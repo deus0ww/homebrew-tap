@@ -25,31 +25,16 @@ class Mpv < Formula
       if MacOS.version == :mojave
         url "https://github.com/mpv-player/mpv.git", branch: "master"
         patch do  # Revert DisplayName change
-          url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-displayname.patch"
+          url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.14.patch"
           sha256 "5cb93177fcf0e304dfb16365b9899473bea757f5d8c1af9aad3505ec9403abae"
         end
-          # Last buildable commit on macOS 10.14
-#         url "https://github.com/mpv-player/mpv/archive/040a921964fd64f310b95f35af88f3d805bba684.tar.gz"
-#         sha256 "2343f15c0923aae5cf2e16f9ffd9e028e3e0770124bf82698043405c8a4fa1ef"
-#         patch do  # Change version string - 0.36.0-814-g040a921964
-#           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.14-version.patch"
-#           sha256 "4d2793721bd58d230a5ba998e606f6385ee57ce1fa4917d298771211ca58f416"
-#         end
       else
         # Last buildable commit on macOS 10.13
         url "https://github.com/mpv-player/mpv/archive/7480efa62c0a2a1779b4fdaa804a6512aa488400.tar.gz"
         sha256 "28c456b51f43509d65b0bcf433bc56a7ad3f6d5f99c28ffc9bf8f660e1c6dd1f"
-        patch do  # Fix an issue with old Swift
-          url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-swift.patch"
-          sha256 "5d0647dd8c167ec5ea49fcc296ce58abead4a5234213b62993d88d50500dd6c7"
-        end
-        patch do  # Set required libplacebo version to v.6.292.1
-          url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-pl-downgrade.patch"
-          sha256 "067efc9798cf69b9176250ce95506540c54760050f06846bd4d9c97855e26ce0"
-        end
-        patch do  # Change version string - 0.36.0-722-g7480efa62c
-          url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.13-version.patch"
-          sha256 "e997c86fec6d07b6d184eecf647f793a9bfca5a9e015d3d195988caac4302f84"
+        patch do  # Fix issue with old Swift + Downgrade libplacebo to v.6.292.1 + Set version to 0.36.0-722-g7480efa62c
+          url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.13.patch"
+          sha256 "878386733311718545ac93629d46fc4eb9e73af86743e1df133c51652c07e66c"
         end
       end
       resource "0001-vo-gpu-next-videotoolbox.patch" do
