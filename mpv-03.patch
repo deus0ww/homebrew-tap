@@ -1,7 +1,0 @@
-diff --git a/VERSION b/VERSION
-index 109a6b660a..2f332255ac 100644
---- a/VERSION
-+++ b/VERSION
-@@ -1 +1 @@
--0.36.0-UNKNOWN
-+0.36.0-722-g7480efa62c
