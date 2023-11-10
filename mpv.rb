@@ -28,22 +28,22 @@ class Mpv < Formula
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.14.patch"
           sha256 "5cb93177fcf0e304dfb16365b9899473bea757f5d8c1af9aad3505ec9403abae"
         end
+        resource "0001-vo-gpu-next-videotoolbox.patch" do
+          url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
+          sha256 "cb133b3a18ea7a4a3ee9eb3a2c83eb69db1596847a77e24c345ad2975248fd00"
+        end
+        resource "0002-ao-coreaudio-fix-idle.patch" do
+          url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
+          sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
+        end
       else
-        # Last buildable commit on macOS 10.13
+        # Last buildable commit on macOS 10.13 - 0.36.0-722-g7480efa62c
         url "https://github.com/mpv-player/mpv/archive/7480efa62c0a2a1779b4fdaa804a6512aa488400.tar.gz"
         sha256 "28c456b51f43509d65b0bcf433bc56a7ad3f6d5f99c28ffc9bf8f660e1c6dd1f"
-        patch do  # Fix issue with old Swift + Downgrade libplacebo to v.6.292.1 + Set version to 0.36.0-722-g7480efa62c
+        patch do  # Fix old Swift + Downgrade libplacebo + CoreAudio-fix-idle
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.13.patch"
-          sha256 "5f6b77411242fd4798efc140aeb5045eec026e5546828358c2269304a193e955"
+          sha256 "abd3d26872de61e7a7ee7dda2ab0e8c4c7d4e05358439e210d5a62ef13fb5811"
         end
-      end
-      resource "0001-vo-gpu-next-videotoolbox.patch" do
-        url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
-        sha256 "cb133b3a18ea7a4a3ee9eb3a2c83eb69db1596847a77e24c345ad2975248fd00"
-      end
-      resource "0002-ao-coreaudio-fix-idle.patch" do
-        url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
-        sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
       end
     end
   end
