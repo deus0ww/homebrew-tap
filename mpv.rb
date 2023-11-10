@@ -34,7 +34,7 @@ class Mpv < Formula
         sha256 "28c456b51f43509d65b0bcf433bc56a7ad3f6d5f99c28ffc9bf8f660e1c6dd1f"
         patch do  # Fix issue with old Swift + Downgrade libplacebo to v.6.292.1 + Set version to 0.36.0-722-g7480efa62c
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.13.patch"
-          sha256 "878386733311718545ac93629d46fc4eb9e73af86743e1df133c51652c07e66c"
+          sha256 "5f6b77411242fd4798efc140aeb5045eec026e5546828358c2269304a193e955"
         end
       end
       resource "0001-vo-gpu-next-videotoolbox.patch" do
@@ -133,8 +133,10 @@ class Mpv < Formula
       end
     end
 
-    bash_completion.install "etc/mpv.bash-completion" => "mpv"
-    zsh_completion.install "etc/_mpv.zsh" => "_mpv"
+    if MacOS.version >= :big_sur
+      bash_completion.install "etc/mpv.bash-completion" => "mpv"
+      zsh_completion.install "etc/_mpv.zsh" => "_mpv"
+    if MacOS.version >= :big_sur
 
     # Build, Fix, and Codesign App Bundle
     system "python3.12", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
