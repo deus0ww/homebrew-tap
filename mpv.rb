@@ -24,7 +24,7 @@ class Mpv < Formula
     head do
       if MacOS.version == :mojave
         url "https://github.com/mpv-player/mpv.git", branch: "master"
-        patch do  # Revert DisplayName change
+        patch do # Revert DisplayName change
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.14.patch"
           sha256 "5cb93177fcf0e304dfb16365b9899473bea757f5d8c1af9aad3505ec9403abae"
         end
@@ -40,7 +40,7 @@ class Mpv < Formula
         # Last buildable commit on macOS 10.13 - 0.36.0-722-g7480efa62c
         url "https://github.com/mpv-player/mpv/archive/7480efa62c0a2a1779b4fdaa804a6512aa488400.tar.gz"
         sha256 "28c456b51f43509d65b0bcf433bc56a7ad3f6d5f99c28ffc9bf8f660e1c6dd1f"
-        patch do  # Fix old Swift + Downgrade libplacebo + CoreAudio-fix-idle
+        patch do # Fix old Swift + Downgrade libplacebo + CoreAudio-fix-idle
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.13.patch"
           sha256 "abd3d26872de61e7a7ee7dda2ab0e8c4c7d4e05358439e210d5a62ef13fb5811"
         end
