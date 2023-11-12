@@ -34,6 +34,7 @@ class Libplacebo < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
+  depends_on "pkg-config" => :build
   depends_on "python-setuptools" => :build
   depends_on "python@3.12" => :build
   depends_on "vulkan-headers" => :build
@@ -44,7 +45,6 @@ class Libplacebo < Formula
 
   depends_on "little-cms2"
   depends_on "python-markupsafe"
-  depends_on "sdl2"
   depends_on "vulkan-loader"
   depends_on "xxhash"
 
