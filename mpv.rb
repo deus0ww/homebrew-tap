@@ -75,8 +75,7 @@ class Mpv < Formula
 
   on_macos do
     depends_on "coreutils" => :recommended
-    depends_on "deus0ww/tap/dockutil@2" => :recommended if MacOS.version <  :big_sur
-    depends_on "deus0ww/tap/dockutil@3" => :recommended if MacOS.version >= :big_sur
+    depends_on "deus0ww/tap/dockutil" => :recommended
     depends_on "tag" => :recommended
     depends_on "trash" => :recommended
   end
@@ -148,7 +147,7 @@ class Mpv < Formula
     prefix.install "build/mpv.app"
 
     # Add to Dock
-    if build.with?("dockutil@2") || build.with?("dockutil@3")
+    if build.with? "dockutil"
       system "dockutil", "--add", "#{prefix}/mpv.app", "--replacing", "mpv", "--allhomes"
     end
   end
