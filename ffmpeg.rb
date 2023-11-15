@@ -92,6 +92,14 @@ class Ffmpeg < Formula
     sha256 "57e26caced5a1382cb639235f9555fc50e45e7bf8333f7c9ae3d49b3241d3f77"
   end
 
+  # WebVTT decoding fix from yt-dlp
+  # https://github.com/yt-dlp/yt-dlp/issues/4127
+  # https://trac.ffmpeg.org/ticket/8684
+  patch do
+    url "https://github.com/yt-dlp/FFmpeg-Builds/raw/master/patches/ffmpeg/master/0001-avformat-webvttdec-Ignore-REGION-and-STYLE-chunks.patch"
+    sha256 "47d4b62b19642e13d9d7d1a53c0a689863181779854ad9260fdee7b9a568befa"
+  end
+
   def install
     # The new linker leads to duplicate symbol issue https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/issues/140
     ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
