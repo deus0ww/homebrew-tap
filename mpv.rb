@@ -139,17 +139,16 @@ class Mpv < Formula
 
     # Build, Fix, and Codesign App Bundle
     system "python3.12", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
-    bindir = "build/mpv.app/Contents/MacOS/"
-    rm   bindir + "mpv-bundle"
-    mv   bindir + "mpv", bindir + "mpv-bundle"
-    ln_s "mpv-bundle", bindir + "mpv"
-    system "codesign", "--deep", "-fs", "-", "build/mpv.app"
+    if MacOS.version < :mojave || !build.head?
+      bindir = "build/mpv.app/Contents/MacOS/"
+      rm_f bindir + "mpv-bundle"
+      cp   bindir + "mpv", bindir + "mpv-bundle"
+      system "codesign", "--deep", "-fs", "-", "build/mpv.app"
+    end
     prefix.install "build/mpv.app"
 
     # Add to Dock
-    if build.with? "dockutil"
-      system "dockutil", "--add", "#{prefix}/mpv.app", "--replacing", "mpv", "--allhomes"
-    end
+    system "dockutil", "--add", "#{prefix}/mpv.app", "--replacing", "mpv", "--allhomes" if build.with? "dockutil"
   end
 
   test do
