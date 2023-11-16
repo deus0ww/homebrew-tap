@@ -8,10 +8,6 @@ class Mpv < Formula
     sha256 "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6"
     head do
       url "https://github.com/mpv-player/mpv.git", branch: "master"
-      resource "0001-vo-gpu-next-videotoolbox.patch" do
-        url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
-        sha256 "cb133b3a18ea7a4a3ee9eb3a2c83eb69db1596847a77e24c345ad2975248fd00"
-      end
       resource "0002-ao-coreaudio-fix-idle.patch" do
         url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
         sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
@@ -27,10 +23,6 @@ class Mpv < Formula
         patch do # Revert DisplayName change
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.14.patch"
           sha256 "5cb93177fcf0e304dfb16365b9899473bea757f5d8c1af9aad3505ec9403abae"
-        end
-        resource "0001-vo-gpu-next-videotoolbox.patch" do
-          url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0001-vo-gpu-next-videotoolbox.patch"
-          sha256 "cb133b3a18ea7a4a3ee9eb3a2c83eb69db1596847a77e24c345ad2975248fd00"
         end
         resource "0002-ao-coreaudio-fix-idle.patch" do
           url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
