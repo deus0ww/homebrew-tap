@@ -8,8 +8,8 @@ class Mpv < Formula
     sha256 "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6"
     head do
       url "https://github.com/mpv-player/mpv.git", branch: "master"
-      resource "0002-ao-coreaudio-fix-idle.patch" do
-        url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
+      resource "mpv-coreaudio-fix-idle.patch" do # https://github.com/mpv-player/mpv/pull/11667
+        url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-coreaudio-fix-idle.patch"
         sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
       end
     end
@@ -24,8 +24,8 @@ class Mpv < Formula
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.14.patch"
           sha256 "5cb93177fcf0e304dfb16365b9899473bea757f5d8c1af9aad3505ec9403abae"
         end
-        resource "0002-ao-coreaudio-fix-idle.patch" do
-          url "https://github.com/m154k1/mpv-build-macOS/raw/master/patches/mpv/0002-ao-coreaudio-fix-idle.patch"
+        resource "mpv-coreaudio-fix-idle.patch" do # https://github.com/mpv-player/mpv/pull/11667
+          url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-coreaudio-fix-idle.patch"
           sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
         end
       else
