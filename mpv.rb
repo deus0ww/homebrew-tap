@@ -8,7 +8,7 @@ class Mpv < Formula
     sha256 "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6"
     head do
       url "https://github.com/mpv-player/mpv.git", branch: "master"
-      resource "mpv-coreaudio-fix-idle.patch" do # https://github.com/mpv-player/mpv/pull/11667
+      patch do # https://github.com/mpv-player/mpv/pull/11667
         url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-coreaudio-fix-idle.patch"
         sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
       end
@@ -24,7 +24,7 @@ class Mpv < Formula
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.14.patch"
           sha256 "5cb93177fcf0e304dfb16365b9899473bea757f5d8c1af9aad3505ec9403abae"
         end
-        resource "mpv-coreaudio-fix-idle.patch" do # https://github.com/mpv-player/mpv/pull/11667
+        patch do # https://github.com/mpv-player/mpv/pull/11667
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-coreaudio-fix-idle.patch"
           sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
         end
@@ -103,11 +103,6 @@ class Mpv < Formula
     ]
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
     args << "-Dswift-flags=-O -wmo"
-
-    resources.each do |r|
-      r.stage(buildpath)
-      system "git", "apply", r.name
-    end
 
     system "meson", "setup", "build", *args, *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
