@@ -12,6 +12,10 @@ class Mpv < Formula
         url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-coreaudio-fix-idle.patch"
         sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
       end
+        patch do # Set shader/icc caches to 150MB each
+          url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-bigger-gpu-cache.patch"
+          sha256 "3b259ff002dab1c86a79c2fba4d45a60e37f6d0a3a2bc62a82262562cd0150f9"
+        end
     end
   else
     # Last Official Version for macOS < 10.15
@@ -27,6 +31,10 @@ class Mpv < Formula
         patch do # https://github.com/mpv-player/mpv/pull/11667
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-coreaudio-fix-idle.patch"
           sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
+        end
+        patch do # Set shader/icc caches to 150MB each
+          url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-bigger-gpu-cache.patch"
+          sha256 "3b259ff002dab1c86a79c2fba4d45a60e37f6d0a3a2bc62a82262562cd0150f9"
         end
       else
         # Last buildable commit on macOS 10.13 - 0.36.0-722-g7480efa62c
