@@ -11,14 +11,10 @@ class YtDlp < Formula
     url "https://github.com/yt-dlp/yt-dlp.git", branch: "master"
   end
 
+  depends_on "python-brotli"
   depends_on "python-certifi"
   depends_on "python-mutagen"
   depends_on "python@3.12"
-
-  resource "brotli" do
-    url "https://files.pythonhosted.org/packages/2f/c2/f9e977608bdf958650638c3f1e28f85a1b075f075ebbe77db8555463787b/Brotli-1.1.0.tar.gz"
-    sha256 "81de08ac11bcb85841e440c13611c00b67d3bf82698314928d0b676362546724"
-  end
 
   resource "charset-normalizer" do
     url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
