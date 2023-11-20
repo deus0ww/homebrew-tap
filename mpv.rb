@@ -14,7 +14,7 @@ class Mpv < Formula
       end
         patch do # Set shader/icc caches to 150MB each
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-bigger-gpu-cache.patch"
-          sha256 "3b259ff002dab1c86a79c2fba4d45a60e37f6d0a3a2bc62a82262562cd0150f9"
+          sha256 "6a5bab845856250b6e8c5c2532d95d3788c0e1a224d9aba53f8f58acb7dd70d7"
         end
     end
   else
@@ -34,7 +34,7 @@ class Mpv < Formula
         end
         patch do # Set shader/icc caches to 150MB each
           url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-bigger-gpu-cache.patch"
-          sha256 "3b259ff002dab1c86a79c2fba4d45a60e37f6d0a3a2bc62a82262562cd0150f9"
+          sha256 "6a5bab845856250b6e8c5c2532d95d3788c0e1a224d9aba53f8f58acb7dd70d7"
         end
       else
         # Last buildable commit on macOS 10.13 - 0.36.0-722-g7480efa62c
