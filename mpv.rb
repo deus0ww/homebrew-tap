@@ -15,7 +15,7 @@ class Mpv < Formula
       url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-bigger-gpu-cache.patch"
       sha256 "414dcbedea1c64a5e4a5f7e562d06392291eb49787b4d718a26e8a487b9a53a9"
     end
-  elsif MacOS.version == :mojave
+  elsif MacOS.version == :mojave # With incompatible commits reverted
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.37.0.tar.gz"
     sha256 "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
     head "https://github.com/mpv-player/mpv.git", branch: "master"
@@ -34,7 +34,7 @@ class Mpv < Formula
   else # Last Official Version for macOS < 10.15
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.36.0.tar.gz"
     sha256 "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6"
-    head do # Last buildable commit on macOS 10.13 - 0.36.0-722-g7480efa62c
+    head do # Last buildable commit on macOS 10.13 - v.0.36.0-722-g7480efa62c with libplacebo v.6.318
       url "https://github.com/mpv-player/mpv/archive/7480efa62c0a2a1779b4fdaa804a6512aa488400.tar.gz"
       sha256 "28c456b51f43509d65b0bcf433bc56a7ad3f6d5f99c28ffc9bf8f660e1c6dd1f"
       patch do # Fix old Swift + Downgrade libplacebo + CoreAudio-fix-idle

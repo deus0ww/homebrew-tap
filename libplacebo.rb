@@ -9,7 +9,7 @@ class Libplacebo < Formula
     url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.338.1/libplacebo-v6.338.1.tar.bz2"
     sha256 "66f173e511884ad96c23073e6c3a846215db804f098e11698132abe5a63d6f72"
     head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
-  elsif MacOS.version == :mojave
+  elsif MacOS.version == :mojave # With uncompatible commits reverted
     url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.338.1/libplacebo-v6.338.1.tar.bz2"
     sha256 "66f173e511884ad96c23073e6c3a846215db804f098e11698132abe5a63d6f72"
     head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
@@ -17,8 +17,7 @@ class Libplacebo < Formula
       url "https://github.com/deus0ww/homebrew-tap/raw/master/libplacebo-10.14.patch"
       sha256 "dd3824540dea6133810fa649630a2861b47e818e036f8076d9d69577145fb131"
     end
-  else
-    # Last Official Version for macOS < 10.15
+  else # Last Official Version for macOS < 10.15
     url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.292.1/libplacebo-v6.292.1.tar.bz2"
     sha256 "51f0b7b400b35ce5f131a763c0cebb8e46680c17bed58cc9296b20c603f7f65f"
     head do # Last buildable commit on macOS 10.13 - v.6.318
