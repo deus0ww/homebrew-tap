@@ -15,17 +15,25 @@ class Ffmpeg < Formula
 
   depends_on "pkg-config" => :build
 
-  depends_on "deus0ww/tap/libass"
-  depends_on "deus0ww/tap/libmysofa"
-  depends_on "deus0ww/tap/libplacebo"
-  depends_on "deus0ww/tap/aom"     if MacOS.version <  :big_sur
-  depends_on "aom"                 if MacOS.version >= :big_sur
-  depends_on "deus0ww/tap/jpeg-xl" if MacOS.version <  :big_sur
-  depends_on "jpeg-xl"             if MacOS.version >= :big_sur
+  if MacOS.version >= :big_sur
+    depends_on "libvmaf"   # Avoiding building Rust
+    depends_on "rav1e"     # Avoiding building Rust
+    depends_on "snappy"    # Build issue on macOS 10.13
+    depends_on "tesseract" # Build issue on macOS <10.15
+    depends_on "zeromq"    # Avoiding building Boost
+    depends_on "aom"
+    depends_on "jpeg-xl"
+  else
+    depends_on "deus0ww/tap/aom"
+    depends_on "deus0ww/tap/jpeg-xl"
+  end
 
   depends_on "aribb24"
   depends_on "bzip2"               # uses_from_macos
   depends_on "dav1d"
+  depends_on "deus0ww/tap/libass"
+  depends_on "deus0ww/tap/libmysofa"
+  depends_on "deus0ww/tap/libplacebo"
   depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
@@ -36,7 +44,6 @@ class Ffmpeg < Formula
   depends_on "librist"
   depends_on "libsoxr"
   depends_on "libvidstab"
-  depends_on "libvmaf"             if MacOS.version >= :big_sur  # Avoiding building Rust
   depends_on "libvorbis"
   depends_on "libvpx"
   depends_on "libxml2"             # uses_from_macos
@@ -44,21 +51,17 @@ class Ffmpeg < Formula
   depends_on "openjpeg"
   depends_on "openssl@3"
   depends_on "opus"
-  depends_on "rav1e"               if MacOS.version >= :big_sur  # Avoiding building Rust
   depends_on "rubberband"
   depends_on "sdl2"
-  depends_on "snappy"              if MacOS.version >= :big_sur  # Build issue on macOS 10.13
   depends_on "speex"
   depends_on "srt"
   depends_on "svt-av1"
-  depends_on "tesseract"           if MacOS.version >= :big_sur  # Build issue on macOS <10.15
   depends_on "theora"
   depends_on "webp"
   depends_on "x264"
   depends_on "x265"
   depends_on "xvid"
   depends_on "xz"
-  depends_on "zeromq"              if MacOS.version >= :big_sur  # Avoiding building Boost
   depends_on "zimg"
   depends_on "zlib"                # uses_from_macos
 
