@@ -3,13 +3,13 @@ class Dockutil < Formula
   homepage "https://github.com/kcrawford/dockutil"
   license "Apache-2.0"
 
-  if MacOS.version > :big_sur
+  if MacOS.version > :mojave
     url "https://github.com/kcrawford/dockutil/archive/805e288c5ae1787eb341ce8d0450cafed08a4627.tar.gz"
     sha256 "ad421621fcfa37d172bf1129c69ae4e67a2166fe7055ffb2992f028c97cdc61a"
     version "3.0.2.1"
     head do
       url "https://github.com/kcrawford/dockutil.git", branch: "main"
-      depends_on xcode: ["13.0", :build]
+      depends_on xcode: ["12.4", :build]
       uses_from_macos "swift"
     end
   else
@@ -20,7 +20,7 @@ class Dockutil < Formula
   depends_on :macos
 
   def install
-    if MacOS.version > :big_sur
+    if MacOS.version > :mojave
       system "swift", "build", "--disable-sandbox", "--configuration", "release"
       bin.install ".build/release/dockutil"
     else

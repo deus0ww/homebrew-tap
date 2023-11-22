@@ -3,7 +3,7 @@ class Mpv < Formula
   homepage "https://mpv.io"
   license :cannot_represent
 
-  if MacOS.version >= :big_sur
+  if MacOS.version > :mojave
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.37.0.tar.gz"
     sha256 "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
     head "https://github.com/mpv-player/mpv.git", branch: "master"
@@ -59,7 +59,7 @@ class Mpv < Formula
   depends_on "libdvdnav"
   depends_on "little-cms2"
   depends_on "luajit"
-  depends_on "molten-vk" if MacOS.version >= :big_sur
+  depends_on "molten-vk" if MacOS.version > :mojave
   depends_on "mujs"
   depends_on "uchardet"
   depends_on "zimg"
@@ -123,7 +123,7 @@ class Mpv < Formula
       end
     end
 
-    if MacOS.version >= :big_sur
+    if MacOS.version > :mojave
       bash_completion.install "etc/mpv.bash-completion" => "mpv"
       zsh_completion.install "etc/_mpv.zsh" => "_mpv"
     end

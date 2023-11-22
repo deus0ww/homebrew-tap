@@ -15,7 +15,7 @@ class Ffmpeg < Formula
 
   depends_on "pkg-config" => :build
 
-  if MacOS.version >= :big_sur
+  if MacOS.version > :mojave
     depends_on "libvmaf"   # Avoiding building Rust
     depends_on "rav1e"     # Avoiding building Rust
     depends_on "snappy"    # Build issue on macOS 10.13
