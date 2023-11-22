@@ -9,7 +9,7 @@ class Libplacebo < Formula
     url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.338.1/libplacebo-v6.338.1.tar.bz2"
     sha256 "66f173e511884ad96c23073e6c3a846215db804f098e11698132abe5a63d6f72"
     head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
-  elsif MacOS.version == :mojave # With uncompatible commits reverted
+  elsif MacOS.version == :mojave # With incompatible commits reverted
     url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.338.1/libplacebo-v6.338.1.tar.bz2"
     sha256 "66f173e511884ad96c23073e6c3a846215db804f098e11698132abe5a63d6f72"
     head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
