@@ -54,8 +54,8 @@ class Libplacebo < Formula
   depends_on "xxhash"
 
   resource "fast_float" do
-    url "https://github.com/fastfloat/fast_float/archive/refs/tags/v5.2.0.tar.gz"
-    sha256 "72bbfd1914e414c920e39abdc81378adf910a622b62c45b4c61d344039425d18"
+    url "https://github.com/fastfloat/fast_float/archive/refs/tags/v5.3.0.tar.gz"
+    sha256 "2f3bc50670455534dcaedc9dcd0517b71152f319d0cec8625f21c51d23eaf4b9"
   end
 
   resource "glad2" do
