@@ -49,6 +49,12 @@ class Mpv < Formula
   depends_on "pkg-config" => [:build, :test]
   depends_on "python@3.12" => :build
   depends_on xcode: :build
+  
+  if MacOS.version > :mojave
+    depends_on "molten-vk"
+  else
+    depends_on "deus0ww/tap/molten-vk"
+  end
 
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "deus0ww/tap/libass"
@@ -59,7 +65,6 @@ class Mpv < Formula
   depends_on "libdvdnav"
   depends_on "little-cms2"
   depends_on "luajit"
-  depends_on "molten-vk" if MacOS.version > :mojave
   depends_on "mujs"
   depends_on "uchardet"
   depends_on "zimg"

@@ -3,9 +3,9 @@ class MoltenVk < Formula
   homepage "https://github.com/KhronosGroup/MoltenVK"
   license "Apache-2.0"
 
-  stable do
-    url "https://github.com/KhronosGroup/MoltenVK/archive/refs/tags/v1.2.6.tar.gz"
-    sha256 "b6a3d179aa9c41275ed0e35e502e5e3fd347dbe5117a0435a26868b231cd6246"
+  stable do # VulkanSDK v.1.3.243
+    url "https://github.com/KhronosGroup/MoltenVK/archive/refs/tags/v1.2.3.tar.gz"
+    sha256 "bb2c2e486284e0247a85e5f585425bfcb364bb13aa167047a16a1330b9a76e58"
 
     # MoltenVK depends on very specific revisions of its dependencies.
     # For each resource the path to the file describing the expected
@@ -13,19 +13,19 @@ class MoltenVk < Formula
     resource "SPIRV-Cross" do
       # ExternalRevisions/SPIRV-Cross_repo_revision
       url "https://github.com/KhronosGroup/SPIRV-Cross.git",
-          revision: "2de1265fca722929785d9acdec4ab728c47a0254"
+          revision: "3550a54ae01b295c40ce972d951b420b388b9401"
     end
 
     resource "Vulkan-Headers" do
       # ExternalRevisions/Vulkan-Headers_repo_revision
       url "https://github.com/KhronosGroup/Vulkan-Headers.git",
-          revision: "7b3466a1f47a9251ac1113efbe022ff016e2f95b"
+          revision: "65ad768d8603671fc1085fe115019e72a595ced8"
     end
 
     resource "Vulkan-Tools" do
       # ExternalRevisions/Vulkan-Tools_repo_revision
       url "https://github.com/KhronosGroup/Vulkan-Tools.git",
-          revision: "1532001f7edae559af1988293eec90bc5e2607d5"
+          revision: "f196c8d3cafcaf7e628b7b76a799c940999ee984"
     end
 
     resource "cereal" do
@@ -37,19 +37,19 @@ class MoltenVk < Formula
     resource "glslang" do
       # ExternalRevisions/glslang_repo_revision
       url "https://github.com/KhronosGroup/glslang.git",
-          revision: "be564292f00c5bf0d7251c11f1c9618eb1117762"
+          revision: "14e5a04e70057972eef8a40df422e30a3b70e4b5"
     end
 
     resource "SPIRV-Tools" do
       # known_good.json in the glslang repository at revision of resource above
       url "https://github.com/KhronosGroup/SPIRV-Tools.git",
-          revision: "360d469b9eac54d6c6e20f609f9ec35e3a5380ad"
+          revision: "44d72a9b36702f093dd20815561a56778b2d181e"
     end
 
     resource "SPIRV-Headers" do
       # known_good.json in the glslang repository at revision of resource above
       url "https://github.com/KhronosGroup/SPIRV-Headers.git",
-          revision: "e867c06631767a2d96424cbec530f9ee5e78180f"
+          revision: "1feaf4414eb2b353764d01d88f8aa4bcc67b60db"
     end
   end
 
@@ -58,50 +58,8 @@ class MoltenVk < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
-  bottle do
-    rebuild 1
-    sha256 cellar: :any, arm64_sonoma:   "824854916a8585d9ca8c4aa5320207c6c7d9a17ea80231a296353cc99c7c67ec"
-    sha256 cellar: :any, arm64_ventura:  "ef70b4f7386544e4501ca678d0c4161675bd7255cdd2feed40236dbd93dd3733"
-    sha256 cellar: :any, arm64_monterey: "582db3ddb81439b7d6a6521b0173615906c903ff13bf2a59e1c07d6ce13732f2"
-    sha256 cellar: :any, sonoma:         "1b6217a945ce747dbdfd73d628bdaff2522929cdecd0e37f8a10ef5af53ba9f3"
-    sha256 cellar: :any, ventura:        "95c0a376b5e4b736fa409d2871897da543497554519eefcfce1ae1cb94bd012f"
-    sha256 cellar: :any, monterey:       "a5d0472bbc7c2049f070aa19b3f7b6f70f6c1d9538400ccf619fe8636e781609"
-  end
-
-  head do
-    url "https://github.com/KhronosGroup/MoltenVK.git", branch: "main"
-
-    resource "cereal" do
-      url "https://github.com/USCiLab/cereal.git", branch: "master"
-    end
-
-    resource "Vulkan-Headers" do
-      url "https://github.com/KhronosGroup/Vulkan-Headers.git", branch: "main"
-    end
-
-    resource "SPIRV-Cross" do
-      url "https://github.com/KhronosGroup/SPIRV-Cross.git", branch: "main"
-    end
-
-    resource "glslang" do
-      url "https://github.com/KhronosGroup/glslang.git", branch: "main"
-    end
-
-    resource "SPIRV-Tools" do
-      url "https://github.com/KhronosGroup/SPIRV-Tools.git", branch: "main"
-    end
-
-    resource "SPIRV-Headers" do
-      url "https://github.com/KhronosGroup/SPIRV-Headers.git", branch: "main"
-    end
-
-    resource "Vulkan-Tools" do
-      url "https://github.com/KhronosGroup/Vulkan-Tools.git", branch: "main"
-    end
-  end
-
   depends_on "cmake" => :build
-  depends_on "python@3.11" => :build
+  depends_on "python@3.12" => :build
   depends_on xcode: ["11.7", :build]
   # Requires IOSurface/IOSurfaceRef.h.
   depends_on macos: :sierra
@@ -135,17 +93,6 @@ class MoltenVk < Formula
                "-derivedDataPath", "External/build",
                "SYMROOT=External/build", "OBJROOT=External/build",
                "build"
-
-    if DevelopmentTools.clang_build_version >= 1500
-      # Required to build xcframeworks with Xcode 15
-      # https://github.com/KhronosGroup/MoltenVK/issues/2028
-      xcodebuild "-create-xcframework", "-output", "./External/build/Release/SPIRVCross.xcframework",
-                "-library", "./External/build/Intermediates/XCFrameworkStaging/Release/Platform/libSPIRVCross.a"
-      xcodebuild "-create-xcframework", "-output", "./External/build/Release/SPIRVTools.xcframework",
-                "-library", "./External/build/Intermediates/XCFrameworkStaging/Release/Platform/libSPIRVTools.a"
-      xcodebuild "-create-xcframework", "-output", "./External/build/Release/glslang.xcframework",
-                "-library", "./External/build/Intermediates/XCFrameworkStaging/Release/Platform/libglslang.a"
-    end
 
     # Build MoltenVK Package
     xcodebuild "ARCHS=#{Hardware::CPU.arch}", "ONLY_ACTIVE_ARCH=YES",
