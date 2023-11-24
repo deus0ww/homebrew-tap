@@ -11,9 +11,7 @@ class Libmysofa < Formula
   depends_on "cunit"
 
   def install
-    opts = "-Ofast -flto=thin " + (Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native ")
-    ENV.append "CFLAGS",      opts
-    ENV.append "LDFLAGS",     opts + " -dead_strip"
+    ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto=thin"
 
     cd "build" do
       system "cmake", "..", *std_cmake_args, "-DCMAKE_BUILD_TYPE=Release"

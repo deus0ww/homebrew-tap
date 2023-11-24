@@ -32,9 +32,7 @@ class Libass < Formula
   end
 
   def install
-    opts = "-Ofast -flto=thin " + (Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native ")
-    ENV.append "CFLAGS",      opts
-    ENV.append "LDFLAGS",     opts + " -dead_strip"
+    ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto=thin"
 
     system "autoreconf", "-i" if build.head?
     args = %W[

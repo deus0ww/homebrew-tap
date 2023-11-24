@@ -66,6 +66,8 @@ class MoltenVk < Formula
   depends_on :macos # Linux does not have a Metal implementation. Not implied by the line above.
 
   def install
+    ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto=thin"
+  
     resources.each do |res|
       res.stage(buildpath/"External"/res.name)
     end

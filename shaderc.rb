@@ -46,6 +46,8 @@ class Shaderc < Formula
   depends_on "python@3.12" => :build
 
   def install
+    ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto=thin"
+
     resources.each do |res|
       res.stage(buildpath/"third_party"/res.name)
     end

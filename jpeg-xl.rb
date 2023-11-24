@@ -41,6 +41,8 @@ class JpegXl < Formula
   end
 
   def install
+    ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto=thin"
+
     ENV.append_path "XML_CATALOG_FILES", HOMEBREW_PREFIX/"etc/xml/catalog"
     resources.each { |r| r.stage buildpath/"third_party"/r.name }
     system "cmake", "-S", ".", "-B", "build",
