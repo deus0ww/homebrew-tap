@@ -16,11 +16,12 @@ class Ffmpeg < Formula
   depends_on "pkg-config" => :build
 
   if MacOS.version > :mojave
-    depends_on "libvmaf"   # Avoiding building Rust
-    depends_on "rav1e"     # Avoiding building Rust
-    depends_on "snappy"    # Build issue on macOS 10.13
-    depends_on "tesseract" # Build issue on macOS <10.15
-    depends_on "zeromq"    # Avoiding building Boost
+    depends_on "deus0ww/tap/libplacebo" # VulkanSDK too old on macOS <10.15
+    depends_on "libvmaf"                # Avoiding building Rust
+    depends_on "rav1e"                  # Avoiding building Rust
+    depends_on "snappy"                 # Build issue on macOS 10.13
+    depends_on "tesseract"              # Build issue on macOS <10.15
+    depends_on "zeromq"                 # Avoiding building Boost
     depends_on "aom"
     depends_on "jpeg-xl"
   else
@@ -33,7 +34,6 @@ class Ffmpeg < Formula
   depends_on "dav1d"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
-  depends_on "deus0ww/tap/libplacebo"
   depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
@@ -136,7 +136,6 @@ class Ffmpeg < Formula
       --enable-libopencore-amrwb
       --enable-libopenjpeg
       --enable-libopus
-      --enable-libplacebo
       --enable-librist
       --enable-librubberband
       --enable-libsoxr
@@ -163,11 +162,13 @@ class Ffmpeg < Formula
       --disable-libjack
       --disable-indev=jack
     ]
-
+    #args << "--disable-vulkan" if MacOS.version <= :mojave
+    
     # Needs corefoundation, coremedia, corevideo
     args += %w[--enable-opencl --enable-videotoolbox --enable-audiotoolbox] if OS.mac?
     args << "--enable-neon" if Hardware::CPU.arm?
 
+    args << "--enable-libplacebo"   if build.with? "libplacebo"
     args << "--enable-librav1e"     if build.with? "rav1e"
     args << "--enable-libsnappy"    if build.with? "snappy"
     args << "--enable-libtesseract" if build.with? "tesseract"
