@@ -8,11 +8,11 @@ class Mpv < Formula
     sha256 "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
     head "https://github.com/mpv-player/mpv.git", branch: "master"
     patch do # https://github.com/mpv-player/mpv/pull/11667
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-coreaudio-fix-idle.patch"
+      url "https://github.com/deus0ww/homebrew-tap/patches/raw/master/mpv-coreaudio-fix-idle.patch"
       sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
     end
     patch do # Set shader cache to 20MB
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-bigger-gpu-cache.patch"
+      url "https://github.com/deus0ww/homebrew-tap/patches/raw/master/mpv-bigger-gpu-cache.patch"
       sha256 "414dcbedea1c64a5e4a5f7e562d06392291eb49787b4d718a26e8a487b9a53a9"
     end
   elsif MacOS.version == :mojave # With incompatible commits reverted
@@ -20,15 +20,15 @@ class Mpv < Formula
     sha256 "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
     head "https://github.com/mpv-player/mpv.git", branch: "master"
     patch do # Revert DisplayName change
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.14.patch"
+      url "https://github.com/deus0ww/homebrew-tap/patches/raw/master/mpv-10.14.patch"
       sha256 "5cb93177fcf0e304dfb16365b9899473bea757f5d8c1af9aad3505ec9403abae"
     end
     patch do # https://github.com/mpv-player/mpv/pull/11667
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-coreaudio-fix-idle.patch"
+      url "https://github.com/deus0ww/homebrew-tap/patches/raw/master/mpv-coreaudio-fix-idle.patch"
       sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
     end
     patch do # Set shader cache to 20MB
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-bigger-gpu-cache.patch"
+      url "https://github.com/deus0ww/homebrew-tap/patches/raw/master/mpv-bigger-gpu-cache.patch"
       sha256 "414dcbedea1c64a5e4a5f7e562d06392291eb49787b4d718a26e8a487b9a53a9"
     end
   else # Last Official Version for macOS < 10.15
@@ -38,7 +38,7 @@ class Mpv < Formula
       url "https://github.com/mpv-player/mpv/archive/7480efa62c0a2a1779b4fdaa804a6512aa488400.tar.gz"
       sha256 "28c456b51f43509d65b0bcf433bc56a7ad3f6d5f99c28ffc9bf8f660e1c6dd1f"
       patch do # Fix old Swift + Downgrade libplacebo + CoreAudio-fix-idle
-        url "https://github.com/deus0ww/homebrew-tap/raw/master/mpv-10.13.patch"
+        url "https://github.com/deus0ww/homebrew-tap/patches/raw/master/mpv-10.13.patch"
         sha256 "abd3d26872de61e7a7ee7dda2ab0e8c4c7d4e05358439e210d5a62ef13fb5811"
       end
     end
