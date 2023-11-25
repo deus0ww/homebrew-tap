@@ -49,10 +49,10 @@ class Mpv < Formula
   depends_on "pkg-config" => [:build, :test]
   depends_on "python@3.12" => :build
   depends_on xcode: :build
-  
+
   if MacOS.version > :mojave
     depends_on "molten-vk"
-  else
+  elsif MacOS.version == :mojave
     depends_on "deus0ww/tap/molten-vk"
   end
 

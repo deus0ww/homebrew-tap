@@ -162,8 +162,7 @@ class Ffmpeg < Formula
       --disable-libjack
       --disable-indev=jack
     ]
-    #args << "--disable-vulkan" if MacOS.version <= :mojave
-    
+
     # Needs corefoundation, coremedia, corevideo
     args += %w[--enable-opencl --enable-videotoolbox --enable-audiotoolbox] if OS.mac?
     args << "--enable-neon" if Hardware::CPU.arm?
