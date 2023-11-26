@@ -3,20 +3,20 @@ class Shaderc < Formula
   homepage "https://github.com/google/shaderc"
   license "Apache-2.0"
 
-  stable do
-    url "https://github.com/google/shaderc/archive/refs/tags/v2023.2.tar.gz"
-    sha256 "06c4e2fdd63d62b73450d7011b72e7720b416182fb883fb0aac0afe6db2df3f6"
+  stable do # Last buildable version on macOS <10.15
+    url "https://github.com/google/shaderc/archive/refs/tags/v2023.3.tar.gz"
+    sha256 "6cbb041245bcfbf349954dc99c7e93608d3d9dd0c13dc891182b58eb255c848b"
 
     resource "glslang" do
       # https://github.com/google/shaderc/blob/known-good/known_good.json
       url "https://github.com/KhronosGroup/glslang.git",
-          revision: "1fb2f1d7896627d62a289439a2c3e750e551a7ab"
+          revision: "ef77cf3a92490f7c37f36f20263cd3cd8c94f009"
     end
 
     resource "spirv-headers" do
       # https://github.com/google/shaderc/blob/known-good/known_good.json
       url "https://github.com/KhronosGroup/SPIRV-Headers.git",
-          revision: "d13b52222c39a7e9a401b44646f0ca3a640fbd47"
+          revision: "1feaf4414eb2b353764d01d88f8aa4bcc67b60db"
     end
 
     resource "spirv-tools" do
