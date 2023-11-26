@@ -45,8 +45,10 @@ class Libplacebo < Formula
     depends_on "deus0ww/tap/dovi_tool"
     depends_on "molten-vk"
     depends_on "shaderc"
+  elsif MacOS.version == :mojave
+    depends_on "deus0ww/tap/molten-vk"
+    depends_on "deus0ww/tap/shaderc"
   else
-    depends_on "deus0ww/tap/molten-vk" if MacOS.version == :mojave
     depends_on "deus0ww/tap/shaderc"
   end
 
