@@ -16,7 +16,7 @@ class Ffmpeg < Formula
   depends_on "pkg-config" => :build
 
   if MacOS.version > :mojave
-    depends_on "deus0ww/tap/libplacebo" # VulkanSDK too old on macOS <10.15
+    depends_on "librist"                # Build issue with gnutls on macOS 10.14
     depends_on "libvmaf"                # Avoiding building Rust
     depends_on "rav1e"                  # Avoiding building Rust
     depends_on "snappy"                 # Build issue on macOS 10.13
@@ -34,6 +34,7 @@ class Ffmpeg < Formula
   depends_on "dav1d"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
+  depends_on "deus0ww/tap/libplacebo"
   depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
@@ -41,7 +42,6 @@ class Ffmpeg < Formula
   depends_on "lame"
   depends_on "libbluray"
   depends_on "libbs2b"
-  depends_on "librist"
   depends_on "libsoxr"
   depends_on "libvidstab"
   depends_on "libvorbis"
@@ -136,7 +136,7 @@ class Ffmpeg < Formula
       --enable-libopencore-amrwb
       --enable-libopenjpeg
       --enable-libopus
-      --enable-librist
+      --enable-libplacebo
       --enable-librubberband
       --enable-libsoxr
       --enable-libspeex
@@ -167,10 +167,10 @@ class Ffmpeg < Formula
     args += %w[--enable-opencl --enable-videotoolbox --enable-audiotoolbox] if OS.mac?
     args << "--enable-neon" if Hardware::CPU.arm?
 
-    args << "--enable-libplacebo"   if build.with? "libplacebo"
     args << "--enable-librav1e"     if build.with? "rav1e"
     args << "--enable-libsnappy"    if build.with? "snappy"
     args << "--enable-libtesseract" if build.with? "tesseract"
+    args << "--enable-librist"      if build.with? "librist"
     args << "--enable-libvmaf"      if build.with? "libvmaf"
     args << "--enable-libzmq"       if build.with? "zeromq"
 
