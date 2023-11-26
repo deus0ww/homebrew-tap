@@ -50,12 +50,6 @@ class Mpv < Formula
   depends_on "python@3.12" => :build
   depends_on xcode: :build
 
-  if MacOS.version > :mojave
-    depends_on "molten-vk"
-  elsif MacOS.version == :mojave
-    depends_on "deus0ww/tap/molten-vk"
-  end
-
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libplacebo"
