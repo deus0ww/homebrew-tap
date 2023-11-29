@@ -16,21 +16,21 @@ class Ffmpeg < Formula
   depends_on "pkg-config" => :build
 
   if MacOS.version > :mojave
-    depends_on "librist"                # Build issue with gnutls on macOS 10.14
-    depends_on "libvmaf"                # Avoiding building Rust
-    depends_on "rav1e"                  # Avoiding building Rust
-    depends_on "snappy"                 # Build issue on macOS 10.13
-    depends_on "tesseract"              # Build issue on macOS <10.15
-    depends_on "zeromq"                 # Avoiding building Boost
-    depends_on "aom"
-    depends_on "jpeg-xl"
+    depends_on "librist"   # Build issue with gnutls on macOS 10.14
+    depends_on "libvmaf"   # Avoiding building Rust
+    depends_on "rav1e"     # Avoiding building Rust
+    depends_on "snappy"    # Build issue on macOS 10.13
+    depends_on "tesseract" # Build issue on macOS <10.15
+    depends_on "zeromq"    # Avoiding building Boost
+    depends_on "aom"       # Without libvmaf
+    depends_on "jpeg-xl"   # Without docs; AVX512 disabled
   else
     depends_on "deus0ww/tap/aom"
     depends_on "deus0ww/tap/jpeg-xl"
   end
 
   depends_on "aribb24"
-  depends_on "bzip2"               # uses_from_macos
+  depends_on "bzip2"       # uses_from_macos
   depends_on "dav1d"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
@@ -46,7 +46,7 @@ class Ffmpeg < Formula
   depends_on "libvidstab"
   depends_on "libvorbis"
   depends_on "libvpx"
-  depends_on "libxml2"             # uses_from_macos
+  depends_on "libxml2"     # uses_from_macos
   depends_on "opencore-amr"
   depends_on "openjpeg"
   depends_on "openssl@3"
@@ -63,7 +63,7 @@ class Ffmpeg < Formula
   depends_on "xvid"
   depends_on "xz"
   depends_on "zimg"
-  depends_on "zlib"                # uses_from_macos
+  depends_on "zlib"        # uses_from_macos
 
   depends_on "chromaprint" => :optional
   depends_on "game-music-emu" => :optional
