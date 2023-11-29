@@ -8,12 +8,12 @@ class Mpv < Formula
     sha256 "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
     head "https://github.com/mpv-player/mpv.git", branch: "master"
     patch do # https://github.com/mpv-player/mpv/pull/11667
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-coreaudio-fix-idle.patch"
+      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-pr11667-coreaudio-idle.patch"
       sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
     end
-    patch do # Set shader cache to 20MB
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-bigger-gpu-cache.patch"
-      sha256 "414dcbedea1c64a5e4a5f7e562d06392291eb49787b4d718a26e8a487b9a53a9"
+    patch do # https://github.com/mpv-player/mpv/pull/12931
+      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-pr12931-gpu-cache.patch"
+      sha256 "9368d607424fb45a6f644d3d4f69093e3ed52a0be6d6c876c32139fabed5f7c1"
     end
   elsif MacOS.version == :mojave # With incompatible commits reverted
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.37.0.tar.gz"
@@ -24,12 +24,12 @@ class Mpv < Formula
       sha256 "5cb93177fcf0e304dfb16365b9899473bea757f5d8c1af9aad3505ec9403abae"
     end
     patch do # https://github.com/mpv-player/mpv/pull/11667
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-coreaudio-fix-idle.patch"
+      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-pr11667-coreaudio-idle.patch"
       sha256 "fd97ad5c95cd68354ac3348fe7ce825620ada70534f13989568080798dcce27a"
     end
-    patch do # Set shader cache to 20MB
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-bigger-gpu-cache.patch"
-      sha256 "414dcbedea1c64a5e4a5f7e562d06392291eb49787b4d718a26e8a487b9a53a9"
+    patch do # https://github.com/mpv-player/mpv/pull/12931
+      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-pr12931-gpu-cache.patch"
+      sha256 "9368d607424fb45a6f644d3d4f69093e3ed52a0be6d6c876c32139fabed5f7c1"
     end
   else # Last Official Version for macOS < 10.15
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.36.0.tar.gz"
