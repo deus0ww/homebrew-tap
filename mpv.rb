@@ -13,7 +13,7 @@ class Mpv < Formula
     end
     patch do # https://github.com/mpv-player/mpv/pull/12931
       url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-pr12931-gpu-cache.patch"
-      sha256 "9368d607424fb45a6f644d3d4f69093e3ed52a0be6d6c876c32139fabed5f7c1"
+      sha256 "e7e79f98a6c27d6cb525f45f5977357148afadccbad438b2829db77882f24596"
     end
   elsif MacOS.version == :mojave # With incompatible commits reverted
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.37.0.tar.gz"
@@ -29,7 +29,7 @@ class Mpv < Formula
     end
     patch do # https://github.com/mpv-player/mpv/pull/12931
       url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-pr12931-gpu-cache.patch"
-      sha256 "9368d607424fb45a6f644d3d4f69093e3ed52a0be6d6c876c32139fabed5f7c1"
+      sha256 "e7e79f98a6c27d6cb525f45f5977357148afadccbad438b2829db77882f24596"
     end
   else # Last Official Version for macOS < 10.15
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.36.0.tar.gz"
