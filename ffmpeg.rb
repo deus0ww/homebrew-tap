@@ -102,9 +102,6 @@ class Ffmpeg < Formula
     url "https://github.com/yt-dlp/FFmpeg-Builds/raw/master/patches/ffmpeg/master/0001-avformat-webvttdec-Ignore-REGION-and-STYLE-chunks.patch"
     sha256 "47d4b62b19642e13d9d7d1a53c0a689863181779854ad9260fdee7b9a568befa"
   end
-  
-  # Fix audiotoolbox
-  patch :DATA if MacOS.version <= :mojave
 
   def install
     # The new linker leads to duplicate symbol issue https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/issues/140
@@ -168,7 +165,7 @@ class Ffmpeg < Formula
 
     # Needs corefoundation, coremedia, corevideo
     args += %w[--enable-opencl --enable-videotoolbox --enable-audiotoolbox] if OS.mac?
-    args << "--enable-neon"         if Hardware::CPU.arm?
+    args << "--enable-neon" if Hardware::CPU.arm?
 
     args << "--enable-librav1e"     if build.with? "rav1e"
     args << "--enable-libsnappy"    if build.with? "snappy"
@@ -216,21 +213,3 @@ class Ffmpeg < Formula
     assert_predicate mp4out, :exist?
   end
 end
-
-__END__
-diff --git a/libavdevice/audiotoolbox.m b/libavdevice/audiotoolbox.m
-index ae91a2bc62..aa49e2c992 100644
---- a/libavdevice/audiotoolbox.m
-+++ b/libavdevice/audiotoolbox.m
-@@ -85,11 +85,7 @@ static av_cold int at_write_header(AVFormatContext *avctx)
-     AudioObjectPropertyAddress prop;
-     prop.mSelector = kAudioHardwarePropertyDevices;
-     prop.mScope    = kAudioObjectPropertyScopeGlobal;
--#if !TARGET_OS_IPHONE && __MAC_OS_X_VERSION_MIN_REQUIRED >= 1200
--    prop.mElement  = kAudioObjectPropertyElementMain;
--#else
-     prop.mElement  = kAudioObjectPropertyElementMaster;
--#endif
-     err = AudioObjectGetPropertyDataSize(kAudioObjectSystemObject, &prop, 0, NULL, &data_size);
-     if (check_status(avctx, &err, "AudioObjectGetPropertyDataSize devices"))
-         return AVERROR(EINVAL);
