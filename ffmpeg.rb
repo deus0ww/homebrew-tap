@@ -129,6 +129,7 @@ class Ffmpeg < Formula
       --enable-libfdk-aac
       --enable-libfontconfig
       --enable-libfreetype
+      --enable-libharfbuzz
       --enable-libjxl
       --enable-libmp3lame
       --enable-libmysofa
@@ -154,7 +155,6 @@ class Ffmpeg < Formula
       --enable-libzimg
       --enable-lzma
       --enable-openssl
-      --enable-libharfbuzz
 
       --disable-htmlpages
       --disable-podpages
