@@ -23,7 +23,7 @@ class Ffmpeg < Formula
     depends_on "tesseract" # Build issue on macOS <10.15
     depends_on "zeromq"    # Avoiding building Boost
     depends_on "aom"       # Without libvmaf
-    depends_on "jpeg-xl"   # Without docs; AVX512 disabled
+    depends_on "jpeg-xl"   # Without docs
   else
     depends_on "deus0ww/tap/aom"
     depends_on "deus0ww/tap/jpeg-xl"
@@ -39,6 +39,7 @@ class Ffmpeg < Formula
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r"
+  depends_on "harfbuzz"
   depends_on "lame"
   depends_on "libbluray"
   depends_on "libbs2b"
@@ -65,7 +66,6 @@ class Ffmpeg < Formula
   depends_on "zimg"
   depends_on "zlib"        # uses_from_macos
 
-  depends_on "chromaprint" => :optional
   depends_on "game-music-emu" => :optional
   depends_on "libcaca" => :optional
   depends_on "libgsm" => :optional
@@ -154,6 +154,7 @@ class Ffmpeg < Formula
       --enable-libzimg
       --enable-lzma
       --enable-openssl
+      --enable-libharfbuzz
 
       --disable-htmlpages
       --disable-podpages
@@ -174,7 +175,6 @@ class Ffmpeg < Formula
     args << "--enable-libvmaf"      if build.with? "libvmaf"
     args << "--enable-libzmq"       if build.with? "zeromq"
 
-    args << "--enable-chromaprint"  if build.with? "chromaprint"
     args << "--enable-libcaca"      if build.with? "libcaca"
     args << "--enable-libgme"       if build.with? "game-music-emu"
     args << "--enable-libgsm"       if build.with? "libgsm"
