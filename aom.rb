@@ -36,11 +36,9 @@ class Aom < Formula
       "-DENABLE_TOOLS=off",
       "-DBUILD_SHARED_LIBS=on",
     ]
-    args << "-DCONFIG_TUNE_BUTTERAUGLI=1" if build.with? "libvmaf"
     args << "-DCONFIG_TUNE_VMAF=1"        if build.with? "libvmaf"
 
     ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto=thin"
-
     system "cmake", "-S", ".", "-B", "brewbuild", *std_cmake_args, *args
     system "cmake", "--build", "brewbuild"
     system "cmake", "--install", "brewbuild"

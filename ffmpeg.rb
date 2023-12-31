@@ -1,8 +1,8 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-6.1.tar.xz"
-  sha256 "488c76e57dd9b3bee901f71d5c95eaf1db4a5a31fe46a28654e837144207c270"
+  url "https://ffmpeg.org/releases/ffmpeg-6.1.1.tar.xz"
+  sha256 "8684f4b00f94b85461884c3719382f1261f0d9eb3d59640a1f4ac0873616f968"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
@@ -12,8 +12,6 @@ class Ffmpeg < Formula
     url "https://ffmpeg.org/download.html"
     regex(/href=.*?ffmpeg[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
-
-  depends_on "pkg-config" => :build
 
   if MacOS.version > :mojave
     depends_on "librist"   # Build issue with gnutls on macOS 10.14
@@ -29,6 +27,7 @@ class Ffmpeg < Formula
     depends_on "deus0ww/tap/jpeg-xl"
   end
 
+  depends_on "pkg-config" => :build
   depends_on "aribb24"
   depends_on "bzip2"       # uses_from_macos
   depends_on "dav1d"
