@@ -16,6 +16,7 @@ class Ffmpeg < Formula
   if MacOS.version > :mojave
     depends_on "librist"   # Build issue with gnutls on macOS 10.14
     depends_on "libvmaf"   # Avoiding building Rust
+    depends_on "openvino"  # Build issue with gnutls on macOS 10.14
     depends_on "rav1e"     # Avoiding building Rust
     depends_on "snappy"    # Build issue on macOS 10.13
     depends_on "tesseract" # Build issue on macOS <10.15
@@ -167,6 +168,7 @@ class Ffmpeg < Formula
     args += %w[--enable-opencl --enable-videotoolbox --enable-audiotoolbox] if OS.mac?
     args << "--enable-neon" if Hardware::CPU.arm?
 
+    args << "--enable-libopenvino"  if build.with? "openvino"
     args << "--enable-librav1e"     if build.with? "rav1e"
     args << "--enable-libsnappy"    if build.with? "snappy"
     args << "--enable-libtesseract" if build.with? "tesseract"
