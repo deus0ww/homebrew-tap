@@ -1,4 +1,4 @@
-From 1aea2229ec689de8d83fd46922d579116d4f5a4f Mon Sep 17 00:00:00 2001
+From 5448edb52be539264223b9e5cff2247853089c0e Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Kacper=20Michaj=C5=82ow?= <kasper93@gmail.com>
 Date: Wed, 13 Dec 2023 18:43:30 +0100
 Subject: [PATCH 1/3] stream: increase max_size to INT_MAX minus padding
@@ -6,15 +6,15 @@ Subject: [PATCH 1/3] stream: increase max_size to INT_MAX minus padding
 No need to magic number limit, we can support up to INT_MAX with current
 code. Which should be more than enough.
 ---
- stream/stream.c | 11 +++++------
- stream/stream.h |  6 ++++++
- 2 files changed, 11 insertions(+), 6 deletions(-)
+ stream/stream.c | 2 +-
+ stream/stream.h | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/stream/stream.c b/stream/stream.c
-index dd67825dd58d..89b03e1f5575 100644
+index dd67825dd58d..43a7f51a6099 100644
 --- a/stream/stream.c
 +++ b/stream/stream.c
-@@ -803,18 +803,17 @@ int stream_skip_bom(struct stream *s)
+@@ -803,7 +803,7 @@ int stream_skip_bom(struct stream *s)
  struct bstr stream_read_complete(struct stream *s, void *talloc_ctx,
                                   int max_size)
  {
@@ -23,51 +23,22 @@ index dd67825dd58d..89b03e1f5575 100644
          abort();
  
      int bufsize;
-     int total_read = 0;
--    int padding = 1;
-     char *buf = NULL;
-     int64_t size = stream_get_size(s) - stream_tell(s);
-     if (size > max_size)
-         return (struct bstr){NULL, 0};
-     if (size > 0)
--        bufsize = size + padding;
-+        bufsize = size + STREAM_PADDING_SIZE;
-     else
-         bufsize = 1000;
-     while (1) {
-@@ -827,10 +826,10 @@ struct bstr stream_read_complete(struct stream *s, void *talloc_ctx,
-             talloc_free(buf);
-             return (struct bstr){NULL, 0};
-         }
--        bufsize = MPMIN(bufsize + (bufsize >> 1), max_size + padding);
-+        bufsize = MPMIN(bufsize + (bufsize >> 1), max_size + STREAM_PADDING_SIZE);
-     }
--    buf = talloc_realloc_size(talloc_ctx, buf, total_read + padding);
--    memset(&buf[total_read], 0, padding);
-+    buf = talloc_realloc_size(talloc_ctx, buf, total_read + STREAM_PADDING_SIZE);
-+    memset(&buf[total_read], 0, STREAM_PADDING_SIZE);
-     return (struct bstr){buf, total_read};
- }
- 
 diff --git a/stream/stream.h b/stream/stream.h
-index 423ba12d9106..43fb8e79b415 100644
+index 423ba12d9106..58b55e1a43ca 100644
 --- a/stream/stream.h
 +++ b/stream/stream.h
-@@ -32,6 +32,12 @@
+@@ -32,6 +32,9 @@
  // it's guaranteed that you can seek back by <= of this size again.
  #define STREAM_BUFFER_SIZE 2048
  
-+// Size of 0 byte padding. The padding is not included in the returned length.
-+#define STREAM_PADDING_SIZE 1
-+
 +// Maximum size of a complete read.
-+#define STREAM_MAX_READ_SIZE (INT_MAX - STREAM_PADDING_SIZE)
++#define STREAM_MAX_READ_SIZE (INT_MAX - 1)
 +
  // flags for stream_open_ext (this includes STREAM_READ and STREAM_WRITE)
  
  // stream->mode
 
-From db6cc9d2f30492657a111d5e0db5c35cca07c557 Mon Sep 17 00:00:00 2001
+From 532cdd450b820b395a04ff79b422e7d786cbf2a3 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Kacper=20Michaj=C5=82ow?= <kasper93@gmail.com>
 Date: Fri, 17 Nov 2023 19:31:51 +0100
 Subject: [PATCH 2/3] vo_gpu_next: save cache to separate files
@@ -99,14 +70,14 @@ retaining stale objects, mpv now only loads a small subset of files that
 are currently required for playback, instead of loading all files.
 ---
  DOCS/man/options.rst    |  18 ++--
- video/out/vo_gpu_next.c | 230 +++++++++++++++++++++++++++++++---------
- 2 files changed, 193 insertions(+), 55 deletions(-)
+ video/out/vo_gpu_next.c | 231 +++++++++++++++++++++++++++++++---------
+ 2 files changed, 194 insertions(+), 55 deletions(-)
 
 diff --git a/DOCS/man/options.rst b/DOCS/man/options.rst
-index dc9c568fa3bb..28602ab9614c 100644
+index c8eb77bb5f7c..746402747e18 100644
 --- a/DOCS/man/options.rst
 +++ b/DOCS/man/options.rst
-@@ -6838,8 +6838,11 @@ them.
+@@ -6866,8 +6866,11 @@ them.
      files contain uncompressed LUTs. Their size depends on the
      ``--icc-3dlut-size``, and can be very big.
  
@@ -120,7 +91,7 @@ index dc9c568fa3bb..28602ab9614c 100644
  
  ``--icc-cache-dir``
      The directory where icc cache is stored. Cache is stored in the system's
-@@ -6987,11 +6990,14 @@ them.
+@@ -7015,11 +7018,14 @@ them.
  ``--gpu-shader-cache``
      Store and load compiled GLSL shaders in the cache directory (Default:
      ``yes``). Normally, shader compilation is very fast, so this is not usually
@@ -140,7 +111,7 @@ index dc9c568fa3bb..28602ab9614c 100644
  
  ``--gpu-shader-cache-dir``
 diff --git a/video/out/vo_gpu_next.c b/video/out/vo_gpu_next.c
-index 77ab0113bb66..8a109950630a 100644
+index 77ab0113bb66..187fca363974 100644
 --- a/video/out/vo_gpu_next.c
 +++ b/video/out/vo_gpu_next.c
 @@ -17,6 +17,9 @@
@@ -168,7 +139,7 @@ index 77ab0113bb66..8a109950630a 100644
  };
  
  struct priv {
-@@ -1515,84 +1521,210 @@ static void wait_events(struct vo *vo, int64_t until_time_ns)
+@@ -1515,84 +1521,211 @@ static void wait_events(struct vo *vo, int64_t until_time_ns)
      }
  }
  
@@ -377,7 +348,9 @@ index 77ab0113bb66..8a109950630a 100644
 +        bstr fname = bstr0(dir->d_name);
 +        if (!bstr_eatstart0(&fname, cache->name))
 +            continue;
-+        if (fname.len != 17) // _%016x
++        if (!bstr_eatstart0(&fname, "_"))
++            continue;
++        if (fname.len != 16) // %016x
 +            continue;
 +        MP_TARRAY_APPEND(ta_ctx, files, num_files,
 +                         (struct file_entry){
@@ -413,9 +386,8 @@ index 77ab0113bb66..8a109950630a 100644
 +        cache_size += files[i].size;
 +        double rel_use = difftime(t, files[i].atime);
 +        if (cache_size > cache_limit && rel_use > 60 * 60 * 24) {
-+            MP_VERBOSE(p, "Removing %s from %s cache "
-+                          " | size: %9zu B | last used: %9d seconds ago\n",
-+                       files[i].filepath, cache->name, files[i].size, (int)rel_use);
++            MP_VERBOSE(p, "Removing %s | size: %9zu bytes | last used: %9d seconds ago\n",
++                       files[i].filepath, files[i].size, (int)rel_use);
 +            unlink(files[i].filepath);
 +        }
      }
@@ -427,7 +399,7 @@ index 77ab0113bb66..8a109950630a 100644
  }
  
 
-From e45cccfb7630361b46458da4f7beb08bd9b78970 Mon Sep 17 00:00:00 2001
+From 8d864171e928d3cb23bdfb92b01be67e4b569f6d Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Kacper=20Michaj=C5=82ow?= <kasper93@gmail.com>
 Date: Tue, 21 Nov 2023 08:32:21 +0100
 Subject: [PATCH 3/3] io: add mp_save_file
@@ -440,10 +412,10 @@ Move from vo_gpu_next.c to io.c and return result.
  3 files changed, 34 insertions(+), 25 deletions(-)
 
 diff --git a/osdep/io.c b/osdep/io.c
-index bdf79f8894bd..7a32e9e9f67c 100644
+index bba9ddc1ddf5..13fd0b34f535 100644
 --- a/osdep/io.c
 +++ b/osdep/io.c
-@@ -902,3 +902,32 @@ int mp_mkostemps(char *template, int suffixlen, int flags)
+@@ -904,3 +904,32 @@ int mp_mkostemps(char *template, int suffixlen, int flags)
      errno = EEXIST;
      return -1;
  }
@@ -477,10 +449,10 @@ index bdf79f8894bd..7a32e9e9f67c 100644
 +    return result;
 +}
 diff --git a/osdep/io.h b/osdep/io.h
-index ca07bdbfb343..f19ad2325a33 100644
+index 0a0d01eb0562..31d17154edfc 100644
 --- a/osdep/io.h
 +++ b/osdep/io.h
-@@ -230,5 +230,6 @@ extern char **environ;
+@@ -240,5 +240,6 @@ extern char **environ;
  #endif /* __MINGW32__ */
  
  int mp_mkostemps(char *template, int suffixlen, int flags);
@@ -488,7 +460,7 @@ index ca07bdbfb343..f19ad2325a33 100644
  
  #endif
 diff --git a/video/out/vo_gpu_next.c b/video/out/vo_gpu_next.c
-index 8a109950630a..e27c650e24b5 100644
+index 187fca363974..87e605fbddfa 100644
 --- a/video/out/vo_gpu_next.c
 +++ b/video/out/vo_gpu_next.c
 @@ -1528,30 +1528,6 @@ static char *cache_filepath(void *ta_ctx, char *dir, const char *prefix, uint64_
