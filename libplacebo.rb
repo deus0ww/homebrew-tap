@@ -6,12 +6,12 @@ class Libplacebo < Formula
   license "LGPL-2.1-or-later"
 
   if MacOS.version > :mojave
-    url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.338.1/libplacebo-v6.338.1.tar.bz2"
-    sha256 "66f173e511884ad96c23073e6c3a846215db804f098e11698132abe5a63d6f72"
+    url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.338.2/libplacebo-v6.338.2.tar.bz2"
+    sha256 "1c02d21720f972cae02111a1286337e9d0e70d623b311a1e4245bac5ce987f28"
     head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
   elsif MacOS.version == :mojave # With incompatible commits reverted
-    url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.338.1/libplacebo-v6.338.1.tar.bz2"
-    sha256 "66f173e511884ad96c23073e6c3a846215db804f098e11698132abe5a63d6f72"
+    url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.338.2/libplacebo-v6.338.2.tar.bz2"
+    sha256 "1c02d21720f972cae02111a1286337e9d0e70d623b311a1e4245bac5ce987f28"
     head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
     patch do # Revert convert.cc changes that's incompatible with C++17 on macOS < 10.15
       url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/libplacebo-10.14.patch"
