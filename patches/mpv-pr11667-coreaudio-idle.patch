@@ -1,113 +1,119 @@
+From 7ccb42a3e8ade74b00adffd3f0eaa7c79d6923d5 Mon Sep 17 00:00:00 2001
+From: Collider LI <lhc199652@gmail.com>
+Date: Fri, 5 May 2023 17:59:06 -0400
+Subject: [PATCH] ao_coreaudio: stop audio unit after timeout to allow sleep
+
+This commit attempts to fix the problem that mpv prevents sleep on Mac
+while paused (#11617). It also affects libmpv clients.
+
+This problem was introduced by commit 39f7f83, where AudioOutputUnitStop
+was changed to AudioUnitReset to prevent Bluetooth audio lag during
+seeking. However, coreaudiod keeps putting an assertion to prevent sleep
+when the audio unit is active.
+
+The proposed solution in this commit is to call AudioOutputUnitStop
+after a timeout. If the audio unit is reset and not restarted during the
+timeout, it indicates that the user paused the playback (rather than
+seeking), and sleep should be allowed. A serial dispatch queue is
+created to reset/start the audio unit and update related data structures
+to avoid racing conditions.
+---
+ audio/out/ao_coreaudio.c | 72 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 70 insertions(+), 2 deletions(-)
+
 diff --git a/audio/out/ao_coreaudio.c b/audio/out/ao_coreaudio.c
-index ee8d63a81c..d38c0be63a 100644
+index ee8d63a81cd2..a3ff1857fd3d 100644
 --- a/audio/out/ao_coreaudio.c
 +++ b/audio/out/ao_coreaudio.c
-@@ -27,6 +27,12 @@
+@@ -27,6 +27,13 @@
  #include "ao_coreaudio_properties.h"
  #include "ao_coreaudio_utils.h"
  
 +// The timeout for stopping the audio unit after being reset. This allows the
 +// device to sleep after playback paused. The duration is chosen to match the
-+// behavior of AVFoundation.
-+#define IDLE_TIME 7 * NSEC_PER_SEC
-+#define SOURCE_TIMER_MASK DISPATCH_TIMER_STRICT
++// behavior of QuickTime.
++#define STOP_AUTO_UNIT_TIMEOUT 6 * NSEC_PER_SEC
++
++static void *ao_key = "ao";
 +
  struct priv {
      AudioDeviceID device;
      AudioUnit audio_unit;
-@@ -37,6 +43,10 @@ struct priv {
+@@ -37,6 +44,13 @@ struct priv {
      AudioStreamID original_asbd_stream;
  
      bool change_physical_format;
-+
-+    // Timer that fires after `IDLE_TIME` to stop audio output unit.
-+    dispatch_source_t source_timer;
++    // Whether the audio unit was (re)started after last reset. This is used to
++    // make sure only one check_stop is scheduled for consecutive restarts.
++    bool start_called;
++    // +1 on start, -1 on check_stop. If zero, the audio unit was not restarted
++    // during the stop timeout, and we can stop it.
++    int start_counts;
 +    dispatch_queue_t queue;
  };
  
  static int64_t ca_get_hardware_latency(struct ao *ao) {
-@@ -134,6 +144,30 @@ coreaudio_error:
-     return false;
- }
- 
-+static void stop(struct ao *ao)
-+{
-+    struct priv *p = ao->priv;
-+    OSStatus err = AudioOutputUnitStop(p->audio_unit);
-+    CHECK_CA_WARN("can't stop audio unit");
-+}
-+
-+static void init_idle_stop_source_timer(struct ao *ao)
-+{
-+    struct priv *p = ao->priv;
-+    p->queue = dispatch_queue_create("io.mpv.coreaudio_stop_during_idle",
-+                                     DISPATCH_QUEUE_SERIAL);
-+
-+    p->source_timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0,
-+                                             SOURCE_TIMER_MASK, p->queue);
-+
-+    dispatch_source_set_event_handler(p->source_timer, ^{
-+        MP_VERBOSE(ao, "Stopping audio unit due to idle timeout\n");
-+        stop(ao);
-+    });
-+
-+    dispatch_activate(p->source_timer);
-+}
-+
- static int init(struct ao *ao)
- {
-     struct priv *p = ao->priv;
-@@ -159,6 +193,8 @@ static int init(struct ao *ao)
+@@ -159,6 +173,10 @@ static int init(struct ao *ao)
      if (!init_audiounit(ao, asbd))
          goto coreaudio_error;
  
-+    init_idle_stop_source_timer(ao);
++    p->queue = dispatch_queue_create("mpv/coreaudio_check_stop",
++                                     DISPATCH_QUEUE_SERIAL);
++    dispatch_queue_set_specific(p->queue, ao_key, (void *)ao, NULL);
 +
      return CONTROL_OK;
  
  coreaudio_error:
-@@ -313,24 +349,67 @@ coreaudio_error:
+@@ -313,24 +331,73 @@ static bool init_audiounit(struct ao *ao, AudioStreamBasicDescription asbd)
      return false;
  }
  
 -static void reset(struct ao *ao)
-+static void cancel_idle_time_stop(dispatch_source_t source_timer)
++static void check_stop(void * q) {
++    dispatch_queue_t queue = (dispatch_queue_t)q;
++    struct ao *ao = (struct ao *)dispatch_queue_get_specific(queue, ao_key);
++    // return if ao has been uninitialized
++    if (!ao) {
++        return;
++    }
++    struct priv *p = ao->priv;
++    p->start_counts--;
++    // if no more check_stop is scheduled, stop audio unit
++    if (p->start_counts == 0) {
++        MP_VERBOSE(ao, "stopping audio unit after timeout");
++        OSStatus err = AudioOutputUnitStop(p->audio_unit);
++        CHECK_CA_WARN("can't stop audio unit");
++    }
++}
++
++static void reset_p(void *q)
  {
-+    dispatch_source_set_timer(source_timer, DISPATCH_TIME_FOREVER,
-+                              DISPATCH_TIME_FOREVER, 0);
-+}
-+
-+static void stop_after_idle_time(dispatch_source_t source_timer)
-+{
-+    dispatch_source_set_timer(source_timer,
-+                              dispatch_time(DISPATCH_TIME_NOW, IDLE_TIME),
-+                              DISPATCH_TIME_FOREVER, 0);
-+}
-+
-+static void _reset(void *_ao)
-+{
-+    struct ao *ao = (struct ao *)_ao;
++    dispatch_queue_t queue = (dispatch_queue_t)q;
++    struct ao *ao = (struct ao *)dispatch_queue_get_specific(queue, ao_key);
      struct priv *p = ao->priv;
      OSStatus err = AudioUnitReset(p->audio_unit, kAudioUnitScope_Global, 0);
      CHECK_CA_WARN("can't reset audio unit");
 +
-+    stop_after_idle_time(p->source_timer);
++    if (p->start_called) {
++        dispatch_after_f(dispatch_time(DISPATCH_TIME_NOW, STOP_AUTO_UNIT_TIMEOUT),
++                         p->queue, p->queue, check_stop);
++    }
++    p->start_called = false;
  }
  
 -static void start(struct ao *ao)
 +static void reset(struct ao *ao)
-+{
-+    struct priv *p = ao->priv;
-+    dispatch_async_f(p->queue, ao, &_reset);
+ {
+     struct priv *p = ao->priv;
++    dispatch_sync_f(p->queue, p->queue, reset_p);
 +}
 +
-+static void _start(void *_ao)
- {
-+    struct ao *ao = (struct ao *)_ao;
-     struct priv *p = ao->priv;
-+
-+    cancel_idle_time_stop(p->source_timer);
-+
++static void start_p(void *ao_)
++{
++    struct ao *ao = (struct ao *)ao_;
++    struct priv *p = ao->priv;
++    p->start_counts++;
++    p->start_called = true;
      OSStatus err = AudioOutputUnitStart(p->audio_unit);
      CHECK_CA_WARN("can't start audio unit");
  }
@@ -115,24 +121,30 @@ index ee8d63a81c..d38c0be63a 100644
 +static void start(struct ao *ao)
 +{
 +    struct priv *p = ao->priv;
-+    dispatch_async_f(p->queue, ao, &_start);
++    dispatch_sync_f(p->queue, ao, start_p);
 +}
 +
-+static void release_source_timer(dispatch_source_t source_timer)
++static void uninit_p(void *ao_)
 +{
-+    dispatch_source_cancel(source_timer);
-+    dispatch_release(source_timer);
++    struct ao *ao = (struct ao *)ao_;
++    struct priv *p = ao->priv;
++    dispatch_queue_set_specific(p->queue, ao_key, NULL, NULL);
 +}
  
  static void uninit(struct ao *ao)
  {
      struct priv *p = ao->priv;
-+
-+    dispatch_sync(p->queue, ^{
-+        release_source_timer(p->source_timer);
-+    });
++    dispatch_sync_f(p->queue, ao, uninit_p);
 +    dispatch_release(p->queue);
 +
      AudioOutputUnitStop(p->audio_unit);
      AudioUnitUninitialize(p->audio_unit);
      AudioComponentInstanceDispose(p->audio_unit);
+@@ -343,6 +410,7 @@ static void uninit(struct ao *ao)
+     }
+ }
+ 
++
+ static OSStatus hotplug_cb(AudioObjectID id, UInt32 naddr,
+                            const AudioObjectPropertyAddress addr[],
+                            void *ctx)
