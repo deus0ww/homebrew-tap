@@ -11,10 +11,6 @@ class Mpv < Formula
       url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-pr11667-coreaudio-idle.patch"
       sha256 "7e1fd5206a33235344c0e3842174f7769267814ae85e7b5cd543b7115f23146e"
     end
-    patch do # https://github.com/mpv-player/mpv/pull/12931
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-pr12931-gpu-cache.patch"
-      sha256 "d2772161f89e9087ea1bf50f9fc50b9c281abede34ee7c7fee2c532a6ae898d6"
-    end
   elsif MacOS.version == :mojave # With incompatible commits reverted
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.37.0.tar.gz"
     sha256 "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
@@ -26,10 +22,6 @@ class Mpv < Formula
     patch do # https://github.com/mpv-player/mpv/pull/11667
       url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-pr11667-coreaudio-idle.patch"
       sha256 "7e1fd5206a33235344c0e3842174f7769267814ae85e7b5cd543b7115f23146e"
-    end
-    patch do # https://github.com/mpv-player/mpv/pull/12931
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-pr12931-gpu-cache.patch"
-      sha256 "d2772161f89e9087ea1bf50f9fc50b9c281abede34ee7c7fee2c532a6ae898d6"
     end
   else # Last Official Version for macOS < 10.15
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.36.0.tar.gz"
