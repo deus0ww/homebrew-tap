@@ -162,6 +162,7 @@ class Ffmpeg < Formula
 
       --disable-libjack
       --disable-indev=jack
+      --disable-vulkan
     ]
 
     # Needs corefoundation, coremedia, corevideo
