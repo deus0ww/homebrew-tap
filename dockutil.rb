@@ -4,8 +4,8 @@ class Dockutil < Formula
   license "Apache-2.0"
 
   if MacOS.version > :mojave
-    url "https://github.com/kcrawford/dockutil/archive/refs/tags/3.1.2.tar.gz"
-    sha256 "f21d30407473c7a9d6022225739c14faafa27a2a43c1a26643a7e5a4d508596a"
+    url "https://github.com/kcrawford/dockutil/archive/refs/tags/3.1.3.tar.gz"
+    sha256 "f8ac0cc2f80c1894ee0a6a52ae3f1d4505a7b1e3ad65f20e03330d280113caf1"
     head do
       url "https://github.com/kcrawford/dockutil.git", branch: "main"
       depends_on xcode: ["12.4", :build]
