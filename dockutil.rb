@@ -5,7 +5,7 @@ class Dockutil < Formula
 
   if MacOS.version > :mojave
     url "https://github.com/kcrawford/dockutil/archive/refs/tags/3.1.3.tar.gz"
-    sha256 "f8ac0cc2f80c1894ee0a6a52ae3f1d4505a7b1e3ad65f20e03330d280113caf1"
+    sha256 "622bbb5c97f09b3f46ebea9a612f7470dd7fb6a7daaed12b87dee5af7a0177f6"
     head do
       url "https://github.com/kcrawford/dockutil.git", branch: "main"
       depends_on xcode: ["12.4", :build]
