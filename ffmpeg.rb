@@ -28,7 +28,9 @@ class Ffmpeg < Formula
     depends_on "deus0ww/tap/jpeg-xl"
   end
 
+  depends_on "make" => :build
   depends_on "pkg-config" => :build
+
   depends_on "aribb24"
   depends_on "bzip2"       # uses_from_macos
   depends_on "dav1d"
@@ -198,10 +200,10 @@ class Ffmpeg < Formula
     args << "--optflags=-Ofast"
 
     system "./configure", *args
-    system "make", "install"
+    system "gmake", "install"
 
     # Build and install additional FFmpeg tools
-    system "make", "alltools"
+    system "gmake", "alltools"
     bin.install Dir["tools/*"].select { |f| File.executable? f }
 
     # Fix for Non-executables that were installed to bin/

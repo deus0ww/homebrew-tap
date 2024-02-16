@@ -8,6 +8,7 @@ class YtDlp < Formula
   license "Unlicense"
   head "https://github.com/yt-dlp/yt-dlp.git", branch: "master"
 
+  depends_on "make" => :build
   depends_on "python-brotli"
   depends_on "python-certifi"
   depends_on "python-charset-normalizer"
@@ -32,7 +33,7 @@ class YtDlp < Formula
       python3 = "python3.12"
       system python3, "devscripts/update-version.py"
       system python3, "devscripts/make_lazy_extractors.py"
-      system "make", "lazy-extractors", "yt-dlp", "completions"
+      system "gmake", "lazy-extractors", "yt-dlp", "completions"
     end
     virtualenv_install_with_resources
     man1.install_symlink libexec/"share/man/man1/yt-dlp.1"

@@ -11,6 +11,7 @@ class Libass < Formula
     depends_on "autoconf" => :build
     depends_on "automake" => :build
     depends_on "libtool" => :build
+    depends_on "make" => :build
   end
 
   depends_on "pkg-config" => :build
@@ -43,7 +44,7 @@ class Libass < Formula
     # libass uses coretext on macOS, fontconfig on Linux
     args << "--disable-fontconfig" if OS.mac? && (build.without? "fontconfig")
     system "./configure", *args
-    system "make", "install"
+    system "gmake", "install"
   end
 
   test do
