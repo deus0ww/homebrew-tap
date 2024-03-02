@@ -1,7 +1,7 @@
-diff --git a/osdep/macos/swift_extensions.swift b/osdep/macos/swift_extensions.swift
+diff --git a/osdep/mac/swift_extensions.swift b/osdep/macos/swift_extensions.swift
 index 127c568abe..a1aeb0abf7 100644
---- a/osdep/macos/swift_extensions.swift
-+++ b/osdep/macos/swift_extensions.swift
+--- a/osdep/mac/swift_extensions.swift
++++ b/osdep/mac/swift_extensions.swift
 @@ -28,6 +28,37 @@ extension NSScreen {
              return deviceDescription[.screenNumber] as? CGDirectDisplayID ?? 0
          }

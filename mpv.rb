@@ -17,7 +17,7 @@ class Mpv < Formula
     head "https://github.com/mpv-player/mpv.git", branch: "master"
     patch do # Revert DisplayName change
       url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-10.14.patch"
-      sha256 "5cb93177fcf0e304dfb16365b9899473bea757f5d8c1af9aad3505ec9403abae"
+      sha256 "0fcdb58a06af33855fd7fac999bb4052f2c6b9a461cb3807c66446c992b48ace"
     end
     patch do # https://github.com/mpv-player/mpv/pull/11667
       url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-pr11667-coreaudio-idle.patch"
