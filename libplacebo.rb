@@ -53,19 +53,27 @@ class Libplacebo < Formula
   end
 
   depends_on "little-cms2"
-  depends_on "python-jinja"
-  depends_on "python-markupsafe"
   depends_on "vulkan-loader"
   depends_on "xxhash"
 
   resource "fast_float" do
     url "https://github.com/fastfloat/fast_float/archive/refs/tags/v6.1.0.tar.gz"
-    sha256 "a9c8ca8ca7d68c2dbb134434044f9c66cfd4c383d5e85c36b704d30f6be82506"
+    sha256 "5a629e1f18f037ad0016c41ead630ea471cccbcdf60239ed3466c491d8e7c908"
   end
 
   resource "glad2" do
-    url "https://files.pythonhosted.org/packages/21/95/228380a07a2d4a50a82e3fe6f8e04759b103f680fefdee4fcf08b3937cbf/glad2-2.0.5.tar.gz"
-    sha256 "ba0757b6aa3a204b637873b13d0b9b40865ae196df7290fc6c01d818e58af81c"
+    url "https://files.pythonhosted.org/packages/8b/b3/191508033476b6a409c070c6166b1c41ebb547cc6136260e9157343e6a2b/glad2-2.0.4.tar.gz"
+    sha256 "ede1639f69f2ba08f1f498a40a707f34a609d24eb2ea0d6c9364689a798cf7d0"
+  end
+
+  resource "jinja2" do
+    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
+    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+  end
+
+  resource "markupsafe" do
+    url "https://files.pythonhosted.org/packages/6d/7c/59a3248f411813f8ccba92a55feaac4bf360d29e2ff05ee7d8e1ef2d7dbf/MarkupSafe-2.1.3.tar.gz"
+    sha256 "af598ed32d6ae86f1b747b82783958b1a4ab8f617b06fe68795c7f026abbdcad"
   end
 
   def install
