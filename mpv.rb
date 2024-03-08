@@ -10,13 +10,10 @@ class Mpv < Formula
   elsif MacOS.version == :mojave # With incompatible commits reverted
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.37.0.tar.gz"
     sha256 "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
-    head do # Last buildable commit on macOS 10.14 - v.0.37.0-489-gbbbd6e272c
-      url "https://github.com/mpv-player/mpv/archive/bbbd6e272ce9bc7b87cff117d270728602df40b5.tar.gz"
-      sha256 "9ad63ace7bebcf85b33bbd94baf8e779f6ce4f918971b0b540afa55d0eb7a18a"
-    end
-    patch do # Revert DisplayName change
+    head "https://github.com/mpv-player/mpv.git", branch: "master"
+    patch do # Revert DisplayName + Menubar changes
       url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-10.14.patch"
-      sha256 "1545c6785a9d24f9365439cc8620011985c30a24d03550dd9c1ca1829894eb16"
+      sha256 "e39e7aa415ef7d7688af83d13968a6f72444539db2b339f7964bc543cd3cc3b0"
     end
   else # Last Official Version for macOS < 10.15
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.36.0.tar.gz"
