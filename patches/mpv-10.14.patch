@@ -1,3 +1,10 @@
+diff --git a/VERSION b/VERSION
+index 109a6b660a..2f332255ac 100644
+--- a/VERSION
++++ b/VERSION
+@@ -1 +1 @@
+-0.37.0-UNKNOWN
++0.37.0-538-g5dd2d19519
 diff --git a/osdep/mac/swift_extensions.swift b/osdep/macos/swift_extensions.swift
 index 127c568abe..a1aeb0abf7 100644
 --- a/osdep/mac/swift_extensions.swift
