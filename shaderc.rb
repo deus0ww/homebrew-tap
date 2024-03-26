@@ -26,6 +26,22 @@ class Shaderc < Formula
     end
   end
 
+  head do
+    url "https://github.com/google/shaderc.git", branch: "main"
+
+    resource "glslang" do
+      url "https://github.com/KhronosGroup/glslang.git", branch: "main"
+    end
+
+    resource "spirv-tools" do
+      url "https://github.com/KhronosGroup/SPIRV-Tools.git", branch: "main"
+    end
+
+    resource "spirv-headers" do
+      url "https://github.com/KhronosGroup/SPIRV-Headers.git", branch: "main"
+    end
+  end
+
   depends_on "cmake" => :build
   depends_on "python@3.12" => :build
 

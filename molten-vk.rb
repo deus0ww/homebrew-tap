@@ -4,7 +4,7 @@ class MoltenVk < Formula
   license "Apache-2.0"
 
   stable do # VulkanSDK v.1.3.250.1
-    url "https://github.com/KhronosGroup/MoltenVK/archive/v1.2.4.tar.gz"
+    url "https://github.com/KhronosGroup/MoltenVK/archive/refs/tags/v1.2.4.tar.gz"
     sha256 "80a33cc9a9f83df3623e2ed9e21ac6226746d37021423a9722c7dde1668898f4"
 
     # MoltenVK depends on very specific revisions of its dependencies.
@@ -58,6 +58,38 @@ class MoltenVk < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
+  head do
+    url "https://github.com/KhronosGroup/MoltenVK.git", branch: "main"
+
+    resource "cereal" do
+      url "https://github.com/USCiLab/cereal.git", branch: "master"
+    end
+
+    resource "Vulkan-Headers" do
+      url "https://github.com/KhronosGroup/Vulkan-Headers.git", branch: "main"
+    end
+
+    resource "SPIRV-Cross" do
+      url "https://github.com/KhronosGroup/SPIRV-Cross.git", branch: "main"
+    end
+
+    resource "glslang" do
+      url "https://github.com/KhronosGroup/glslang.git", branch: "main"
+    end
+
+    resource "SPIRV-Tools" do
+      url "https://github.com/KhronosGroup/SPIRV-Tools.git", branch: "main"
+    end
+
+    resource "SPIRV-Headers" do
+      url "https://github.com/KhronosGroup/SPIRV-Headers.git", branch: "main"
+    end
+
+    resource "Vulkan-Tools" do
+      url "https://github.com/KhronosGroup/Vulkan-Tools.git", branch: "main"
+    end
+  end
+
   depends_on "cmake" => :build
   depends_on "python@3.12" => :build
   depends_on xcode: ["11.7", :build]
@@ -67,7 +99,7 @@ class MoltenVk < Formula
 
   def install
     ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto=thin"
-  
+
     resources.each do |res|
       res.stage(buildpath/"External"/res.name)
     end
@@ -96,6 +128,17 @@ class MoltenVk < Formula
                "SYMROOT=External/build", "OBJROOT=External/build",
                "build"
 
+    if DevelopmentTools.clang_build_version >= 1500
+      # Required to build xcframeworks with Xcode 15
+      # https://github.com/KhronosGroup/MoltenVK/issues/2028
+      xcodebuild "-create-xcframework", "-output", "./External/build/Release/SPIRVCross.xcframework",
+                "-library", "./External/build/Release/libSPIRVCross.a"
+      xcodebuild "-create-xcframework", "-output", "./External/build/Release/SPIRVTools.xcframework",
+                "-library", "./External/build/Release/libSPIRVTools.a"
+      xcodebuild "-create-xcframework", "-output", "./External/build/Release/glslang.xcframework",
+                "-library", "./External/build/Release/libglslang.a"
+    end
+
     # Build MoltenVK Package
     xcodebuild "ARCHS=#{Hardware::CPU.arch}", "ONLY_ACTIVE_ARCH=YES",
                "-project", "MoltenVKPackaging.xcodeproj",
@@ -105,8 +148,8 @@ class MoltenVk < Formula
                "GCC_PREPROCESSOR_DEFINITIONS=${inherited} MVK_CONFIG_LOG_LEVEL=MVK_CONFIG_LOG_LEVEL_NONE",
                "build"
 
-    (libexec/"lib").install Dir["External/build/Intermediates/XCFrameworkStaging/Release/" \
-                                "Platform/lib{SPIRVCross,SPIRVTools,glslang}.a"]
+    (libexec/"lib").install Dir["External/build/Release/" \
+                                "lib{SPIRVCross,SPIRVTools,glslang}.a"]
     glslang_dir = Pathname.new("External/glslang")
     Pathname.glob("External/glslang/{glslang,SPIRV}/**/*.{h,hpp}") do |header|
       header.chmod 0644
