@@ -4,30 +4,36 @@ class Mpv < Formula
   license :cannot_represent
 
   if MacOS.version > :mojave
-    url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.37.0.tar.gz"
-    sha256 "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
     head "https://github.com/mpv-player/mpv.git", branch: "master"
-  elsif MacOS.version == :mojave
-    url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.36.0.tar.gz"
-    sha256 "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6"
-    head do # v.0.37.0-538-g5dd2d19519
-      url "https://github.com/mpv-player/mpv/archive/5dd2d19519a31998f2bea5c697a11d8c547b1e70.tar.gz"
-      sha256 "4d007646cd6f5ead930fedb1c370d2499bc07baded998d997b59e6b8d4ae6e3e"
-      patch do # Revert DisplayName + Menubar changes
-        url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-10.14.patch"
-        sha256 "baf08c790ae202abd920242cc574d033852728a99538a4d4c6976c336d90d677"
+    stable do
+      url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.37.0.tar.gz"
+      sha256 "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
+
+      # Fix build with FFmpeg 7.0.
+      # Remove when included in a release.
+      # https://github.com/mpv-player/mpv/pull/13659
+      patch do
+        url "https://github.com/mpv-player/mpv/commit/62b1bad755bb6141c5a704741bda8a4da6dfcde5.patch?full_index=1"
+        sha256 "7d6119161f8d2adcc62c8841cee7ea858bf46e51e8d828248ca2133281e2df0a"
+      end
+      patch do
+        url "https://github.com/mpv-player/mpv/commit/78447c4b91634aa91dcace1cc6a9805fb93b9252.patch?full_index=1"
+        sha256 "69e4ead829e36b3a175e40ed3c58cc4291a5b6634da70d02b0a5191b9e6d03f6"
       end
     end
-  else
-    url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.36.0.tar.gz"
-    sha256 "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6"
-    head do # v.0.36.0-722-g7480efa62c with libplacebo v.6.318
-      url "https://github.com/mpv-player/mpv/archive/7480efa62c0a2a1779b4fdaa804a6512aa488400.tar.gz"
-      sha256 "28c456b51f43509d65b0bcf433bc56a7ad3f6d5f99c28ffc9bf8f660e1c6dd1f"
-      patch do # Fix old Swift + Downgrade libplacebo + ffmpeg channel_layout fix
-        url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-10.13.patch"
-        sha256 "c3b7a5766b75bf4ab3e80448bddd9a31638a7caa5f384a556e47594f0617a40b"
-      end
+  elsif MacOS.version == :mojave # v.0.37.0-538-g5dd2d19519
+    url "https://github.com/mpv-player/mpv/archive/5dd2d19519a31998f2bea5c697a11d8c547b1e70.tar.gz"
+    sha256 "4d007646cd6f5ead930fedb1c370d2499bc07baded998d997b59e6b8d4ae6e3e"
+    patch do # Revert DisplayName + Menubar changes
+      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-10.14.patch"
+      sha256 "baf08c790ae202abd920242cc574d033852728a99538a4d4c6976c336d90d677"
+    end
+  else # v.0.36.0-722-g7480efa62c with libplacebo v.6.318
+    url "https://github.com/mpv-player/mpv/archive/7480efa62c0a2a1779b4fdaa804a6512aa488400.tar.gz"
+    sha256 "28c456b51f43509d65b0bcf433bc56a7ad3f6d5f99c28ffc9bf8f660e1c6dd1f"
+    patch do # Fix old Swift + Downgrade libplacebo + ffmpeg channel_layout fix
+      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/mpv-10.13.patch"
+      sha256 "c3b7a5766b75bf4ab3e80448bddd9a31638a7caa5f384a556e47594f0617a40b"
     end
   end
 
