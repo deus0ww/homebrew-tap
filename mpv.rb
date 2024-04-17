@@ -20,6 +20,18 @@ class Mpv < Formula
         url "https://github.com/mpv-player/mpv/commit/78447c4b91634aa91dcace1cc6a9805fb93b9252.patch?full_index=1"
         sha256 "69e4ead829e36b3a175e40ed3c58cc4291a5b6634da70d02b0a5191b9e6d03f6"
       end
+
+      # Fix MKV audio playing.
+      # Remove when included in a release.
+      # https://github.com/mpv-player/mpv/pull/13665
+      patch do
+        url "https://github.com/mpv-player/mpv/commit/1a40b2f9281dba1d7e75ce03fec1fe4bb2902a17.patch?full_index=1"
+        sha256 "0f06294d7a2c0fecae88937887a3aa98c706398ba35a0a27b2908612585db98f"
+      end
+      patch do
+        url "https://github.com/mpv-player/mpv/commit/b5599872c768ed0df79d6b50755e4568fb06e3ab.patch?full_index=1"
+        sha256 "7c82044c44ec0851f3a82527e1699b7636099ebddaa0ab3732f62aa1fbce5beb"
+      end
     end
   elsif MacOS.version == :mojave # v.0.37.0-538-g5dd2d19519
     url "https://github.com/mpv-player/mpv/archive/5dd2d19519a31998f2bea5c697a11d8c547b1e70.tar.gz"
