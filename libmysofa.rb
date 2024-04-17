@@ -7,16 +7,30 @@ class Libmysofa < Formula
   head "https://github.com/hoene/libmysofa.git", branch: "main"
 
   depends_on "cmake" => :build
-
-  depends_on "cunit"
+  depends_on "zlib"
 
   def install
     ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto=thin"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-D BUILD_TESTS=OFF"
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
+  end
 
-    cd "build" do
-      system "cmake", "..", *std_cmake_args, "-DCMAKE_BUILD_TYPE=Release"
-      system "make", "all"
-      system "make", "install"
-    end
+  test do
+    (testpath/"test.c").write <<~EOS
+      #include <mysofa.h>
+
+      int main(void)
+      {
+        char buffer[9] = "TESTDATA";
+        int filter_length;
+        int err;
+        struct MYSOFA_EASY *hrtf = NULL;
+        hrtf = mysofa_open_data(buffer, 9, 48000, &filter_length, &err);
+      }
+    EOS
+
+    system ENV.cc, "test.c", "-L#{lib}", "-lmysofa", "-o", "test"
+    system "./test"
   end
 end
