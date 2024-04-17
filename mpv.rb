@@ -4,35 +4,9 @@ class Mpv < Formula
   license :cannot_represent
 
   if MacOS.version > :mojave
+    url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.38.0.tar.gz"
+    sha256 "86d9ef40b6058732f67b46d0bbda24a074fae860b3eaae05bab3145041303066"
     head "https://github.com/mpv-player/mpv.git", branch: "master"
-    stable do
-      url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.37.0.tar.gz"
-      sha256 "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
-
-      # Fix build with FFmpeg 7.0.
-      # Remove when included in a release.
-      # https://github.com/mpv-player/mpv/pull/13659
-      patch do
-        url "https://github.com/mpv-player/mpv/commit/62b1bad755bb6141c5a704741bda8a4da6dfcde5.patch?full_index=1"
-        sha256 "7d6119161f8d2adcc62c8841cee7ea858bf46e51e8d828248ca2133281e2df0a"
-      end
-      patch do
-        url "https://github.com/mpv-player/mpv/commit/78447c4b91634aa91dcace1cc6a9805fb93b9252.patch?full_index=1"
-        sha256 "69e4ead829e36b3a175e40ed3c58cc4291a5b6634da70d02b0a5191b9e6d03f6"
-      end
-
-      # Fix MKV audio playing.
-      # Remove when included in a release.
-      # https://github.com/mpv-player/mpv/pull/13665
-      patch do
-        url "https://github.com/mpv-player/mpv/commit/1a40b2f9281dba1d7e75ce03fec1fe4bb2902a17.patch?full_index=1"
-        sha256 "0f06294d7a2c0fecae88937887a3aa98c706398ba35a0a27b2908612585db98f"
-      end
-      patch do
-        url "https://github.com/mpv-player/mpv/commit/b5599872c768ed0df79d6b50755e4568fb06e3ab.patch?full_index=1"
-        sha256 "7c82044c44ec0851f3a82527e1699b7636099ebddaa0ab3732f62aa1fbce5beb"
-      end
-    end
   elsif MacOS.version == :mojave # v.0.37.0-538-g5dd2d19519
     url "https://github.com/mpv-player/mpv/archive/5dd2d19519a31998f2bea5c697a11d8c547b1e70.tar.gz"
     sha256 "4d007646cd6f5ead930fedb1c370d2499bc07baded998d997b59e6b8d4ae6e3e"
