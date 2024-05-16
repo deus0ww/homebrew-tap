@@ -49,6 +49,8 @@ class Ffmpeg < Formula
   depends_on "libvidstab"
   depends_on "libvorbis"
   depends_on "libvpx"
+  depends_on "libx11"
+  depends_on "libxcb"
   depends_on "libxml2"     # uses_from_macos
   depends_on "opencore-amr"
   depends_on "openjpeg"
@@ -79,8 +81,15 @@ class Ffmpeg < Formula
   depends_on "rtmpdump" => :optional
   depends_on "two-lame" => :optional
 
+  on_macos do
+    depends_on "libarchive"
+    depends_on "libogg"
+    depends_on "libsamplerate"
+  end
+
   on_linux do
     depends_on "alsa-lib"
+    depends_on "libxext"
     depends_on "libxv"
   end
 

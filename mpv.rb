@@ -2,11 +2,11 @@ class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
   license :cannot_represent
+  head "https://github.com/mpv-player/mpv.git", branch: "master"
 
   if MacOS.version > :mojave
     url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.38.0.tar.gz"
     sha256 "86d9ef40b6058732f67b46d0bbda24a074fae860b3eaae05bab3145041303066"
-    head "https://github.com/mpv-player/mpv.git", branch: "master"
   elsif MacOS.version == :mojave # v.0.37.0-538-g5dd2d19519
     url "https://github.com/mpv-player/mpv/archive/5dd2d19519a31998f2bea5c697a11d8c547b1e70.tar.gz"
     sha256 "4d007646cd6f5ead930fedb1c370d2499bc07baded998d997b59e6b8d4ae6e3e"
@@ -35,15 +35,18 @@ class Mpv < Formula
   depends_on "deus0ww/tap/yt-dlp"
   depends_on "jpeg-turbo"
   depends_on "libarchive"
+  depends_on "libbluray"
   depends_on "libdvdnav"
+  depends_on "libsamplerate"
   depends_on "little-cms2"
   depends_on "luajit"
   depends_on "mujs"
+  depends_on "rubberband"
   depends_on "uchardet"
+  depends_on "vulkan-loader"
   depends_on "zimg"
+  depends_on "zlib"
 
-  depends_on "libbluray" => :optional
-  depends_on "rubberband" => :optional
   depends_on "sdl2" => :optional
   depends_on "vapoursynth" => :optional
 
@@ -56,6 +59,7 @@ class Mpv < Formula
 
   on_linux do
     depends_on "alsa-lib"
+    depends_on "pulseaudio"
   end
 
   def install
