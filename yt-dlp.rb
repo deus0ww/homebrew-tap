@@ -3,8 +3,8 @@ class YtDlp < Formula
 
   desc "Feature-rich command-line audio/video downloader"
   homepage "https://github.com/yt-dlp/yt-dlp"
-  url "https://files.pythonhosted.org/packages/52/85/af44c30f0cc5d94ebbce365f8ee40eea6e9d7a1d26d50f16e3766ca8410c/yt_dlp-2024.4.9.tar.gz"
-  sha256 "7ee90572b4d313b582b99c89e4eccf779b57ff54edc331873c6b3fba77faa8b0"
+  url "https://files.pythonhosted.org/packages/08/9c/6dc54bc591d50eb9378a0e0442e5b69f28eff1ead4f234b7837b6d582761/yt_dlp-2024.5.27.tar.gz"
+  sha256 "3566c0de240d0cd3d1c2285ce655f72ca38dfc618d634d46818b00d89d5288be"
   license "Unlicense"
 
   head do
@@ -44,8 +44,8 @@ class YtDlp < Formula
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/9d/be/10918a2eac4ae9f02f6cfe6414b7a155ccd8f7f9d4380d62fd5b955065c3/requests-2.31.0.tar.gz"
-    sha256 "942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
+    url "https://files.pythonhosted.org/packages/63/70/2bf7780ad2d390a8d301ad0b550f1581eadbd9a20f896afe06353c2a2913/requests-2.32.3.tar.gz"
+    sha256 "55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760"
   end
 
   resource "urllib3" do
@@ -61,7 +61,7 @@ class YtDlp < Formula
   def install
     if build.head?
       system "python3.12", "devscripts/update-version.py"
-      system "gmake", "lazy-extractors", "README.md", "supportedsites", "completions", "yt-dlp", "devscripts/*"
+      system "gmake", "lazy-extractors", "README.md", "supportedsites", "completions", "yt-dlp"
     end
     virtualenv_install_with_resources
     man1.install_symlink libexec/"share/man/man1/yt-dlp.1"
