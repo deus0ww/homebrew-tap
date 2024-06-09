@@ -1,5 +1,5 @@
 diff --git a/meson.build b/meson.build
-index b628b13c..d6ef5db4 100644
+index a73e49ff..30465973 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -4,7 +4,7 @@ project('libplacebo', ['c', 'cpp'],
@@ -881,7 +881,7 @@ index 7a0005cd..47066bda 100644
  int pl_strchr(pl_str str, int c);
  size_t pl_strspn(pl_str str, const char *accept);
 diff --git a/src/tests/string.c b/src/tests/string.c
-index 52985c44..93e300da 100644
+index 6c3ff2aa..c5ce498b 100644
 --- a/src/tests/string.c
 +++ b/src/tests/string.c
 @@ -93,14 +93,6 @@ int main()

@@ -15,7 +15,7 @@ class Libplacebo < Formula
     head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
     patch do # Revert convert.cc changes that's incompatible with C++17 on macOS < 10.15
       url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/libplacebo-10.14.patch"
-      sha256 "dd3824540dea6133810fa649630a2861b47e818e036f8076d9d69577145fb131"
+      sha256 "56c4861d28ce1200d75f9776bfa89b21dc48ac5a2fa9aba5981c8be75b601e5f"
     end
   else # Last Official Version for macOS < 10.15
     url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.292.1/libplacebo-v6.292.1.tar.bz2"
@@ -29,7 +29,7 @@ class Libplacebo < Formula
       end
       patch do # Revert convert.cc changes that's incompatible with C++17 on macOS < 10.15
         url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/libplacebo-10.14.patch"
-        sha256 "dd3824540dea6133810fa649630a2861b47e818e036f8076d9d69577145fb131"
+        sha256 "56c4861d28ce1200d75f9776bfa89b21dc48ac5a2fa9aba5981c8be75b601e5f"
       end
     end
   end
