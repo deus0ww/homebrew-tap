@@ -16,6 +16,7 @@ class Ffmpeg < Formula
   if MacOS.version > :mojave
     depends_on "librist"   # Build issue with gnutls on macOS 10.14
     depends_on "libvmaf"   # Avoiding building Rust
+    depends_on "openjpeg"  # Avoiding building doxygen
     depends_on "openvino"  # Build issue with gnutls on macOS 10.14
     depends_on "rav1e"     # Avoiding building Rust
     depends_on "snappy"    # Build issue on macOS 10.13
@@ -26,6 +27,7 @@ class Ffmpeg < Formula
   else
     depends_on "deus0ww/tap/aom"
     depends_on "deus0ww/tap/jpeg-xl"
+    depends_on "deus0ww/tap/openjpeg"
   end
 
   depends_on "make" => :build
@@ -53,7 +55,6 @@ class Ffmpeg < Formula
   depends_on "libxcb"
   depends_on "libxml2"     # uses_from_macos
   depends_on "opencore-amr"
-  depends_on "openjpeg"
   depends_on "openssl@3"
   depends_on "opus"
   depends_on "rubberband"
