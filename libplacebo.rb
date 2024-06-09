@@ -57,8 +57,8 @@ class Libplacebo < Formula
   depends_on "xxhash"
 
   resource "fast_float" do
-    url "https://github.com/fastfloat/fast_float/archive/refs/tags/v6.1.0.tar.gz"
-    sha256 "5a629e1f18f037ad0016c41ead630ea471cccbcdf60239ed3466c491d8e7c908"
+    url "https://github.com/fastfloat/fast_float/archive/refs/tags/v6.1.1.tar.gz"
+    sha256 "10159a4a58ba95fe9389c3c97fe7de9a543622aa0dcc12dd9356d755e9a94cb4"
   end
 
   resource "glad2" do
@@ -67,8 +67,8 @@ class Libplacebo < Formula
   end
 
   resource "jinja2" do
-    url "https://files.pythonhosted.org/packages/b2/5e/3a21abf3cd467d7876045335e681d276ac32492febe6d98ad89562d1a7e1/Jinja2-3.1.3.tar.gz"
-    sha256 "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
+    url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
+    sha256 "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
   end
 
   resource "markupsafe" do
