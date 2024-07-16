@@ -202,7 +202,7 @@ class Ffmpeg < Formula
     args << ("--extra-cxxflags="  + opts)
     args << ("--extra-objcflags=" + opts)
     args << ("--extra-ldflags="   + opts)
-    # args << "--enable-hardcoded-tables"
+    args << "--enable-hardcoded-tables" unless build.head?  # Broken on HEAD
     args << "--enable-lto"
     args << "--optflags=-Ofast"
 
