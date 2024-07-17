@@ -3,8 +3,8 @@ class YtDlp < Formula
 
   desc "Feature-rich command-line audio/video downloader"
   homepage "https://github.com/yt-dlp/yt-dlp"
-  url "https://files.pythonhosted.org/packages/2d/2a/9eeaaf4f3c9253c332d065ae9adf925742f46bf033864754d01a2aae66ec/yt_dlp-2024.7.9.tar.gz"
-  sha256 "e19f00f9e55e90bca1c94bcaf809aa33e51634be9f0de2df84a72d3206934f94"
+  url "https://files.pythonhosted.org/packages/73/4d/ccdd4a92f5604ad409f3d56a89896276a9a3c3bc8995e4dc566b012265ba/yt_dlp-2024.7.16.tar.gz"
+  sha256 "c5bd517a49dea1923ec8e14f51858f10fd89dfece14cb701392b480b41b2f516"
   license "Unlicense"
 
   head do
@@ -59,10 +59,8 @@ class YtDlp < Formula
   end
 
   def install
-    if build.head?
-      system "python3.12", "devscripts/update-version.py"
-      system "gmake", "lazy-extractors", "README.md", "supportedsites", "completions", "yt-dlp"
-    end
+    system "python3.12", "devscripts/update-version.py" if build.head?
+    system "gmake", "lazy-extractors", "README.md", "supportedsites", "completions", "yt-dlp"
     virtualenv_install_with_resources
     man1.install_symlink libexec/"share/man/man1/yt-dlp.1"
     bash_completion.install libexec/"share/bash-completion/completions/yt-dlp"
