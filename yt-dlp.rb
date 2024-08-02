@@ -3,8 +3,8 @@ class YtDlp < Formula
 
   desc "Feature-rich command-line audio/video downloader"
   homepage "https://github.com/yt-dlp/yt-dlp"
-  url "https://files.pythonhosted.org/packages/73/4d/ccdd4a92f5604ad409f3d56a89896276a9a3c3bc8995e4dc566b012265ba/yt_dlp-2024.7.16.tar.gz"
-  sha256 "c5bd517a49dea1923ec8e14f51858f10fd89dfece14cb701392b480b41b2f516"
+  url "https://files.pythonhosted.org/packages/12/24/652cb8bad19b4cebb19c1f26637317d32c84b571050b27e28fcfbcc55323/yt_dlp-2024.8.1.tar.gz"
+  sha256 "4318aa523694611562f01419c8d526b662a72df34ef8ba454016b34c8366c158"
   license "Unlicense"
 
   head do
@@ -71,7 +71,7 @@ class YtDlp < Formula
   end
 
   test do
-    system "#{bin}/yt-dlp", "--simulate", "https://www.youtube.com/watch?v=pOtd1cbOP7k"
-    system "#{bin}/yt-dlp", "--simulate", "--yes-playlist", "https://www.youtube.com/watch?v=pOtd1cbOP7k&list=PLMsZ739TZDoLj9u_nob8jBKSC-mZb0Nhj"
+    system bin/"yt-dlp", "--simulate", "https://www.youtube.com/watch?v=pOtd1cbOP7k"
+    system bin/"yt-dlp", "--simulate", "--yes-playlist", "https://www.youtube.com/watch?v=pOtd1cbOP7k&list=PLMsZ739TZDoLj9u_nob8jBKSC-mZb0Nhj"
   end
 end
