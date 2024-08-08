@@ -197,12 +197,12 @@ class Ffmpeg < Formula
     args << "--enable-libssh"       if build.with? "libssh"
     args << "--enable-libtwolame"   if build.with? "two-lame"
 
-    opts  = Hardware::CPU.arm? ? "-mcpu=native " : "-march=native -mtune=native "
+    opts  = Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native"
     args << ("--extra-cflags="    + opts)
     args << ("--extra-cxxflags="  + opts)
     args << ("--extra-objcflags=" + opts)
     args << ("--extra-ldflags="   + opts)
-    args << "--enable-hardcoded-tables" unless build.head?  # Broken on HEAD
+    args << "--enable-hardcoded-tables"
     args << "--enable-lto"
     args << "--optflags=-Ofast"
 
