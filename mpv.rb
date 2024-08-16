@@ -57,11 +57,6 @@ class Mpv < Formula
     depends_on "trash" => :recommended
   end
 
-  on_linux do
-    depends_on "alsa-lib"
-    depends_on "pulseaudio"
-  end
-
   def install
     # LANG is unset by default on macOS and causes issues when calling getlocale
     # or getdefaultlocale in docutils. Force the default c/posix locale since
@@ -73,7 +68,7 @@ class Mpv < Formula
     ENV["NINJA"] = Formula["ninja"].opt_bin/"ninja"
 
     # libarchive is keg-only
-    ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig"
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig" if OS.mac?
 
     args = %W[
       -Db_lto=true
