@@ -5,8 +5,8 @@ class Mpv < Formula
   head "https://github.com/mpv-player/mpv.git", branch: "master"
 
   if MacOS.version > :mojave
-    url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.38.0.tar.gz"
-    sha256 "86d9ef40b6058732f67b46d0bbda24a074fae860b3eaae05bab3145041303066"
+    url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.39.0.tar.gz"
+    sha256 "2ca92437affb62c2b559b4419ea4785c70d023590500e8a52e95ea3ab4554683"
   elsif MacOS.version == :mojave # v.0.37.0-538-g5dd2d19519
     url "https://github.com/mpv-player/mpv/archive/5dd2d19519a31998f2bea5c697a11d8c547b1e70.tar.gz"
     sha256 "4d007646cd6f5ead930fedb1c370d2499bc07baded998d997b59e6b8d4ae6e3e"
@@ -25,6 +25,7 @@ class Mpv < Formula
 
   depends_on "docutils" => :build
   depends_on "meson" => :build
+  depends_on "ninja" => :build
   depends_on "pkg-config" => [:build, :test]
   depends_on "python@3.12" => :build
   depends_on xcode: :build
@@ -65,7 +66,7 @@ class Mpv < Formula
     ENV["LANG"]   = "en_US.UTF-8"
 
     # force meson find ninja from homebrew
-    ENV["NINJA"] = Formula["ninja"].opt_bin/"ninja"
+    ENV["NINJA"] = which("ninja")
 
     # libarchive is keg-only
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig" if OS.mac?
