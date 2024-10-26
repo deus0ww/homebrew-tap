@@ -20,7 +20,7 @@ class JpegXl < Formula
   depends_on "jpeg-turbo"
   depends_on "libpng"
   depends_on "little-cms2"
-  depends_on "openexr"
+  depends_on "deus0ww/tap/openexr"
   depends_on "webp"
 
   uses_from_macos "libxml2" => :build
