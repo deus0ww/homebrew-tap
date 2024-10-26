@@ -27,7 +27,7 @@ class Mpv < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => [:build, :test]
-  depends_on "python@3.12" => :build
+  depends_on "python@3.13" => :build
   depends_on xcode: :build
 
   depends_on "deus0ww/tap/ffmpeg"
@@ -107,7 +107,7 @@ class Mpv < Formula
     end
 
     # Build, Fix, and Codesign App Bundle
-    system "python3.12", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
+    system "python3.13", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
     if MacOS.version < :mojave
       bindir = "build/mpv.app/Contents/MacOS/"
       rm_f bindir + "mpv-bundle"

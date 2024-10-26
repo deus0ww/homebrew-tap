@@ -37,7 +37,7 @@ class Libplacebo < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
+  depends_on "python@3.13" => :build
   depends_on "vulkan-headers" => :build
 
   if MacOS.version > :mojave
@@ -93,8 +93,10 @@ class Libplacebo < Formula
       -Db_lto_mode=thin
       -Ddemos=false
 
-      -Dvulkan=enabled
+      -Dlcms=enabled
       -Dopengl=enabled
+      -Dshaderc=enabled
+      -Dvulkan=enabled
     ]
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
 
