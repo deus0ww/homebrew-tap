@@ -24,10 +24,12 @@ class Ffmpeg < Formula
     depends_on "zeromq"    # Avoiding building Boost
     depends_on "aom"       # Without libvmaf
     depends_on "jpeg-xl"   # Without docs
+    depends_on "libxml2"
   else
     depends_on "deus0ww/tap/aom"
     depends_on "deus0ww/tap/jpeg-xl"
     depends_on "deus0ww/tap/openjpeg"
+    uses_from_macos "libxml2"
   end
 
   depends_on "make" => :build
@@ -53,7 +55,6 @@ class Ffmpeg < Formula
   depends_on "libvpx"
   depends_on "libx11"
   depends_on "libxcb"
-  depends_on "libxml2"     # uses_from_macos
   depends_on "opencore-amr"
   depends_on "openssl@3"
   depends_on "opus"
