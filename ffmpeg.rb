@@ -1,12 +1,21 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz"
-  sha256 "40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
   head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
+
+  stable do
+    url "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz"
+    sha256 "40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6"
+
+    # Backport fix needed for recent x265 (v4.1 is X265_BUILD=215)
+    patch do
+      url "https://github.com/FFmpeg/FFmpeg/commit/099f88b8641dfc299f3896d17d9addc5b9ae7799.patch?full_index=1"
+      sha256 "43677660210523f0eb6db93c4ac9c7943c959116951a5859e6f14568b4392a59"
+    end
+  end
 
   livecheck do
     url "https://ffmpeg.org/download.html"
@@ -32,8 +41,7 @@ class Ffmpeg < Formula
     uses_from_macos "libxml2"
   end
 
-  depends_on "make" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "aribb24"
   depends_on "bzip2"       # uses_from_macos
@@ -106,12 +114,6 @@ class Ffmpeg < Formula
   patch do
     url "https://gitlab.archlinux.org/archlinux/packaging/packages/ffmpeg/-/raw/5670ccd86d3b816f49ebc18cab878125eca2f81f/add-av_stream_get_first_dts-for-chromium.patch"
     sha256 "57e26caced5a1382cb639235f9555fc50e45e7bf8333f7c9ae3d49b3241d3f77"
-  end
-
-  # Yt-dlp Patches
-  patch do
-    url "https://github.com/yt-dlp/FFmpeg-Builds/raw/master/patches/ffmpeg/master/0001-Nonstandard-HEVC-over-FLV.patch"
-    sha256 "1e1f977ca95968e1e6f50a36865b82ab505fb0190765d856e520604107644ca6"
   end
 
   def install
@@ -208,10 +210,10 @@ class Ffmpeg < Formula
     args << "--optflags=-Ofast"
 
     system "./configure", *args
-    system "gmake", "install"
+    system "make", "install"
 
     # Build and install additional FFmpeg tools
-    system "gmake", "alltools"
+    system "make", "alltools"
     bin.install (buildpath/"tools").children.select { |f| f.file? && f.executable? }
     pkgshare.install buildpath/"tools/python"
   end
@@ -220,6 +222,6 @@ class Ffmpeg < Formula
     # Create an example mp4 file
     mp4out = testpath/"video.mp4"
     system bin/"ffmpeg", "-filter_complex", "testsrc=rate=1:duration=1", mp4out
-    assert_predicate mp4out, :exist?
+    assert_path_exists mp4out
   end
 end

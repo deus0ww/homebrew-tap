@@ -11,8 +11,7 @@ class JpegXl < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
-  depends_on "pkg-config" => :test
+  depends_on "pkgconf" => [:build, :test]
   depends_on "brotli"
   depends_on "giflib"
   depends_on "highway"
@@ -57,11 +56,14 @@ class JpegXl < Formula
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--build", "build", "--target", "install"
+
+    # Avoid rebuilding dependents that hard-code the prefix.
+    inreplace (lib/"pkgconfig").glob("*.pc"), prefix, opt_prefix
   end
 
   test do
     system bin/"cjxl", test_fixtures("test.jpg"), "test.jxl"
-    assert_predicate testpath/"test.jxl", :exist?
+    assert_path_exists testpath/"test.jxl"
 
     (testpath/"jxl_test.c").write <<~C
       #include <jxl/encode.h>
@@ -77,7 +79,7 @@ class JpegXl < Formula
           return EXIT_SUCCESS;
       }
     C
-    jxl_flags = shell_output("pkg-config --cflags --libs libjxl").chomp.split
+    jxl_flags = shell_output("pkgconf --cflags --libs libjxl").chomp.split
     system ENV.cc, "jxl_test.c", *jxl_flags, "-o", "jxl_test"
     system "./jxl_test"
 
@@ -95,7 +97,7 @@ class JpegXl < Formula
           return EXIT_SUCCESS;
       }
     C
-    jxl_threads_flags = shell_output("pkg-config --cflags --libs libjxl_threads").chomp.split
+    jxl_threads_flags = shell_output("pkgconf --cflags --libs libjxl_threads").chomp.split
     system ENV.cc, "jxl_threads_test.c", *jxl_threads_flags, "-o", "jxl_threads_test"
     system "./jxl_threads_test"
   end

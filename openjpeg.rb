@@ -1,8 +1,8 @@
 class Openjpeg < Formula
   desc "Library for JPEG-2000 image manipulation"
   homepage "https://www.openjpeg.org/"
-  url "https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.2.tar.gz"
-  sha256 "90e3896fed910c376aaf79cdd98bdfdaf98c6472efd8e1debf0a854938cbda6a"
+  url "https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.3.tar.gz"
+  sha256 "368fe0468228e767433c9ebdea82ad9d801a3ad1e4234421f352c8b06e7aa707"
   license "BSD-2-Clause"
   head "https://github.com/uclouvain/openjpeg.git", branch: "master"
 
@@ -29,7 +29,7 @@ class Openjpeg < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <openjpeg.h>
 
       int main () {
@@ -42,7 +42,7 @@ class Openjpeg < Formula
         opj_image_destroy(image);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "-I#{include.children.first}",
            testpath/"test.c", "-L#{lib}", "-lopenjp2", "-o", "test"
     system "./test"

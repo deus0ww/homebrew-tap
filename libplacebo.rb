@@ -36,7 +36,7 @@ class Libplacebo < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.13" => :build
   depends_on "vulkan-headers" => :build
 
@@ -108,13 +108,13 @@ class Libplacebo < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libplacebo/config.h>
       #include <stdlib.h>
       int main() {
         return (pl_version() != NULL) ? 0 : 1;
       }
-    EOS
+    C
     system ENV.cc, "-o", "test", "test.c", "-I#{include}",
                    "-L#{lib}", "-lplacebo"
     system "./test"

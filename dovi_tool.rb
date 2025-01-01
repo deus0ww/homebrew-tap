@@ -1,8 +1,8 @@
 class DoviTool < Formula
   desc "CLI tool for Dolby Vision metadata on video streams"
   homepage "https://github.com/quietvoid/dovi_tool/"
-  url "https://github.com/quietvoid/dovi_tool/archive/refs/tags/2.1.2.tar.gz"
-  sha256 "a905a8ddb47583d3d9a7571a736a44c76f3ebf0b5838aa01d401f5715825785a"
+  url "https://github.com/quietvoid/dovi_tool/archive/refs/tags/2.1.3.tar.gz"
+  sha256 "299d225fccb6360c5aaa2b8b35416d30f416d6f1746d9ec5820a16f6bbe5fa02"
   license "MIT"
   head "https://github.com/quietvoid/dovi_tool.git", branch: "main"
 
@@ -15,8 +15,9 @@ class DoviTool < Formula
   depends_on "rust" => :build
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "fontconfig"
+    depends_on "freetype"
   end
 
   def install

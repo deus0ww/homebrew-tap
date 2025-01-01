@@ -26,7 +26,7 @@ class Mpv < Formula
   depends_on "docutils" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "python@3.13" => :build
   depends_on xcode: :build
 
@@ -126,7 +126,7 @@ class Mpv < Formula
     system bin/"mpv", "--ao=null", "--vo=null", test_fixtures("test.wav")
     assert_match "vapoursynth", shell_output(bin/"mpv --vf=help")
 
-    # Make sure `pkg-config` can parse `mpv.pc` after the `inreplace`.
-    system "pkg-config", "mpv"
+    # Make sure `pkgconf` can parse `mpv.pc` after the `inreplace`.
+    system "pkgconf", "--print-errors", "mpv"
   end
 end

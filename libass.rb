@@ -11,10 +11,9 @@ class Libass < Formula
     depends_on "autoconf" => :build
     depends_on "automake" => :build
     depends_on "libtool" => :build
-    depends_on "make" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "freetype"
   depends_on "fribidi"
   depends_on "harfbuzz"
@@ -43,12 +42,14 @@ class Libass < Formula
     ]
     # libass uses coretext on macOS, fontconfig on Linux
     args << "--disable-fontconfig" if OS.mac? && (build.without? "fontconfig")
-    system "./configure", *args
-    system "gmake", "install"
+    
+    system "autoreconf", "--force", "--install", "--verbose" if build.head?
+    system "./configure", *args, *std_configure_args
+    system "make", "install"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include "ass/ass.h"
       int main() {
         ASS_Library *library;
@@ -70,7 +71,7 @@ class Libass < Formula
           return 1;
         }
       }
-    EOS
+    CPP
     system ENV.cc, "test.cpp", "-I#{include}", "-L#{lib}", "-lass", "-o", "test"
     system "./test"
   end
