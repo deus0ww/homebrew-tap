@@ -42,7 +42,7 @@ class Libass < Formula
     ]
     # libass uses coretext on macOS, fontconfig on Linux
     args << "--disable-fontconfig" if OS.mac? && (build.without? "fontconfig")
-    
+
     system "autoreconf", "--force", "--install", "--verbose" if build.head?
     system "./configure", *args, *std_configure_args
     system "make", "install"
