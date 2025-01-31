@@ -128,7 +128,7 @@ class MoltenVk < Formula
                "SYMROOT=External/build", "OBJROOT=External/build",
                "build"
 
-    if DevelopmentTools.clang_build_version >= 1500
+    if DevelopmentTools.clang_build_version >= 1500 && MacOS.version < :sonoma
       # Required to build xcframeworks with Xcode 15
       # https://github.com/KhronosGroup/MoltenVK/issues/2028
       xcodebuild "-create-xcframework", "-output", "./External/build/Release/SPIRVCross.xcframework",
@@ -178,7 +178,7 @@ class MoltenVk < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <vulkan/vulkan.h>
       int main(void) {
         const char *extensionNames[] = { "VK_KHR_surface" };
@@ -192,7 +192,7 @@ class MoltenVk < Formula
         vkCreateInstance(&instanceCreateInfo, NULL, &inst);
         return 0;
       }
-    EOS
+    CPP
     system ENV.cc, "-o", "test", "test.cpp", "-I#{include}", "-I#{libexec/"include"}", "-L#{lib}", "-lMoltenVK"
     system "./test"
   end

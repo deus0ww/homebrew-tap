@@ -65,7 +65,7 @@ class Shaderc < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <shaderc/shaderc.h>
       int main() {
         int version;
@@ -74,7 +74,7 @@ class Shaderc < Formula
           return 1;
         return (profile == shaderc_profile_core) ? 0 : 1;
       }
-    EOS
+    C
     system ENV.cc, "-o", "test", "test.c", "-I#{include}",
                    "-L#{lib}", "-lshaderc_shared"
     system "./test"

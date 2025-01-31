@@ -34,12 +34,12 @@ class Libass < Formula
   def install
     ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto=thin"
 
-    system "autoreconf", "-i" if build.head?
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
       --enable-large-tiles
     ]
+
     # libass uses coretext on macOS, fontconfig on Linux
     args << "--disable-fontconfig" if OS.mac? && (build.without? "fontconfig")
 
