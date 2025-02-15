@@ -32,7 +32,7 @@ class Libass < Formula
   end
 
   def install
-    ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto=thin"
+    ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto"
 
     args = %W[
       --disable-dependency-tracking

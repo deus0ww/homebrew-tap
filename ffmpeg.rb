@@ -22,27 +22,8 @@ class Ffmpeg < Formula
     regex(/href=.*?ffmpeg[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
-  if MacOS.version > :mojave
-    depends_on "librist"   # Build issue with gnutls on macOS 10.14
-    depends_on "libvmaf"   # Avoiding building Rust
-    depends_on "openjpeg"  # Avoiding building doxygen
-    depends_on "openvino"  # Build issue with gnutls on macOS 10.14
-    depends_on "rav1e"     # Avoiding building Rust
-    depends_on "snappy"    # Build issue on macOS 10.13
-    depends_on "tesseract" # Build issue on macOS <10.15
-    depends_on "zeromq"    # Avoiding building Boost
-    depends_on "aom"       # Without libvmaf
-    depends_on "jpeg-xl"   # Without docs
-    depends_on "libxml2"
-  else
-    depends_on "deus0ww/tap/aom"
-    depends_on "deus0ww/tap/jpeg-xl"
-    depends_on "deus0ww/tap/openjpeg"
-    uses_from_macos "libxml2"
-  end
-
   depends_on "pkgconf" => :build
-
+  depends_on "aom"
   depends_on "aribb24"
   depends_on "bzip2"       # uses_from_macos
   depends_on "dav1d"
@@ -54,29 +35,39 @@ class Ffmpeg < Formula
   depends_on "freetype"
   depends_on "frei0r"
   depends_on "harfbuzz"
+  depends_on "jpeg-xl"
   depends_on "lame"
   depends_on "libbluray"
   depends_on "libbs2b"
+  depends_on "librist"
   depends_on "libsoxr"
+  depends_on "libssh"
   depends_on "libvidstab"
+  depends_on "libvmaf"
   depends_on "libvorbis"
   depends_on "libvpx"
   depends_on "libx11"
   depends_on "libxcb"
+  depends_on "libxml2"     # uses_from_macos
   depends_on "opencore-amr"
+  depends_on "openjpeg"
   depends_on "openssl@3"
   depends_on "opus"
+  depends_on "rav1e"
   depends_on "rubberband"
   depends_on "sdl2"
+  depends_on "snappy"
   depends_on "speex"
   depends_on "srt"
   depends_on "svt-av1"
+  depends_on "tesseract"
   depends_on "theora"
   depends_on "webp"
   depends_on "x264"
   depends_on "x265"
   depends_on "xvid"
   depends_on "xz"
+  depends_on "zeromq"
   depends_on "zimg"
   depends_on "zlib"        # uses_from_macos
 
@@ -86,7 +77,6 @@ class Ffmpeg < Formula
   depends_on "libmodplug" => :optional
   depends_on "libopenmpt" => :optional
   depends_on "librsvg" => :optional
-  depends_on "libssh" => :optional
   depends_on "openh264" => :optional
   depends_on "rtmpdump" => :optional
   depends_on "two-lame" => :optional
@@ -107,8 +97,6 @@ class Ffmpeg < Formula
     depends_on "nasm" => :build
   end
 
-  fails_with gcc: "5"
-
   # Fix for QtWebEngine, do not remove
   # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=270209
   patch do
@@ -121,10 +109,10 @@ class Ffmpeg < Formula
     ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
 
     args = %W[
+      --prefix=#{prefix}
       --cc=#{ENV.cc}
       --host-cflags=#{ENV.cflags}
       --host-ldflags=#{ENV.ldflags}
-      --prefix=#{prefix}
 
       --enable-gpl
       --enable-nonfree
@@ -151,13 +139,19 @@ class Ffmpeg < Formula
       --enable-libopenjpeg
       --enable-libopus
       --enable-libplacebo
+      --enable-librav1e
+      --enable-librist
       --enable-librubberband
+      --enable-libsnappy
       --enable-libsoxr
       --enable-libspeex
       --enable-libsrt
+      --enable-libssh
       --enable-libsvtav1
+      --enable-libtesseract
       --enable-libtheora
       --enable-libvidstab
+      --enable-libvmaf
       --enable-libvorbis
       --enable-libvpx
       --enable-libwebp
@@ -166,6 +160,7 @@ class Ffmpeg < Formula
       --enable-libxml2
       --enable-libxvid
       --enable-libzimg
+      --enable-libzmq
       --enable-lzma
       --enable-openssl
 
@@ -181,14 +176,6 @@ class Ffmpeg < Formula
     args += %w[--enable-opencl --enable-videotoolbox --enable-audiotoolbox] if OS.mac?
     args << "--enable-neon" if Hardware::CPU.arm?
 
-    args << "--enable-libopenvino"  if build.with? "openvino"
-    args << "--enable-librav1e"     if build.with? "rav1e"
-    args << "--enable-libsnappy"    if build.with? "snappy"
-    args << "--enable-libtesseract" if build.with? "tesseract"
-    args << "--enable-librist"      if build.with? "librist"
-    args << "--enable-libvmaf"      if build.with? "libvmaf"
-    args << "--enable-libzmq"       if build.with? "zeromq"
-
     args << "--enable-libcaca"      if build.with? "libcaca"
     args << "--enable-libgme"       if build.with? "game-music-emu"
     args << "--enable-libgsm"       if build.with? "libgsm"
@@ -197,7 +184,6 @@ class Ffmpeg < Formula
     args << "--enable-libopenmpt"   if build.with? "libopenmpt"
     args << "--enable-librsvg"      if build.with? "librsvg"
     args << "--enable-librtmp"      if build.with? "rtmpdump"
-    args << "--enable-libssh"       if build.with? "libssh"
     args << "--enable-libtwolame"   if build.with? "two-lame"
 
     opts  = Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native"

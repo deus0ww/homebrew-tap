@@ -10,7 +10,7 @@ class Libmysofa < Formula
   depends_on "zlib"
 
   def install
-    ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto=thin"
+    ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto"
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-D BUILD_TESTS=OFF"
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

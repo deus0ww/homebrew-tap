@@ -3,36 +3,10 @@ class Libplacebo < Formula
 
   desc "Reusable library for GPU-accelerated image/video processing primitives"
   homepage "https://code.videolan.org/videolan/libplacebo"
+  url "https://code.videolan.org/videolan/libplacebo/-/archive/v7.349.0/libplacebo-v7.349.0.tar.bz2"
+  sha256 "38c9c75d9c1bb412baf34845d1ca58c41a9804d1d0798091d7a8602a0d7c9aa6"
   license "LGPL-2.1-or-later"
-
-  if MacOS.version > :mojave
-    url "https://code.videolan.org/videolan/libplacebo/-/archive/v7.349.0/libplacebo-v7.349.0.tar.bz2"
-    sha256 "38c9c75d9c1bb412baf34845d1ca58c41a9804d1d0798091d7a8602a0d7c9aa6"
-    head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
-  elsif MacOS.version == :mojave # With incompatible commits reverted
-    url "https://code.videolan.org/videolan/libplacebo/-/archive/v7.349.0/libplacebo-v7.349.0.tar.bz2"
-    sha256 "38c9c75d9c1bb412baf34845d1ca58c41a9804d1d0798091d7a8602a0d7c9aa6"
-    head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
-    patch do # Revert convert.cc changes that's incompatible with C++17 on macOS < 10.15
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/libplacebo-10.14.patch"
-      sha256 "56c4861d28ce1200d75f9776bfa89b21dc48ac5a2fa9aba5981c8be75b601e5f"
-    end
-  else # Last Official Version for macOS < 10.15
-    url "https://code.videolan.org/videolan/libplacebo/-/archive/v6.292.1/libplacebo-v6.292.1.tar.bz2"
-    sha256 "51f0b7b400b35ce5f131a763c0cebb8e46680c17bed58cc9296b20c603f7f65f"
-    head do # Last buildable commit on macOS 10.13 - v.6.318
-      url "https://code.videolan.org/videolan/libplacebo/-/archive/0df53c2e23ab04a4c213085a9aaaef342c8214ff/libplacebo-0df53c2e23ab04a4c213085a9aaaef342c8214ff.tar.bz2"
-      sha256 "b8eb1c34b7584b0286054ca7879af37ea039db2adaa884fb4cb902c74fddffae"
-      patch do # Extra changes needed to apply first patch on macOS 10.13
-        url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/libplacebo-10.13.patch"
-        sha256 "124d74ab62dcda482671a020575dea58d9aeecf8eec6e93162bf49f35122f2a2"
-      end
-      patch do # Revert convert.cc changes that's incompatible with C++17 on macOS < 10.15
-        url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/libplacebo-10.14.patch"
-        sha256 "56c4861d28ce1200d75f9776bfa89b21dc48ac5a2fa9aba5981c8be75b601e5f"
-      end
-    end
-  end
+  head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
@@ -40,18 +14,10 @@ class Libplacebo < Formula
   depends_on "python@3.13" => :build
   depends_on "vulkan-headers" => :build
 
-  if MacOS.version > :mojave
-    depends_on "deus0ww/tap/dovi_tool"
-    depends_on "molten-vk"
-    depends_on "shaderc"
-  elsif MacOS.version == :mojave
-    depends_on "deus0ww/tap/molten-vk"
-    depends_on "deus0ww/tap/shaderc"
-  else
-    depends_on "deus0ww/tap/shaderc"
-  end
-
+  depends_on "deus0ww/tap/dovi_tool"
   depends_on "little-cms2"
+  depends_on "molten-vk"
+  depends_on "shaderc"
   depends_on "vulkan-loader"
   depends_on "xxhash"
 
