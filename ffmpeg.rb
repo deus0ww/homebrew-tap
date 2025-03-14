@@ -4,16 +4,17 @@ class Ffmpeg < Formula
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
+
   head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
 
   stable do
-    url "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz"
-    sha256 "40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6"
+    url "https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.xz"
+    sha256 "733984395e0dbbe5c046abda2dc49a5544e7e0e1e2366bba849222ae9e3a03b1"
 
-    # Backport fix needed for recent x265 (v4.1 is X265_BUILD=215)
+    # Backport support for recent svt-av1 (3.0.0)
     patch do
-      url "https://github.com/FFmpeg/FFmpeg/commit/099f88b8641dfc299f3896d17d9addc5b9ae7799.patch?full_index=1"
-      sha256 "43677660210523f0eb6db93c4ac9c7943c959116951a5859e6f14568b4392a59"
+      url "https://github.com/FFmpeg/FFmpeg/commit/d1ed5c06e3edc5f2b5f3664c80121fa55b0baa95.patch?full_index=1"
+      sha256 "0eb23ab90c0e5904590731dd3b81c86a4127785bc2b367267d77723990fb94a2"
     end
   end
 
