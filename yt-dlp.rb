@@ -61,7 +61,7 @@ class YtDlp < Formula
   def install
     if build.head?
       system "python3.13", "devscripts/update-version.py"
-      system "gmake", "lazy-extractors", "README.md", "supportedsites", "completions", "yt-dlp"
+      system "gmake", "lazy-extractors", "completions", "yt-dlp"
     end
     virtualenv_install_with_resources
     man1.install_symlink libexec/"share/man/man1/yt-dlp.1"

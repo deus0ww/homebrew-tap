@@ -35,6 +35,7 @@ class Mpv < Formula
   depends_on "sdl2" => :optional
 
   on_macos do
+    depends_on "molten-vk"
     depends_on "coreutils" => :recommended
     depends_on "dockutil" => :recommended
     depends_on "tag" => :recommended
@@ -92,7 +93,7 @@ class Mpv < Formula
 
     # Add to Dock
     if build.with? "dockutil"
-      system "dockutil", "--add", "#{prefix}/mpv.app", "--label", "mpv", "--replacing", "mpv", "--allhomes"
+      system "dockutil", "--add", "#{prefix}/mpv.app", "--label", "mpv", "--replacing", "mpv"
     end
   end
 
