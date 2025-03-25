@@ -16,7 +16,6 @@ class Mpv < Formula
   depends_on "deus0ww/tap/ffmpeg"
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libplacebo"
-  depends_on "deus0ww/tap/yt-dlp"
   depends_on "jpeg-turbo"
   depends_on "libarchive"
   depends_on "libbluray"
@@ -29,6 +28,7 @@ class Mpv < Formula
   depends_on "uchardet"
   depends_on "vapoursynth"
   depends_on "vulkan-loader"
+  depends_on "yt-dlp"
   depends_on "zimg"
   depends_on "zlib"
 
@@ -90,11 +90,6 @@ class Mpv < Formula
     # Build App Bundle
     system "python3.13", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
     prefix.install "build/mpv.app"
-
-    # Add to Dock
-    if build.with? "dockutil"
-      system "dockutil", "--add", "#{prefix}/mpv.app", "--label", "mpv", "--replacing", "mpv"
-    end
   end
 
   test do
