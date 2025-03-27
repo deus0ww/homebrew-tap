@@ -39,7 +39,6 @@ class Mpv < Formula
     depends_on "coreutils" => :recommended
     depends_on "dockutil" => :recommended
     depends_on "tag" => :recommended
-    depends_on "trash" => :recommended
   end
 
   def install
