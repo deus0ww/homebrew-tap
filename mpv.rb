@@ -1,8 +1,8 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.39.0.tar.gz"
-  sha256 "2ca92437affb62c2b559b4419ea4785c70d023590500e8a52e95ea3ab4554683"
+  url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.40.0.tar.gz"
+  sha256 "10a0f4654f62140a6dd4d380dcf0bbdbdcf6e697556863dc499c296182f081a3"
   license :cannot_represent
   head "https://github.com/mpv-player/mpv.git", branch: "master"
 
@@ -41,6 +41,28 @@ class Mpv < Formula
     depends_on "tag" => :recommended
   end
 
+  on_ventura :or_older do
+    depends_on "lld" => :build
+  end
+
+  on_linux do
+    depends_on "alsa-lib"
+    depends_on "libdrm"
+    depends_on "libva"
+    depends_on "libvdpau"
+    depends_on "libx11"
+    depends_on "libxext"
+    depends_on "libxkbcommon"
+    depends_on "libxpresent"
+    depends_on "libxrandr"
+    depends_on "libxscrnsaver"
+    depends_on "libxv"
+    depends_on "mesa"
+    depends_on "pulseaudio"
+    depends_on "wayland"
+    depends_on "wayland-protocols" # needed by mpv.pc
+  end
+
   def install
     # LANG is unset by default on macOS and causes issues when calling getlocale
     # or getdefaultlocale in docutils. Force the default c/posix locale since
@@ -54,6 +76,15 @@ class Mpv < Formula
     # libarchive is keg-only
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig" if OS.mac?
 
+    # Work around https://github.com/mpv-player/mpv/issues/15591
+    # This bug happens running classic ld, which is the default
+    # prior to Xcode 15 and we enable it in the superenv prior to
+    # Xcode 15.3 when using -dead_strip_dylibs (default for meson).
+    if OS.mac? && MacOS.version <= :ventura
+      ENV.append "LDFLAGS", "-fuse-ld=lld"
+      ENV.O1 # -Os is not supported for lld and we don't have ENV.O2
+    end
+
     args = %W[
       -Db_lto=true
 
@@ -65,6 +96,13 @@ class Mpv < Formula
       --datadir=#{pkgshare}
       --mandir=#{man}
     ]
+    if OS.linux?
+      args += %w[
+        -Degl=enabled
+        -Dwayland=enabled
+        -Dx11=enabled
+      ]
+    end
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
     args << "-Dswift-flags=-O -wmo"
 
