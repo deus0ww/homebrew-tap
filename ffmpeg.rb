@@ -8,8 +8,8 @@ class Ffmpeg < Formula
   head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
 
   stable do
-    url "https://ffmpeg.org/releases/ffmpeg-7.1.1.tar.xz"
-    sha256 "733984395e0dbbe5c046abda2dc49a5544e7e0e1e2366bba849222ae9e3a03b1"
+    url "https://www.ffmpeg.org/releases/ffmpeg-7.1.1.tar.bz2"
+    sha256 "0c8da2f11579a01e014fc007cbacf5bb4da1d06afd0b43c7f8097ec7c0f143ba"
 
     # Backport support for recent svt-av1 (3.0.0)
     patch do
@@ -191,6 +191,7 @@ class Ffmpeg < Formula
     args << ("--extra-cflags="    + opts)
     args << ("--extra-cxxflags="  + opts)
     args << ("--extra-objcflags=" + opts)
+    opts  = Hardware::CPU.arm? ? opts : opts + " -Xlinker -no_fixup_chains"
     args << ("--extra-ldflags="   + opts)
     # args << "--enable-hardcoded-tables"
     args << "--enable-lto"
