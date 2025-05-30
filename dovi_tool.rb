@@ -12,10 +12,10 @@ class DoviTool < Formula
   end
 
   depends_on "cargo-c" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
 
   on_linux do
-    depends_on "pkgconf" => :build
     depends_on "fontconfig"
     depends_on "freetype"
   end

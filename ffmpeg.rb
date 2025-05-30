@@ -191,7 +191,7 @@ class Ffmpeg < Formula
     args << ("--extra-cflags="    + opts)
     args << ("--extra-cxxflags="  + opts)
     args << ("--extra-objcflags=" + opts)
-    opts  = Hardware::CPU.arm? ? opts : opts + " -Xlinker -no_fixup_chains"
+    opts += " -Xlinker -no_fixup_chains" unless Hardware::CPU.arm?
     args << ("--extra-ldflags="   + opts)
     # args << "--enable-hardcoded-tables"
     args << "--enable-lto"
