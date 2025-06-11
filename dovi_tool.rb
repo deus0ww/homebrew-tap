@@ -1,8 +1,8 @@
 class DoviTool < Formula
   desc "CLI tool for Dolby Vision metadata on video streams"
   homepage "https://github.com/quietvoid/dovi_tool/"
-  url "https://github.com/quietvoid/dovi_tool/archive/refs/tags/2.2.0.tar.gz"
-  sha256 "44a5f860301ab6ef1a02d8943e210c201ff3733d52b5929a5ab72a09e555041d"
+  url "https://github.com/quietvoid/dovi_tool/archive/refs/tags/2.3.0.tar.gz"
+  sha256 "2c76f8c7a17ff6af71c168bc9b041e94efe89b4f91ccde2f3f208c821037069c"
   license "MIT"
   head "https://github.com/quietvoid/dovi_tool.git", branch: "main"
 
