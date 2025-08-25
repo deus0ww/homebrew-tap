@@ -4,11 +4,24 @@ class Libplacebo < Formula
   desc "Reusable library for GPU-accelerated image/video processing primitives"
   homepage "https://code.videolan.org/videolan/libplacebo"
   license "LGPL-2.1-or-later"
-  head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
+
+  head do
+    url "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
+
+    patch do # Revert: vulkan/swapchain: disable VK_COLOR_SPACE_PASS_THROUGH_EXT
+      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/libplacebo-revert-f09e25d.patch"
+      sha256 "2590d2c784297e7e0941413d85d365c2f8b81f926a9ce85efa2017cd989de540"
+    end
+  end
 
   stable do
     url "https://code.videolan.org/videolan/libplacebo/-/archive/v7.351.0/libplacebo-v7.351.0.tar.bz2"
     sha256 "d68159280842a7f0482dcea44a440f4c9a8e9403b82eccf185e46394dfc77e6a"
+
+    patch do # Added: vulkan/utils_gen: fix for python 3.14
+      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/libplacebo-add-12509c0.patch"
+      sha256 "6360e6fa59bf31955c7d17dc818d45e8d6666345e8fc7e6b49518f267a23adaf"
+    end
 
     resource "glad2" do
       url "https://files.pythonhosted.org/packages/6e/5a/d62b24fe1c7c2f34e15c2aa4418a5327a8550fdc272999a59e0dddebc3ee/glad2-2.0.8.tar.gz"
@@ -35,7 +48,6 @@ class Libplacebo < Formula
 
   depends_on "deus0ww/tap/dovi_tool"
   depends_on "little-cms2"
-  depends_on "molten-vk"
   depends_on "shaderc"
   depends_on "vulkan-loader"
   depends_on "xxhash"
