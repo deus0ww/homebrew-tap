@@ -1,22 +1,13 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
+  url "https://ffmpeg.org/releases/ffmpeg-8.0.tar.xz"
+  sha256 "b2751fccb6cc4c77708113cd78b561059b6fa904b24162fa0be2d60273d27b8e"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
 
   head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
-
-  stable do
-    url "https://www.ffmpeg.org/releases/ffmpeg-7.1.1.tar.bz2"
-    sha256 "0c8da2f11579a01e014fc007cbacf5bb4da1d06afd0b43c7f8097ec7c0f143ba"
-
-    # Backport support for recent svt-av1 (3.0.0)
-    patch do
-      url "https://github.com/FFmpeg/FFmpeg/commit/d1ed5c06e3edc5f2b5f3664c80121fa55b0baa95.patch?full_index=1"
-      sha256 "0eb23ab90c0e5904590731dd3b81c86a4127785bc2b367267d77723990fb94a2"
-    end
-  end
 
   livecheck do
     url "https://ffmpeg.org/download.html"
@@ -107,7 +98,7 @@ class Ffmpeg < Formula
 
   def install
     # The new linker leads to duplicate symbol issue https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/issues/140
-    ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.clang_build_version >= 1500
+    ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.ld64_version.between?("1015.7", "1022.1")
 
     args = %W[
       --prefix=#{prefix}
@@ -207,9 +198,14 @@ class Ffmpeg < Formula
   end
 
   test do
-    # Create an example mp4 file
+    # Create a 5 second test MP4
     mp4out = testpath/"video.mp4"
-    system bin/"ffmpeg", "-filter_complex", "testsrc=rate=1:duration=1", mp4out
-    assert_path_exists mp4out
+    system bin/"ffmpeg", "-filter_complex", "testsrc=rate=1:duration=5", mp4out
+    assert_match(/Duration: 00:00:05\.00,.*Video: h264/m, shell_output("#{bin}/ffprobe -hide_banner #{mp4out} 2>&1"))
+
+    # Re-encode it in HEVC/Matroska
+    mkvout = testpath/"video.mkv"
+    system bin/"ffmpeg", "-i", mp4out, "-c:v", "hevc", mkvout
+    assert_match(/Duration: 00:00:05\.00,.*Video: hevc/m, shell_output("#{bin}/ffprobe -hide_banner #{mkvout} 2>&1"))
   end
 end

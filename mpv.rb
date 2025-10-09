@@ -1,10 +1,25 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.40.0.tar.gz"
-  sha256 "10a0f4654f62140a6dd4d380dcf0bbdbdcf6e697556863dc499c296182f081a3"
   license :cannot_represent
   head "https://github.com/mpv-player/mpv.git", branch: "master"
+
+  stable do
+    url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.40.0.tar.gz"
+    sha256 "10a0f4654f62140a6dd4d380dcf0bbdbdcf6e697556863dc499c296182f081a3"
+
+    # Backport support for FFmpeg 8
+    patch do
+      url "https://github.com/mpv-player/mpv/commit/26b29fba02a2782f68e2906f837d21201fc6f1b9.patch?full_index=1"
+      sha256 "ac7e5d8e765186af2da3bef215ec364bd387d43846ee776bd05f01f9b9e679b2"
+    end
+
+    # Backport fix for old macOS
+    patch do
+      url "https://github.com/mpv-player/mpv/commit/00415f1457a8a2b6c2443b0d585926483feb58b7.patch?full_index=1"
+      sha256 "4d54edac689d0b5d2e3adf0a52498f307fa96e6bae14f026b62322cd9d6a9ba6"
+    end
+  end
 
   depends_on "docutils" => :build
   depends_on "meson" => :build
@@ -41,10 +56,6 @@ class Mpv < Formula
     depends_on "tag" => :recommended
   end
 
-  on_ventura :or_older do
-    depends_on "lld" => :build
-  end
-
   on_linux do
     depends_on "alsa-lib"
     depends_on "libdrm"
@@ -77,15 +88,6 @@ class Mpv < Formula
 
     # libarchive is keg-only
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig" if OS.mac?
-
-    # Work around https://github.com/mpv-player/mpv/issues/15591
-    # This bug happens running classic ld, which is the default
-    # prior to Xcode 15 and we enable it in the superenv prior to
-    # Xcode 15.3 when using -dead_strip_dylibs (default for meson).
-    if OS.mac? && MacOS.version <= :ventura
-      ENV.append "LDFLAGS", "-fuse-ld=lld"
-      ENV.O1 # -Os is not supported for lld and we don't have ENV.O2
-    end
 
     args = %W[
       -Db_lto=true
@@ -133,7 +135,7 @@ class Mpv < Formula
 
   test do
     system bin/"mpv", "--ao=null", "--vo=null", test_fixtures("test.wav")
-    assert_match "vapoursynth", shell_output(bin/"mpv --vf=help")
+    assert_match "vapoursynth", shell_output("#{bin}/mpv --vf=help")
 
     # Make sure `pkgconf` can parse `mpv.pc` after the `inreplace`.
     system "pkgconf", "--print-errors", "mpv"
