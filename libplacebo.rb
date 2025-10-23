@@ -4,6 +4,7 @@ class Libplacebo < Formula
   desc "Reusable library for GPU-accelerated image/video processing primitives"
   homepage "https://code.videolan.org/videolan/libplacebo"
   license "LGPL-2.1-or-later"
+  head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
 
   stable do
     url "https://code.videolan.org/videolan/libplacebo/-/archive/v7.351.0/libplacebo-v7.351.0.tar.bz2"
@@ -28,15 +29,6 @@ class Libplacebo < Formula
     patch do
       url "https://code.videolan.org/videolan/libplacebo/-/commit/12509c0f1ee8c22ae163017f0a5e7b8a9d983a17.diff"
       sha256 "14ab95f72600c2c6862475838ca5bd498a3a52082f6fdca696473856e503f7f7"
-    end
-  end
-
-  head do
-    url "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
-
-    patch do # Revert: vulkan/swapchain: disable VK_COLOR_SPACE_PASS_THROUGH_EXT
-      url "https://github.com/deus0ww/homebrew-tap/raw/master/patches/libplacebo-revert-f09e25d.patch"
-      sha256 "2590d2c784297e7e0941413d85d365c2f8b81f926a9ce85efa2017cd989de540"
     end
   end
 
