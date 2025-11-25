@@ -1,8 +1,8 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream audio and video"
   homepage "https://ffmpeg.org/"
-  url "https://www.ffmpeg.org/releases/ffmpeg-8.0.tar.bz2"
-  sha256 "3e74acc48ddb9f5f70b6747d3f439d51e7cc5497f097d58e5975c84488f4d186"
+  url "https://www.ffmpeg.org/releases/ffmpeg-8.0.1.tar.bz2"
+  sha256 "65ff433fab5727fb2dc41f1d508dc60e6192fea44cab2e0301194feee4bcf1d7"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
