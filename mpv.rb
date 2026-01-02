@@ -1,24 +1,18 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
+  url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.41.0.tar.gz"
+  sha256 "ee21092a5ee427353392360929dc64645c54479aefdb5babc5cfbb5fad626209"
   license :cannot_represent
   head "https://github.com/mpv-player/mpv.git", branch: "master"
 
-  stable do
-    url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.40.0.tar.gz"
-    sha256 "10a0f4654f62140a6dd4d380dcf0bbdbdcf6e697556863dc499c296182f081a3"
-
-    # Backport support for FFmpeg 8
-    patch do
-      url "https://github.com/mpv-player/mpv/commit/26b29fba02a2782f68e2906f837d21201fc6f1b9.patch?full_index=1"
-      sha256 "ac7e5d8e765186af2da3bef215ec364bd387d43846ee776bd05f01f9b9e679b2"
-    end
-
-    # Backport fix for old macOS
-    patch do
-      url "https://github.com/mpv-player/mpv/commit/00415f1457a8a2b6c2443b0d585926483feb58b7.patch?full_index=1"
-      sha256 "4d54edac689d0b5d2e3adf0a52498f307fa96e6bae14f026b62322cd9d6a9ba6"
-    end
+  bottle do
+    sha256               arm64_tahoe:   "49e900d3bffca0107e0ebd716a14150abe69160c9ea3d55ab0f5933627e21374"
+    sha256               arm64_sequoia: "96266e7c8086e412a21dfebbaaf0205f6d4d9ebd59642a625931c0f378893734"
+    sha256               arm64_sonoma:  "3dcf4533e71b8116dd2e53740cfffceaeca77d541d57124d181b4c5432d9aa2b"
+    sha256 cellar: :any, sonoma:        "b8d5b2bd8cb1f592710babd8ca55529e56b28280243a412f5687c18a75d60f67"
+    sha256               arm64_linux:   "e55246a636094d6b20ea1dc64cec64f98ab97cbc6815107d9a791b92fcf729ee"
+    sha256               x86_64_linux:  "a563e0f84bd7a2f47c2b7875d7a91b453c4f4c99f09261c860e00828701e4c56"
   end
 
   depends_on "docutils" => :build
@@ -58,11 +52,11 @@ class Mpv < Formula
 
   on_linux do
     depends_on "alsa-lib"
-    depends_on "libdrm"
     depends_on "libva"
     depends_on "libvdpau"
     depends_on "libx11"
     depends_on "libxext"
+    depends_on "libxfixes"
     depends_on "libxkbcommon"
     depends_on "libxpresent"
     depends_on "libxrandr"
@@ -71,7 +65,7 @@ class Mpv < Formula
     depends_on "mesa"
     depends_on "pulseaudio"
     depends_on "wayland"
-    depends_on "wayland-protocols" # needed by mpv.pc
+    depends_on "wayland-protocols" => :no_linkage # needed by mpv.pc
   end
 
   conflicts_with cask: "stolendata-mpv", because: "both install `mpv` binaries"
