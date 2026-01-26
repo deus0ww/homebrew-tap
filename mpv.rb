@@ -124,7 +124,7 @@ class Mpv < Formula
     zsh_completion.install "etc/_mpv.zsh" => "_mpv"
 
     # Build App Bundle
-    system "python3.14", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps"
+    system "python3.14", "TOOLS/osxbundle.py", "build/mpv", "--skip-deps", "--category=games"
     prefix.install "build/mpv.app"
   end
 
