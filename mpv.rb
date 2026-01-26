@@ -88,6 +88,7 @@ class Mpv < Formula
 
       -Dlibmpv=true
       -Ddvdnav=enabled
+      -Dmacos-bundle-category=games
 
       --default-library=both
       --sysconfdir=#{pkgetc}
