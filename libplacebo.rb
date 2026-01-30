@@ -70,13 +70,11 @@ class Libplacebo < Formula
       -Dopengl=enabled
       -Dshaderc=enabled
       -Dvulkan=enabled
+      -Dvulkan-registry=#{Formula["vulkan-headers"].share}/vulkan/registry/vk.xml
     ]
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
 
-    system "meson", "setup", "build",
-                    "-Dvulkan-registry=#{Formula["vulkan-headers"].share}/vulkan/registry/vk.xml",
-                    *args,
-                    *std_meson_args
+    system "meson", "setup", "build", *args, *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
   end

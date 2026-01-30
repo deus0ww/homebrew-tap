@@ -1,12 +1,11 @@
 class Ffmpeg < Formula
-  desc "Play, record, convert, and stream audio and video"
+  desc "Play, record, convert, and stream many audio and video codecs"
   homepage "https://ffmpeg.org/"
   url "https://www.ffmpeg.org/releases/ffmpeg-8.0.1.tar.bz2"
   sha256 "65ff433fab5727fb2dc41f1d508dc60e6192fea44cab2e0301194feee4bcf1d7"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
-
   head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
 
   livecheck do
@@ -41,6 +40,7 @@ class Ffmpeg < Formula
   depends_on "libx11"
   depends_on "libxcb"
   depends_on "libxml2"     # uses_from_macos
+  depends_on "llama.cpp"
   depends_on "opencore-amr"
   depends_on "openjpeg"
   depends_on "openssl@3"
@@ -55,6 +55,7 @@ class Ffmpeg < Formula
   depends_on "tesseract"
   depends_on "theora"
   depends_on "webp"
+  depends_on "whisper-cpp"
   depends_on "x264"
   depends_on "x265"
   depends_on "xvid"
@@ -155,6 +156,7 @@ class Ffmpeg < Formula
       --enable-libzmq
       --enable-lzma
       --enable-openssl
+      --enable-whisper
 
       --disable-htmlpages
       --disable-podpages
@@ -195,6 +197,12 @@ class Ffmpeg < Formula
     system "make", "alltools"
     bin.install (buildpath/"tools").children.select { |f| f.file? && f.executable? }
     pkgshare.install buildpath/"tools/python"
+  end
+
+  def caveats
+    <<~EOS
+      ffmpeg-full includes additional tools and libraries that are not included in the regular ffmpeg formula.
+    EOS
   end
 
   test do
