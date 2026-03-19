@@ -1,8 +1,8 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream many audio and video codecs"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-8.0.1.tar.bz2"
-  sha256 "65ff433fab5727fb2dc41f1d508dc60e6192fea44cab2e0301194feee4bcf1d7"
+  url "https://ffmpeg.org/releases/ffmpeg-8.1.tar.bz2"
+  sha256 "c07039598df7d64d3c8b42c4e25b1959fc908621c6f6c2946881133f3b27eda2"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   license "GPL-2.0-or-later"
@@ -24,7 +24,8 @@ class Ffmpeg < Formula
   depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
-  depends_on "frei0r"
+  depends_on "frei0r" => :no_linkage
+  depends_on "ggml"
   depends_on "harfbuzz"
   depends_on "jpeg-xl"
   depends_on "lame"
@@ -40,7 +41,6 @@ class Ffmpeg < Formula
   depends_on "libx11"
   depends_on "libxcb"
   depends_on "libxml2"     # uses_from_macos
-  depends_on "llama.cpp"
   depends_on "opencore-amr"
   depends_on "openjpeg"
   depends_on "openssl@3"
@@ -55,7 +55,6 @@ class Ffmpeg < Formula
   depends_on "tesseract"
   depends_on "theora"
   depends_on "webp"
-  depends_on "whisper-cpp"
   depends_on "x264"
   depends_on "x265"
   depends_on "xvid"
@@ -63,16 +62,6 @@ class Ffmpeg < Formula
   depends_on "zeromq"
   depends_on "zimg"
   depends_on "zlib"        # uses_from_macos
-
-  depends_on "game-music-emu" => :optional
-  depends_on "libcaca" => :optional
-  depends_on "libgsm" => :optional
-  depends_on "libmodplug" => :optional
-  depends_on "libopenmpt" => :optional
-  depends_on "librsvg" => :optional
-  depends_on "openh264" => :optional
-  depends_on "rtmpdump" => :optional
-  depends_on "two-lame" => :optional
 
   on_macos do
     depends_on "libarchive"
@@ -98,12 +87,6 @@ class Ffmpeg < Formula
     sha256 "57e26caced5a1382cb639235f9555fc50e45e7bf8333f7c9ae3d49b3241d3f77"
   end
 
-  # Add svt-av1 4.x support
-  patch do
-    url "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/a5d4c398b411a00ac09d8fe3b66117222323844c"
-    sha256 "1dbbc1a4cf9834b3902236abc27fefe982da03a14bcaa89fb90c7c8bd10a1664"
-  end
-
   def install
     # The new linker leads to duplicate symbol issue https://github.com/homebrew-ffmpeg/homebrew-ffmpeg/issues/140
     ENV.append "LDFLAGS", "-Wl,-ld_classic" if DevelopmentTools.ld64_version.between?("1015.7", "1022.1")
@@ -119,6 +102,10 @@ class Ffmpeg < Formula
       --enable-pthreads
       --enable-shared
       --enable-version3
+
+      --disable-htmlpages
+      --disable-podpages
+      --disable-txtpages
 
       --enable-frei0r
       --enable-libaom
@@ -163,11 +150,6 @@ class Ffmpeg < Formula
       --enable-libzmq
       --enable-lzma
       --enable-openssl
-      --enable-whisper
-
-      --disable-htmlpages
-      --disable-podpages
-      --disable-txtpages
 
       --disable-libjack
       --disable-indev=jack
@@ -176,16 +158,6 @@ class Ffmpeg < Formula
     # Needs corefoundation, coremedia, corevideo
     args += %w[--enable-opencl --enable-videotoolbox --enable-audiotoolbox] if OS.mac?
     args << "--enable-neon" if Hardware::CPU.arm?
-
-    args << "--enable-libcaca"      if build.with? "libcaca"
-    args << "--enable-libgme"       if build.with? "game-music-emu"
-    args << "--enable-libgsm"       if build.with? "libgsm"
-    args << "--enable-libmodplug"   if build.with? "libmodplug"
-    args << "--enable-libopenh264"  if build.with? "openh264"
-    args << "--enable-libopenmpt"   if build.with? "libopenmpt"
-    args << "--enable-librsvg"      if build.with? "librsvg"
-    args << "--enable-librtmp"      if build.with? "rtmpdump"
-    args << "--enable-libtwolame"   if build.with? "two-lame"
 
     opts  = Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native"
     args << ("--extra-cflags="    + opts)

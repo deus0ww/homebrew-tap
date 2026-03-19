@@ -3,8 +3,8 @@ class Libplacebo < Formula
 
   desc "Reusable library for GPU-accelerated image/video processing primitives"
   homepage "https://code.videolan.org/videolan/libplacebo"
-  url "https://code.videolan.org/videolan/libplacebo/-/archive/v7.360.0/libplacebo-v7.360.0.tar.bz2"
-  sha256 "265a8888d4bc169b39c53315f1ba682249f2b0917e0438c1bb241aef822d8744"
+  url "https://code.videolan.org/videolan/libplacebo/-/archive/v7.360.1/libplacebo-v7.360.1.tar.bz2"
+  sha256 "937aa5eeea596798b3274d362de2e3bd32bc537a66d149dd85043349c74dffb6"
   license "LGPL-2.1-or-later"
   compatibility_version 1
   head "https://code.videolan.org/videolan/libplacebo.git", branch: "master"
@@ -16,7 +16,7 @@ class Libplacebo < Formula
   depends_on "python@3.14" => :build
   depends_on "vulkan-headers" => :build
 
-  depends_on "deus0ww/tap/dovi_tool"
+  depends_on "dovi_tool"
   depends_on "little-cms2"
   depends_on "shaderc"
   depends_on "vulkan-loader"
@@ -53,7 +53,7 @@ class Libplacebo < Formula
     # Use Homebrew `fast_float`.
     inreplace "src/meson.build", "../3rdparty/fast_float/include", Formula["fast_float"].opt_include
 
-    args = %w[
+    args = %W[
       -Db_lto=true
       -Db_lto_mode=thin
       -Ddemos=false
