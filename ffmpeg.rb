@@ -1,11 +1,12 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream many audio and video codecs"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-8.1.tar.bz2"
-  sha256 "c07039598df7d64d3c8b42c4e25b1959fc908621c6f6c2946881133f3b27eda2"
+  url "https://ffmpeg.org/releases/ffmpeg-8.1.1.tar.bz2"
+  sha256 "b08594a47ca475ddda21c7990d8e9e3ceb5cd74f9709b4b5995b24d11cafa467"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
-  license "GPL-2.0-or-later"
+  # Passing `--enable-version3` changes the license to GPL v3+.
+  license "GPL-3.0-or-later"
   head "https://github.com/FFmpeg/FFmpeg.git", branch: "master"
 
   livecheck do
@@ -78,13 +79,6 @@ class Ffmpeg < Formula
 
   on_intel do
     depends_on "nasm" => :build
-  end
-
-  # Fix for QtWebEngine, do not remove
-  # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=270209
-  patch do
-    url "https://gitlab.archlinux.org/archlinux/packaging/packages/ffmpeg/-/raw/5670ccd86d3b816f49ebc18cab878125eca2f81f/add-av_stream_get_first_dts-for-chromium.patch"
-    sha256 "57e26caced5a1382cb639235f9555fc50e45e7bf8333f7c9ae3d49b3241d3f77"
   end
 
   def install
