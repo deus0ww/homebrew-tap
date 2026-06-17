@@ -36,7 +36,7 @@ class Libass < Formula
     ENV.append "CFLAGS", (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast -flto"
 
     # libass uses coretext on macOS, fontconfig on Linux
-    args << "--disable-fontconfig" if OS.mac? && (build.without? "fontconfig")
+    args = (OS.mac? && (build.without? "fontconfig")) ? "--disable-fontconfig" : []
     args << "--enable-large-tiles"
 
     system "autoreconf", "--force", "--install", "--verbose" if build.head?
