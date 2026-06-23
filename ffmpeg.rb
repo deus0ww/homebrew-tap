@@ -1,8 +1,8 @@
 class Ffmpeg < Formula
   desc "Play, record, convert, and stream many audio and video codecs"
   homepage "https://ffmpeg.org/"
-  url "https://ffmpeg.org/releases/ffmpeg-8.1.1.tar.bz2"
-  sha256 "b08594a47ca475ddda21c7990d8e9e3ceb5cd74f9709b4b5995b24d11cafa467"
+  url "https://ffmpeg.org/releases/ffmpeg-8.1.2.tar.xz"
+  sha256 "464beb5e7bf0c311e68b45ae2f04e9cc2af88851abb4082231742a74d97b524c"
   # None of these parts are used by default, you have to explicitly pass `--enable-gpl`
   # to configure to activate them. In this case, FFmpeg's license changes to GPL v2+.
   # Passing `--enable-version3` changes the license to GPL v3+.
@@ -48,7 +48,7 @@ class Ffmpeg < Formula
   depends_on "opus"
   depends_on "rav1e"
   depends_on "rubberband"
-  depends_on "sdl2"
+  depends_on "sdl2-compat"
   depends_on "snappy"
   depends_on "speex"
   depends_on "srt"

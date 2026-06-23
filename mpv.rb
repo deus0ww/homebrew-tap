@@ -1,11 +1,20 @@
 class Mpv < Formula
   desc "Media player based on MPlayer and mplayer2"
   homepage "https://mpv.io"
-  url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.41.0.tar.gz"
-  sha256 "ee21092a5ee427353392360929dc64645c54479aefdb5babc5cfbb5fad626209"
   license all_of: ["GPL-2.0-or-later", "LGPL-2.1-or-later"]
   compatibility_version 1
   head "https://github.com/mpv-player/mpv.git", branch: "master"
+
+  stable do
+    url "https://github.com/mpv-player/mpv/archive/refs/tags/v0.41.0.tar.gz"
+    sha256 "ee21092a5ee427353392360929dc64645c54479aefdb5babc5cfbb5fad626209"
+
+    # Backport support for Vapoursynth 74+
+    patch do
+      url "https://github.com/mpv-player/mpv/commit/75b2ccfeb1ce4ed5a40ac9860fa74f3d1265e13f.patch?full_index=1"
+      sha256 "3906b98b02071a0d5747a400406494ca69cef7afd8d3eee4a99fdbe40dc90c1f"
+    end
+  end
 
   depends_on "docutils" => :build
   depends_on "meson" => :build
@@ -33,7 +42,7 @@ class Mpv < Formula
   depends_on "zimg"
   depends_on "zlib"
 
-  depends_on "sdl2" => :optional
+  depends_on "sdl2-compat" => :optional
 
   on_macos do
     depends_on "molten-vk"
@@ -64,29 +73,13 @@ class Mpv < Formula
   conflicts_with cask: "stolendata-mpv", because: "both install `mpv` binaries"
 
   def install
-    # LANG is unset by default on macOS and causes issues when calling getlocale
-    # or getdefaultlocale in docutils. Force the default c/posix locale since
-    # that's good enough for building the manpage.
-    ENV["LC_ALL"] = "en_US.UTF-8"
-    ENV["LANG"]   = "en_US.UTF-8"
-
-    # force meson find ninja from homebrew
-    ENV["NINJA"] = which("ninja")
-
-    # libarchive is keg-only
-    ENV.prepend_path "PKG_CONFIG_PATH", Formula["libarchive"].opt_lib/"pkgconfig" if OS.mac?
-
     args = %W[
+      --sysconfdir=#{etc}
+      --default-library=both
       -Db_lto=true
-
       -Dlibmpv=true
       -Ddvdnav=enabled
       -Dmacos-bundle-category=games
-
-      --default-library=both
-      --sysconfdir=#{pkgetc}
-      --datadir=#{pkgshare}
-      --mandir=#{man}
     ]
     if OS.linux?
       args += %w[
@@ -95,6 +88,7 @@ class Mpv < Formula
         -Dx11=enabled
       ]
     end
+
     args << ("-Dc_args=" + (Hardware::CPU.arm? ? "-mcpu=native" : "-march=native -mtune=native") + " -Ofast")
     args << "-Dswift-flags=-O -wmo"
 
@@ -102,21 +96,25 @@ class Mpv < Formula
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "compile", "-C", "build", "macos-bundle", "--verbose" if OS.mac?
     system "meson", "install", "-C", "build"
+    bash_completion.install share/"bash-completion/completions/mpv"
     prefix.install "build/mpv.app" if OS.mac?
 
-    if OS.mac?
-      # `pkg-config --libs mpv` includes libarchive, but that package is
-      # keg-only so it needs to look for the pkgconfig file in libarchive's opt
-      # path.
-      libarchive = Formula["libarchive"].opt_prefix
-      inreplace lib/"pkgconfig/mpv.pc" do |s|
-        s.gsub!(/^Requires\.private:(.*)\blibarchive\b(.*?)(,.*)?$/,
-                "Requires.private:\\1#{libarchive}/lib/pkgconfig/libarchive.pc\\3")
-      end
-    end
+    return unless OS.mac?
 
-    bash_completion.install "etc/mpv.bash-completion" => "mpv"
-    zsh_completion.install "etc/_mpv.zsh" => "_mpv"
+    # `pkg-config --libs mpv` includes libarchive, but that package is
+    # keg-only so it needs to look for the pkgconfig file in libarchive's opt
+    # path.
+    libarchive = Formula["libarchive"].opt_prefix
+    inreplace lib/"pkgconfig/mpv.pc",
+              /^Requires\.private:(.*)\blibarchive\b(.*?)(,.*)?$/,
+              "Requires.private:\\1#{libarchive}/lib/pkgconfig/libarchive.pc\\3"
+  end
+
+  def caveats
+    <<~EOS
+      The global configuration directory is now #{pkgetc}/
+      You may need to migrate any data in previous #{pkgetc}/mpv/
+    EOS
   end
 
   test do
