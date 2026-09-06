@@ -22,7 +22,6 @@ class Ffmpeg < Formula
   depends_on "deus0ww/tap/libass"
   depends_on "deus0ww/tap/libmysofa"
   depends_on "deus0ww/tap/libplacebo"
-  depends_on "fdk-aac"
   depends_on "fontconfig"
   depends_on "freetype"
   depends_on "frei0r" => :no_linkage
@@ -108,7 +107,6 @@ class Ffmpeg < Formula
       --enable-libbluray
       --enable-libbs2b
       --enable-libdav1d
-      --enable-libfdk-aac
       --enable-libfontconfig
       --enable-libfreetype
       --enable-libharfbuzz
